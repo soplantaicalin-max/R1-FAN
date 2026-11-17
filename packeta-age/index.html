@@ -3,136 +3,164 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#CB333B">
+<meta name="theme-color" content="#BA1B02">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Packeta Age">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
 <title>Packeta Age</title>
 <style>
-:root{--red:#CB333B;--red-d:#9E2028;--ink:#1A1D24;--mute:#6B7280;--soft:#9CA3AF;--line:#E5E7EB;--bg:#F5F4F2;--card:#fff;
-  --ok:#1E7A3C;--ok-bg:#E2F1E8;--bad:#B42318;--bad-bg:#FCEEEC;--warn:#8A5A00;--warn-bg:#FFF4D6;--info:#1F6FB2;--info-bg:#E6F0FA;--n:#6B7280;--n-bg:#F3F4F6}
+:root{--brand:#BA1B02;--brand-d:#8F1500;--ink:#16181D;--mute:#6B7280;--soft:#A1A1AA;--line:#E7E5E4;--bg:#F4F2EF;--card:#fff;
+  --g:#16A34A;--g-d:#0F7A35;--g-bg:#E8F7EE;--r:#DC2626;--r-d:#B42318;--r-bg:#FDECEC;--n:#71717A;--n-bg:#EFEEEC}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 button{font:inherit;cursor:pointer}
-.top{position:sticky;top:0;z-index:5;background:var(--red);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 0 var(--red-d)}
-.logo{width:30px;height:30px;border-radius:8px;background:#fff;color:var(--red);font-weight:900;display:grid;place-items:center;font-size:18px}
-.top h1{font-size:17px;margin:0;flex:1;font-weight:700}
-.chip{background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600}
-.chip.on{background:#fff;color:var(--red)}
-.cam{position:relative;height:min(42vh,360px);background:#111;overflow:hidden}
+.top{position:sticky;top:0;z-index:6;background:var(--brand);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;gap:10px}
+.top .logo{display:flex;align-items:center}.top .logo svg{height:24px;width:auto;display:block}
+.tag{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:rgba(255,255,255,.18);padding:4px 9px;border-radius:999px}
+.sp{flex:1}
+.ibtn{background:rgba(255,255,255,.16);border:0;color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center}
+.ibtn.on{background:#fff;color:var(--brand)}
+.cam{position:relative;height:min(40vh,340px);background:#0E0E10;overflow:hidden}
 .cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.win{position:absolute;left:8%;right:8%;top:22%;bottom:22%;border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.42);transition:box-shadow .15s}
-.win.hit{box-shadow:0 0 0 999px rgba(30,122,60,.35);outline:3px solid #34C759}
-.win i{position:absolute;width:26px;height:26px;border:4px solid #fff}
-.win i:nth-child(1){left:-2px;top:-2px;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
-.win i:nth-child(2){right:-2px;top:-2px;border-left:0;border-bottom:0;border-radius:0 12px 0 0}
-.win i:nth-child(3){left:-2px;bottom:-2px;border-right:0;border-top:0;border-radius:0 0 0 12px}
-.win i:nth-child(4){right:-2px;bottom:-2px;border-left:0;border-top:0;border-radius:0 0 12px 0}
-.laser{position:absolute;left:6%;right:6%;height:2px;top:50%;background:var(--red);box-shadow:0 0 10px 1px var(--red);animation:sweep 2.2s ease-in-out infinite}
-@keyframes sweep{0%,100%{transform:translateY(-38px)}50%{transform:translateY(38px)}}
+.win{position:absolute;left:7%;right:7%;top:20%;bottom:20%;border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,.45);transition:box-shadow .2s,outline-color .2s;outline:3px solid transparent}
+.win.g{box-shadow:0 0 0 999px rgba(22,163,74,.40);outline-color:var(--g)}
+.win.r{box-shadow:0 0 0 999px rgba(220,38,38,.40);outline-color:var(--r)}
+.win.n{box-shadow:0 0 0 999px rgba(80,80,80,.5);outline-color:#bbb}
+.win i{position:absolute;width:28px;height:28px;border:4px solid #fff}
+.win i:nth-child(1){left:-2px;top:-2px;border-right:0;border-bottom:0;border-radius:14px 0 0 0}
+.win i:nth-child(2){right:-2px;top:-2px;border-left:0;border-bottom:0;border-radius:0 14px 0 0}
+.win i:nth-child(3){left:-2px;bottom:-2px;border-right:0;border-top:0;border-radius:0 0 0 14px}
+.win i:nth-child(4){right:-2px;bottom:-2px;border-left:0;border-top:0;border-radius:0 0 14px 0}
+.laser{position:absolute;left:5%;right:5%;height:2px;top:50%;background:#FF4D3A;box-shadow:0 0 12px 2px rgba(255,77,58,.8);animation:sweep 2.2s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:translateY(-34px)}50%{transform:translateY(34px)}}
+.badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.85);opacity:0;transition:all .18s;padding:10px 22px;border-radius:18px;color:#fff;font-weight:800;font-size:34px;letter-spacing:-.5px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);pointer-events:none}
+.badge.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.badge.g{background:var(--g)}.badge.r{background:var(--r)}.badge.n{background:#52525B;font-size:20px}
 .hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;color:#fff;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.6);padding:0 16px}
-.blocked{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;text-align:center;padding:20px;background:#111}
+.blocked{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;text-align:center;padding:20px;background:#0E0E10}
 .blocked.show{display:flex}
-.blocked button{background:var(--red);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
-main{padding:12px 12px calc(24px + env(safe-area-inset-bottom))}
-.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06);min-height:150px}
-.r1{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.code{font-weight:700;font-size:15px;letter-spacing:.4px}
+.blocked button{background:var(--brand);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
+main{padding:12px 12px calc(28px + env(safe-area-inset-bottom))}
+.res{background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px rgba(0,0,0,.07)}
+.band{padding:14px 16px 16px;color:#fff;position:relative}
+.res.g .band{background:linear-gradient(135deg,#16A34A,#12893D)}
+.res.r .band{background:linear-gradient(135deg,#DC2626,#B91C1C)}
+.res.n .band{background:linear-gradient(135deg,#71717A,#52525B)}
+.band .top2{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600;opacity:.95}
+.band .st{background:rgba(255,255,255,.22);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.ageblk{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.ageblk .num{font-size:64px;font-weight:800;line-height:1;letter-spacing:-2px}
+.ageblk .unit{font-size:20px;font-weight:700}
+.verdict{margin-top:4px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
+.verdict:before{content:"";width:10px;height:10px;border-radius:50%;background:#fff;opacity:.9}
+.body{padding:14px 16px 12px}
+.code{font-weight:800;font-size:17px;letter-spacing:.4px}
 .sub{color:var(--mute);font-size:12px;margin-top:2px}
-.pill{border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap}
-.pill.ok{color:var(--ok);background:var(--ok-bg)}.pill.bad{color:var(--bad);background:var(--bad-bg)}
-.pill.warn{color:var(--warn);background:var(--warn-bg)}.pill.info{color:var(--info);background:var(--info-bg)}.pill.n{color:var(--n);background:var(--n-bg)}
-.age{display:flex;align-items:baseline;gap:8px;margin:10px 0 12px}
-.age .num{font-size:56px;font-weight:800;line-height:1;letter-spacing:-1px}
-.age .unit{font-size:16px;color:var(--mute);font-weight:600}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;border-top:1px solid var(--line);padding-top:12px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:12px}
 .facts div{min-width:0}
 .facts label{display:block;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-.facts b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.facts b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .facts small{display:block;color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
-summary{color:var(--red);font-weight:700;font-size:13px;list-style:none}
+summary{color:var(--brand);font-weight:700;font-size:13px;list-style:none}
 summary::-webkit-details-marker{display:none}
+summary:after{content:" +"}details[open] summary:after{content:" -"}
 .tl{list-style:none;margin:10px 0 0;padding:0}
 .tl li{position:relative;padding:0 0 12px 18px;font-size:13px}
 .tl li:before{content:"";position:absolute;left:4px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--soft)}
-.tl li:first-child:before{background:var(--red)}
+.tl li:first-child:before{background:var(--brand)}
 .tl li:after{content:"";position:absolute;left:7px;top:15px;bottom:-2px;width:2px;background:var(--line)}
 .tl li:last-child:after{display:none}
 .tl time{display:block;color:var(--mute);font-size:12px}
-.idle{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px}
-.idle b{font-size:20px}.idle span{color:var(--mute);font-size:14px}
-.msg{display:flex;gap:12px;align-items:flex-start}
-.msg .ico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;flex:none}
-.msg.bad .ico{background:var(--bad-bg);color:var(--bad)}
-.msg b{display:block;font-size:17px}
+.idle{background:var(--card);border-radius:18px;padding:18px 16px;display:flex;gap:14px;align-items:center;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px rgba(0,0,0,.07)}
+.idle .mk{width:52px;height:52px;border-radius:14px;background:var(--brand);display:grid;place-items:center;flex:none}
+.idle .mk svg{width:28px;height:30px}
+.idle b{font-size:18px;display:block}.idle span{color:var(--mute);font-size:13px}
+.legend{display:flex;gap:10px;margin-top:6px;font-size:12px;font-weight:700}
+.legend .lg{color:var(--g-d)}.legend .lr{color:var(--r-d)}
 .sk{height:14px;border-radius:7px;background:linear-gradient(90deg,#eee,#f6f6f6,#eee);background-size:200% 100%;animation:sh 1s linear infinite;margin:10px 0}
 @keyframes sh{to{background-position:-200% 0}}
-form{display:flex;gap:8px;margin:12px 0}
-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:16px;background:#fff}
-form button{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:0 16px;font-weight:700}
-.hh{display:flex;justify-content:space-between;align-items:center;margin:14px 4px 6px;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-.hh button{background:none;border:0;color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
-.list{background:#fff;border-radius:14px;overflow:hidden}
+.loadband{height:118px;background:linear-gradient(90deg,#e9e7e4,#f3f1ee,#e9e7e4);background-size:200% 100%;animation:sh 1s linear infinite}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{border-radius:14px;padding:10px 12px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.stat b{display:block;font-size:24px;line-height:1.1}
+.stat span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.stat.g b,.stat.g span{color:var(--g-d)}.stat.r b,.stat.r span{color:var(--r-d)}.stat.n b,.stat.n span{color:var(--n)}
+.stat.g{background:var(--g-bg)}.stat.r{background:var(--r-bg)}.stat.n{background:var(--n-bg)}
+form{display:flex;gap:8px;margin:0 0 12px}
+form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:#fff}
+form button{background:var(--ink);color:#fff;border:0;border-radius:14px;padding:0 18px;font-weight:700}
+.hh{display:flex;justify-content:space-between;align-items:center;margin:4px 4px 6px;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.hh button{background:none;border:0;color:var(--brand);font-weight:700;font-size:12px;text-transform:uppercase}
+.list{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .list:empty{display:none}
-.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px 11px 12px;border-top:1px solid var(--line);border-left:5px solid var(--soft)}
 .row:first-child{border-top:0}
-.dot{width:9px;height:9px;border-radius:50%;flex:none}
-.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.warn{background:#D9A400}.dot.info{background:var(--info)}.dot.n{background:var(--soft)}
-.row .c{flex:1;min-width:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .a{font-weight:800;font-size:15px}
-.row .d{color:var(--mute);font-size:12px;width:74px;text-align:right}
-.gate{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px}
+.row.g{border-left-color:var(--g)}.row.r{border-left-color:var(--r)}.row.n{border-left-color:var(--soft)}
+.row .c{flex:1;min-width:0}
+.row .c b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .c small{display:block;color:var(--mute);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{border-radius:999px;padding:4px 10px;font-weight:800;font-size:13px;white-space:nowrap}
+.chip.g{background:var(--g-bg);color:var(--g-d)}.chip.r{background:var(--r-bg);color:var(--r-d)}.chip.n{background:var(--n-bg);color:var(--n)}
+.gate{position:fixed;inset:0;z-index:20;background:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px}
 .gate[hidden]{display:none}
-.gcard{background:#fff;border-radius:18px;padding:26px 22px;width:100%;max-width:340px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.05),0 12px 32px rgba(0,0,0,.08)}
-.glogo{width:56px;height:56px;border-radius:14px;background:var(--red);color:#fff;font-weight:900;font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
+.gate .glogo svg{height:40px;width:auto}
+.gcard{background:#fff;border-radius:20px;padding:24px 22px;width:100%;max-width:340px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.25)}
 .gcard h2{margin:0;font-size:20px}.gcard p{margin:4px 0 16px;color:var(--mute)}
 .gcard input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:18px;text-align:center}
-.gerr{color:var(--bad);font-size:13px;min-height:20px;margin:8px 0}
-.gcard button{width:100%;background:var(--red);color:#fff;border:0;border-radius:12px;padding:12px;font-weight:700;font-size:16px}
+.gerr{color:var(--r-d);font-size:13px;min-height:20px;margin:8px 0}
+.gcard button{width:100%;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:13px;font-weight:700;font-size:16px}
 </style>
 </head>
 <body>
 <header class="top">
-  <div class="logo">Z</div><h1>Packeta Age</h1>
-  <button id="torch" class="chip" hidden>Light</button>
-  <span id="cnt" class="chip" hidden></span>
+  <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 40" role="img" aria-label="Packeta"><path fill="#fff" d="M140.5 28.3c-.8.2-1.9.3-3 .3-1.6 0-3.1-.6-3.1-2.2 0-1.5 1.2-2.5 3.2-2.5 1.1 0 2.2.3 2.9.6zm0-6.5c-.9-.4-2.2-.6-3.4-.6-3.1 0-6.2 1.7-6.2 5.4 0 4 3.3 5.1 6.8 5.1 2.5 0 4.8-.6 6.3-1.1V19.8c0-3.8-3.3-5.5-6.6-5.5-2.2 0-4.2.5-6 2.5l2 2.1c.8-.9 2.2-1.4 3.5-1.4 1.8 0 3.5.8 3.5 2.5zm-10.1 6.6c-1.9 0-3.7-.2-3.7-2.8v-7.9h3.2v-3.2h-3.2l-.3-3.9h-3.2v15.1c0 4.2 2.6 6 5.9 6 .4 0 .9 0 1.3-.1zM118 21.6h-6.2v-1.5c0-1.6 1.5-2.4 3.1-2.4s3.1.8 3.1 2.4zm-.1 4.9c-.6 1.3-1.9 1.7-3.1 1.7-1.5 0-3-.9-3-2.4v-1.2h9.6V20c0-3.9-3.3-5.7-6.5-5.7-3.3 0-6.6 1.9-6.6 5.7v5.9c0 3.8 3.3 5.7 6.6 5.7 2.2 0 4.7-1.1 6-3.4zm-19.6-5.2V8.4h-3.5v22.9h3.5v-5.8l1-1 5.3 6.9h4.2l-6.9-9 7-7.7h-4.5zm-18.2 4.5c0 3.9 3.3 5.7 6.6 5.7 2.6 0 5.6-1.2 6.6-4.4L90 26c-.4 1.5-1.9 2.2-3.3 2.2-1.6 0-3.1-.8-3.1-2.2v-6c0-1.5 1.7-2.2 3.2-2.2 1.4 0 2.7.7 3.1 2.2l3.2-1.2c-.9-3.2-3.9-4.4-6.5-4.4-3.3 0-6.6 1.9-6.6 5.8zm-5.5 2.5c-.8.2-1.9.3-3 .3-1.6 0-3.1-.6-3.1-2.2 0-1.5 1.2-2.5 3.2-2.5 1.1 0 2.2.3 2.9.6zm0-6.5c-.9-.4-2.2-.6-3.4-.6-3.1 0-6.2 1.7-6.2 5.4 0 4 3.3 5.1 6.8 5.1 2.5 0 4.8-.6 6.3-1.1V19.8c0-3.8-3.3-5.5-6.6-5.5-2.1 0-4.2.5-6 2.5l2 2.1c.8-.9 2.2-1.4 3.5-1.4 1.8 0 3.5.8 3.5 2.5zm-23.2-1.9v-7.8h5.2c2.8 0 4.2 1.9 4.2 3.8s-1.4 3.9-4.2 3.9zm-3.7 11.4h3.7v-7.9h5.2c5.2 0 7.9-3.6 7.9-7.4 0-3.7-2.6-7.6-7.9-7.6h-8.8v22.9z"/><path fill="#fff" d="m19.4 16.1-.9.4-.9-.4-13-6.5 6.2-2.4 13.4 6.5zm13.1-6.5-4.7 2.3-13.5-6 4.2-1.6z"/><path fill="#fff" d="m19 0 17.2 6.6-2.4 1.9-15.2-6L3.2 8.6l-2.4-2L18 0zm15.1 9.1L36.9 8l-2.1 17.6-.4.8-15 13.6-.5-3.1 13.4-12zM2.5 26.5l-.4-.8L0 8.1l2.8 1.1 1.9 15.7 13.4 12-.5 3.1z"/><path fill="#B4B4B4" d="m28.2 12.4 4.3-2.7-1.7 14.2L18.6 35l.6-17 5.4-3.3-.3 8.3 3.3-2.3z"/><path fill="#DEDEDE" d="m17.7 17.9.6 17-12.2-11L4.4 9.8z"/></svg></div><span class="tag">Age</span><span class="sp"></span>
+  <button id="torch" class="ibtn" hidden aria-label="Light"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10v4l-3 5v11h-4V11L7 6z"/></svg></button>
+  <button id="snd" class="ibtn" aria-label="Sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path id="sndp" d="M4 9v6h4l5 4V5L8 9zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button>
 </header>
 <section class="cam">
   <video id="v" playsinline muted autoplay></video>
   <div class="win" id="win"><i></i><i></i><i></i><i></i><div class="laser"></div></div>
+  <div class="badge" id="badge"></div>
   <div class="hint" id="hint">Point at any barcode on the label</div>
   <div class="blocked" id="blocked"><div id="blockedTxt">Camera is off</div><button id="retry">Turn camera on</button></div>
 </section>
 <main>
-  <div class="card idle" id="card"><b>Scan a parcel</b><span>Any barcode Packeta tracking knows: Packeta label, carrier AWB, international parcels.</span></div>
-  <form id="manual"><input id="mi" autocomplete="off" autocapitalize="characters" placeholder="Or type a barcode or tracking number"><button type="submit">Check</button></form>
+  <div id="card"><div class="idle"><div class="mk"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 40"><path fill="#fff" d="m19.4 16.1-.9.4-.9-.4-13-6.5 6.2-2.4 13.4 6.5zm13.1-6.5-4.7 2.3-13.5-6 4.2-1.6z"/><path fill="#fff" d="m19 0 17.2 6.6-2.4 1.9-15.2-6L3.2 8.6l-2.4-2L18 0zm15.1 9.1L36.9 8l-2.1 17.6-.4.8-15 13.6-.5-3.1 13.4-12zM2.5 26.5l-.4-.8L0 8.1l2.8 1.1 1.9 15.7 13.4 12-.5 3.1z"/><path fill="#B4B4B4" d="m28.2 12.4 4.3-2.7-1.7 14.2L18.6 35l.6-17 5.4-3.3-.3 8.3 3.3-2.3z"/><path fill="#DEDEDE" d="m17.7 17.9.6 17-12.2-11L4.4 9.8z"/></svg></div><div><b>Scan a parcel</b><span>Any barcode Packeta tracking knows</span>
+    <div class="legend"><span class="lg">Green: under 24 h</span><span class="lr">Red: 24 h or older</span></div></div></div></div>
+  <div class="stats"><div class="stat g"><b id="sg">0</b><span>Under 24 h</span></div><div class="stat r"><b id="sr">0</b><span>24 h +</span></div><div class="stat n"><b id="sn">0</b><span>Not found</span></div></div>
+  <form id="manual"><input id="mi" autocomplete="off" autocapitalize="characters" placeholder="Type a barcode or tracking number"><button type="submit">Check</button></form>
   <div class="hh"><span id="hc">Scanned</span><button id="clear" hidden>Clear</button></div>
   <div class="list" id="list"></div>
 </main>
-<div class="gate" id="gate" hidden><form class="gcard" id="gform">
-  <div class="glogo">Z</div><h2>Packeta Age</h2><p>Enter the team PIN</p>
-  <input id="gpin" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="PIN">
-  <div class="gerr" id="gerr"></div><button type="submit">Unlock</button>
-</form></div>
+<div class="gate" id="gate" hidden>
+  <div class="glogo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 40" role="img" aria-label="Packeta"><path fill="#fff" d="M140.5 28.3c-.8.2-1.9.3-3 .3-1.6 0-3.1-.6-3.1-2.2 0-1.5 1.2-2.5 3.2-2.5 1.1 0 2.2.3 2.9.6zm0-6.5c-.9-.4-2.2-.6-3.4-.6-3.1 0-6.2 1.7-6.2 5.4 0 4 3.3 5.1 6.8 5.1 2.5 0 4.8-.6 6.3-1.1V19.8c0-3.8-3.3-5.5-6.6-5.5-2.2 0-4.2.5-6 2.5l2 2.1c.8-.9 2.2-1.4 3.5-1.4 1.8 0 3.5.8 3.5 2.5zm-10.1 6.6c-1.9 0-3.7-.2-3.7-2.8v-7.9h3.2v-3.2h-3.2l-.3-3.9h-3.2v15.1c0 4.2 2.6 6 5.9 6 .4 0 .9 0 1.3-.1zM118 21.6h-6.2v-1.5c0-1.6 1.5-2.4 3.1-2.4s3.1.8 3.1 2.4zm-.1 4.9c-.6 1.3-1.9 1.7-3.1 1.7-1.5 0-3-.9-3-2.4v-1.2h9.6V20c0-3.9-3.3-5.7-6.5-5.7-3.3 0-6.6 1.9-6.6 5.7v5.9c0 3.8 3.3 5.7 6.6 5.7 2.2 0 4.7-1.1 6-3.4zm-19.6-5.2V8.4h-3.5v22.9h3.5v-5.8l1-1 5.3 6.9h4.2l-6.9-9 7-7.7h-4.5zm-18.2 4.5c0 3.9 3.3 5.7 6.6 5.7 2.6 0 5.6-1.2 6.6-4.4L90 26c-.4 1.5-1.9 2.2-3.3 2.2-1.6 0-3.1-.8-3.1-2.2v-6c0-1.5 1.7-2.2 3.2-2.2 1.4 0 2.7.7 3.1 2.2l3.2-1.2c-.9-3.2-3.9-4.4-6.5-4.4-3.3 0-6.6 1.9-6.6 5.8zm-5.5 2.5c-.8.2-1.9.3-3 .3-1.6 0-3.1-.6-3.1-2.2 0-1.5 1.2-2.5 3.2-2.5 1.1 0 2.2.3 2.9.6zm0-6.5c-.9-.4-2.2-.6-3.4-.6-3.1 0-6.2 1.7-6.2 5.4 0 4 3.3 5.1 6.8 5.1 2.5 0 4.8-.6 6.3-1.1V19.8c0-3.8-3.3-5.5-6.6-5.5-2.1 0-4.2.5-6 2.5l2 2.1c.8-.9 2.2-1.4 3.5-1.4 1.8 0 3.5.8 3.5 2.5zm-23.2-1.9v-7.8h5.2c2.8 0 4.2 1.9 4.2 3.8s-1.4 3.9-4.2 3.9zm-3.7 11.4h3.7v-7.9h5.2c5.2 0 7.9-3.6 7.9-7.4 0-3.7-2.6-7.6-7.9-7.6h-8.8v22.9z"/><path fill="#fff" d="m19.4 16.1-.9.4-.9-.4-13-6.5 6.2-2.4 13.4 6.5zm13.1-6.5-4.7 2.3-13.5-6 4.2-1.6z"/><path fill="#fff" d="m19 0 17.2 6.6-2.4 1.9-15.2-6L3.2 8.6l-2.4-2L18 0zm15.1 9.1L36.9 8l-2.1 17.6-.4.8-15 13.6-.5-3.1 13.4-12zM2.5 26.5l-.4-.8L0 8.1l2.8 1.1 1.9 15.7 13.4 12-.5 3.1z"/><path fill="#B4B4B4" d="m28.2 12.4 4.3-2.7-1.7 14.2L18.6 35l.6-17 5.4-3.3-.3 8.3 3.3-2.3z"/><path fill="#DEDEDE" d="m17.7 17.9.6 17-12.2-11L4.4 9.8z"/></svg></div>
+  <form class="gcard" id="gform"><h2>Packeta Age</h2><p>Enter the team PIN</p>
+    <input id="gpin" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="PIN">
+    <div class="gerr" id="gerr"></div><button type="submit">Unlock</button></form>
+</div>
+<audio id="s_g" preload="auto" src="data:audio/mpeg;base64,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"></audio>
+<audio id="s_r" preload="auto" src="data:audio/mpeg;base64,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"></audio>
+<audio id="s_n" preload="auto" src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAQAAAN3wAdHR0dHR0tLS0tLS08PDw8PDxLS0tLS0taWlpaWlpaaWlpaWlpeHh4eHh4h4eHh4eHlpaWlpaWlqWlpaWlpbS0tLS0tMPDw8PDw9LS0tLS0tLh4eHh4eHw8PDw8PD///////8AAAAATGF2YzYwLjMxAAAAAAAAAAAAAAAAJAYDAAAAAAAADd9aN0M5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UMQAAAnMTR5OYYbBSAWq9PwwBwEkA2OtzZb3NogY5dsDxT+M8EgycRDEwYPkjaMzhLTlty8aK6g6x2JgQBoDQGgiCQJBgeGZmZn69evXvuUBAEAQBMHwfB/Kf/R0H8v9/QgW3LJHJZZAFMPqLAdYESaBEKRJMjI+JxkZCUJQlLVq2oKCgwUFBQUCgoKCgwUFBQUCgoKCgwUFBQUCgoKCgwUFBQUCgoKCgwUFDQoFFRRRL3tKAAHbVkmNYdTd/IwTQSRNBqQ/D+FHM+ngxcP/+1LEDQIJFBsNLf+AATgcoMH9HJBTBIQVVbZWFtp2qALUom1Ra2zr+lTqVsXV+zk9bvR6nr/9VrGQKqpCQivmGO1uWYCmBWGAJAypgIg9QY0k4xmBWBGRgDoG6YjgYl6ZA8AigsXTwBvT9rp1vr/77f6b/tT2tN+79vXVacfftKul1z18Z9H16eT9619VHUKctQACEUkADApNNCQIwdMVLNm5TxDDEQX8wNACSO/LNosNCdMWJBQRXcUilqnHKhnWvr0XIyamXCddH/ktb/0Lr//7UsQfgklQGwkuf0BBFYOhCb/sCLt/oTxfV7Psaj051gDXhs9khMKABoDiABnUxBgBmMEfAHThA40cNMiEDAgoueyCv4yyrifGMu27osj+W7Nbn+KnMj+rt/7aanK/oH+hf3i7VAACY1cwVsDvMFTCjTCbxSA2a8pdMKzBZzB2Qc0wRMBpMA/AITACAAwtAWnLPq/ik3mu6zs+teST7tIY9PktX0odq7aKUdbre9NF6+kAOEaD0fD4fDYDAYCgNAin0h1T4T3GkuX66bDjxn/h//tSxDWACYAbCxXxAAJnqCt3MTACufHhoOYj8hgBxgGkciA4CmBnOAeEAL/k+Qc4VAbkAWsAEgPT+Th03L6gWSDZsWgKDBuD9BBbpxyQuwLQxxBsYX8//xshvgcmLeHriEAsH//4ggJ7E5iUxTBOAhQXoj////yBk0OAhhMjjI8niCEoTv//LkwSAYbBIBgvoFAoFAoFAoFAYCAAAAA0k0DRBvAaVDLeGBQ93w5IjvCdByhj/haRPR6Bav8T4lwuonpQ/8LsO4phyR2ln/5JGR//+1LEIIAKXNtBuUaAAAAANIOAAAQkTE1JL//SSMUUTJSRj/4xLRgYooooooUAAAD/IQoMQAUMdaSOUhl/zBUEQMDhgYIBgUD/+xta4KBlWT8sC7CpFh/6rUEqQL6ZP/8dkzHbE6oYH//iZvEywstIL3gScAIaBX3IjTq6FvLzBRCyMQUeQzJzaj0ljvMZgZ8xFgMzA1AeMA8CIaAnQ5pw3n+7VxuUyBo80RDA7sEWynstf76N3/06/7P9XWiK0bb67f6AygChgNQFGYDeCvGB8P/7UsRVAAAAAaQUAAAhUg8mZzrwADRpmeDCMeG75l9cGGi2DRUIQWhGRAFZwZ9r/XZKnuuj3u9Nbnte3r+3+9PT/Xqv8vWknFl2uRc4japSXRtelEZT+Y6ej8dVANIBgDoD4YBaCjmCIDLhoFi9Sfg6BndZmMi4YfGZhYNGCAEHAtSAb9uzp7d9f979tPX9PS30Trf/r7epfkUd2KvGt9qPu9zf9VfdgHrOqNwoFMBGznUDEbILP+99gx3QhzB2AoO881AjFBQlrsf84urRixfn//tSxIiCCPAnFF3ggAFOmyEZ/hxYm7UXWhj+j9f637P/b/9/6OqYbue9yGUqAQoBuyafKqGFEAo5xGgmYYhAAnmCQgBg2EhEOY4DAgGQ5timUNG7cWb7bEdZY06K7L3+7/E2o57J7p5nTU2LWXVd/9yP3WkAYL+B4mCVhApgMpAcbESjMmIQhXphb4SmYJqAwhgC+YB0ATGAIADSh4NAAUR+UXVdm7Vr/j2fyTf9bMlb767P93+j+n/146oAICt63W63Wi4WiUWBgjYbwfZbG1n/+1LEmIIJqNkIr/DiwPyDImmvZAhZ+4bkzq5ODgcWKfQvgUhunDffDQMYSQ3kSqd7+xiHkQQsB/KVZU2/vfRxbDIVRbGFxUza4///oQzHIhDMchflKsn8pXX///UD5DFQ+QxUMUGZig6Yv////Z5Es8iWeRIOmKumKtGL/////wlYyQlY4SKyJIrMlmhUt/oEAwMCAYGBACZuhehIRwuCeQ6Ow7YVayxdCIGQVBU6DR1YaUHJVwiySj3EXUe4iySj1bhF57lvPct57iLqPcRdR//7UsSwAkjUGwit/2BBHoOhFr4gALiK+o8nEVUAu/XdnajkNBwP8W8hbMTsy4SGIYyZfvxCUOBh8oHygIOKOW+33LD/EDihyXlwfqBN/1Ag78u///8u/5QMKnLLLLLPAAAAADBoBIKgKpoZs+HiM3oYXRnhuwCRmEyCSYMID5jniImH+JEYRQGSlJgGANEwABgOg+gIORs0PAKIAbfA4V0DLGCkbCNwsfD9ADqwGTTAKGzFbCwBygx44wAjoAg0KCQbKVw5cfAyAnQjQt0Fmgtd//tSxMaAEvUrX7j3gBD+A+AHnjAAFpC6n5uX0jQ0YdSBBiVNiK/ppuymlAuk0TZeMS5/p3QsuXThuXkzxigbf91WW77TIChoKAyJf3/sCoFEINhUEWf//8DEjA0wZowiUPuMcDJUjX3VzcxIIQ1MMmBSzAGwDQwCkBoMBhAFjABgDMIAPW1YkpK92V6OxeuvpR7tX91LHJKP9t+r96KmxWxrf5v1eqoAAgVAMBOAmzAKwWIwA4a9MCFY/iAHtJQL4VwghgYUqDhZEIUZDn1zOl//+1LEuIMAAAGkAAAAIPSF3Q6eMADSv+7v/vrtZ/pb7c/9P+v+j/KZj29On7/8j76P/9YU+mMJRsPiYLkJ0GprJMJhOwLAYFKBCnIhGnSmWLGGBBANgkvrW9yKO22hPRV0ffss7vI6nf9fx36RbODeveQ2kBPTkn85lRBTSQA7Q+MIlCAzdaR8ww4kCFMD0AKD3kzdDDNjzAh0Ejh0nqsr5wW7m8jbYz+qy90rt9+a//lkSPW1z/3aJi61N/vmQxqYFkBPmCWgfRhlAiSdP4fpGP/7UsT3gBeJFR856gABMANhA74AAKMAmZgtYDYdMTg6qASIFAoYA1boz3FFy9p3W6lK8qK/fTfvTyp9p6o1jGKlC59+9n0t7uO9Xh2vuLMTwi56yLnWD2yplQWKrKNW0LhswTNVRIWQYmXiqZIAI1DcYICBFmBBgS5g5g7IZuChnmHbhXJhS4OyYGiATgEAMMBAAIDADgB5Xqaaa9PT0+egMDNAAAQnEIru78d8kSFxa+cMykIt7u7+iE6IhVz47npE6iF1zNHc+Ih1ELBu+TvZ//tSxNECCPzlCQ/o5IEYA2Fhv+gIERMQnaHD4Y/BB5iOPHh8+0oj6rKf/+9fDWrdXuHnoBGBnxwBgMBkMRiMhSKxCGQiBkEFjRpkP+az57KLpmv9giYEajX+AqccgckXLlkQaFoZFTIvcUcMgA2QG+E0Yl0u+DYGBjGFp4GIQGQhkXiLGJd+IMC0cLhxAMLRAuERUkl/iAAWjhisR+FwAZYE4GKVVJL+LLHPImLgHMJwZsi5P+kktFH/lxBA36+BCKgsIqb///9HgCMeAIw2Ed3/+1LE6AIIqB0KTf9AQascoJX9iJhMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UsTuABDZCQzV8YAKZSDqNzMwA1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tSxKGDwAABpBwAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU="></audio>
 <script src="zxing.min.js"></script>
 <script>
 (function () {
 var $ = function (s) { return document.querySelector(s); };
-// In the Android app the lookup is answered by the app; on the web by the Supabase helper.
+// In the Android app the lookup is answered by the app; on the web by the Supabase helper (team PIN).
 var RELAY_BASE = 'https://riacmlgvmabbobqjgzjo.supabase.co/functions/v1/packeta-track';
 var RELAY = RELAY_BASE + '?id=';
 var API = new URLSearchParams(location.search).get('api') || (location.hostname === 'packeta-age.local' ? '/api/' : RELAY);
+var LIMIT_H = 24;                                   // red from 24 hours of age, green below
 var busy = false, stream = null, reader = null, timer = null, cache = {}, seen = {}, torchOn = false;
-// The web version asks for the team PIN once per phone; the Android app does not need it
 var NEEDS_PIN = (API === RELAY), PIN_KEY = 'packeta-age-pin', memPin = '';
-function getPin() { try { return localStorage.getItem(PIN_KEY) || memPin; } catch (e) { return memPin; } }
-function setPin(p) { memPin = p; try { localStorage.setItem(PIN_KEY, p); } catch (e) {} }
-function clearPin() { memPin = ''; try { localStorage.removeItem(PIN_KEY); } catch (e) {} }
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} return null; }
+function getPin() { return store(PIN_KEY) || memPin; }
+function setPin(p) { memPin = p; store(PIN_KEY, p); }
+function clearPin() { memPin = ''; store(PIN_KEY, null); }
 function hdrs() { return NEEDS_PIN ? {'x-pin': getPin()} : {}; }
 
 function clean(raw) { return String(raw).replace(/[^0-9A-Za-z]/g, '').toUpperCase(); }
@@ -155,106 +183,133 @@ function pt(s) {
   return {t: t, d: p[3] + '.' + p[2] + '.' + p[1], hm: p[4] + ':' + p[5]};
 }
 function age(ms) {
-  var h = Math.max(0, Math.floor(ms / 3600000));
-  if (h < 24) return {num: h, unit: h === 1 ? 'hour old' : 'hours old', short: h + ' h'};
+  var mins = Math.max(0, Math.floor(ms / 60000)), h = Math.floor(mins / 60);
+  var c = h >= LIMIT_H ? 'r' : 'g';
+  if (h < 1) return {num: mins, unit: 'min', short: mins + ' min', c: c, h: h};
+  if (h < 24) return {num: h, unit: h === 1 ? 'hour' : 'hours', short: h + ' h', c: c, h: h};
   var d = Math.floor(h / 24);
-  return {num: d, unit: d === 1 ? 'day old' : 'days old', short: d + (d === 1 ? ' day' : ' days')};
+  return {num: d, unit: d === 1 ? 'day' : 'days', short: d + (d === 1 ? ' day' : ' days'), c: c, h: h};
 }
 function status(txt) {
   var s = String(txt || '').toLowerCase();
-  if (/return|back to|sent back/.test(s)) return {c: 'bad', t: /returned|delivered back/.test(s) ? 'Returned' : 'Return'};
-  if (/cancel/.test(s)) return {c: 'n', t: 'Cancelled'};
-  if (/has been delivered|was delivered|is with you|picked up|collected/.test(s)) return {c: 'ok', t: 'Delivered'};
-  if (/ready|pick up|pick-up|stored/.test(s)) return {c: 'warn', t: 'Ready for pickup'};
-  if (/aware|waiting for the sender|data/.test(s)) return {c: 'n', t: 'Not handed over'};
-  return {c: 'info', t: 'On the way'};
+  if (/return|back to|sent back/.test(s)) return /returned|delivered back/.test(s) ? 'Returned' : 'Return';
+  if (/cancel/.test(s)) return 'Cancelled';
+  if (/has been delivered|was delivered|is with you|picked up|collected/.test(s)) return 'Delivered';
+  if (/ready|pick up|pick-up|stored/.test(s)) return 'Ready for pickup';
+  if (/aware|waiting for the sender/.test(s)) return 'Not handed over';
+  return 'On the way';
+}
+
+// Sound: short MP3s (HTML audio is what plays reliably on iPhone home-screen apps), unlocked on first touch
+var snd = {g: $('#s_g'), r: $('#s_r'), n: $('#s_n')}, soundOn = store('packeta-age-sound') !== 'off', unlocked = false;
+function unlock() {
+  if (unlocked) return; unlocked = true;
+  Object.keys(snd).forEach(function (k) { var a = snd[k]; a.muted = true; var p = a.play(); if (p && p.then) p.then(function () { a.pause(); a.currentTime = 0; a.muted = false; }).catch(function () { a.muted = false; }); else a.muted = false; });
+}
+['touchend', 'click', 'keydown'].forEach(function (ev) { document.addEventListener(ev, unlock, {once: true, capture: true}); });
+function setSoundIcon() { $('#snd').classList.toggle('on', !soundOn); $('#snd').style.opacity = soundOn ? '1' : '.6'; }
+$('#snd').addEventListener('click', function () { soundOn = !soundOn; store('packeta-age-sound', soundOn ? 'on' : 'off'); setSoundIcon(); if (soundOn) play('g'); });
+setSoundIcon();
+function play(c) {
+  if (soundOn) { try { var a = snd[c]; a.currentTime = 0; var p = a.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {} }
+  try { navigator.vibrate(c === 'g' ? 60 : c === 'r' ? [220, 90, 220] : [60, 60, 60, 60, 60]); } catch (e) {}
+}
+var badgeT = null;
+function showBadge(c, text) {
+  var b = $('#badge'), w = $('#win');
+  b.className = 'badge ' + c + ' show'; b.textContent = text; w.className = 'win ' + c;
+  clearTimeout(badgeT); badgeT = setTimeout(function () { b.className = 'badge'; w.className = 'win'; }, 1600);
 }
 
 function render(key) {
   var r = cache[key], card = $('#card');
-  card.className = 'card'; card.innerHTML = '';
+  card.innerHTML = '';
+  var res = el('div', 'res ' + (r.err ? 'n' : r.age.c)), band = el('div', 'band'), top2 = el('div', 'top2');
   if (r.err) {
-    var m = el('div', 'msg bad'); m.appendChild(el('div', 'ico', '!'));
-    var w = el('div'); w.appendChild(el('b', null, r.err)); w.appendChild(el('div', 'sub', r.label)); m.appendChild(w);
-    card.appendChild(m); return;
+    top2.appendChild(el('span', null, r.label));
+    band.appendChild(top2);
+    var ab = el('div', 'ageblk'); ab.appendChild(el('span', 'unit', r.err)); band.appendChild(ab);
+    band.appendChild(el('div', 'verdict', 'Check the barcode and scan again'));
+    res.appendChild(band); card.appendChild(res); return;
   }
-  var r1 = el('div', 'r1'), left = el('div');
-  left.appendChild(el('div', 'code', r.label));
-  if (r.scanned !== clean(r.barcode) && r.scanned !== 'Z' + clean(r.barcode)) left.appendChild(el('div', 'sub', 'Scanned ' + r.scanned));
-  r1.appendChild(left); r1.appendChild(el('span', 'pill ' + r.st.c, r.st.t)); card.appendChild(r1);
-  var a = el('div', 'age'); a.appendChild(el('span', 'num', String(r.age.num))); a.appendChild(el('span', 'unit', r.age.unit)); card.appendChild(a);
+  top2.appendChild(el('span', null, 'Created ' + r.created.d + ' ' + r.created.hm));
+  top2.appendChild(el('span', 'st', r.st));
+  band.appendChild(top2);
+  var a = el('div', 'ageblk'); a.appendChild(el('span', 'num', String(r.age.num))); a.appendChild(el('span', 'unit', r.age.unit)); band.appendChild(a);
+  band.appendChild(el('div', 'verdict', r.age.c === 'r' ? '24 hours or older' : 'Under 24 hours'));
+  res.appendChild(band);
+  var body = el('div', 'body');
+  body.appendChild(el('div', 'code', r.label));
+  if (r.scanned !== clean(r.barcode) && r.scanned !== 'Z' + clean(r.barcode)) body.appendChild(el('div', 'sub', 'Scanned ' + r.scanned));
   var f = el('div', 'facts');
   var fact = function (label, main, small) { var d = el('div'); d.appendChild(el('label', null, label)); d.appendChild(el('b', null, main || 'n/a')); if (small) d.appendChild(el('small', null, small)); f.appendChild(d); };
-  fact('Created', r.created.d, r.created.hm);
   fact('Received by Packeta', r.recv ? r.recv.d : 'not yet', r.recv ? r.recv.hm + (r.recvAt ? ' · ' + r.recvAt : '') : '');
+  fact('Last update', r.last ? r.last.p.d : 'n/a', r.last ? r.last.p.hm : '');
   fact('Sender', r.sender);
   fact('Delivery to', r.dest);
-  card.appendChild(f);
+  body.appendChild(f);
   var det = el('details'); det.appendChild(el('summary', null, 'All events (' + r.events.length + ')'));
   var ol = el('ol', 'tl');
   r.events.slice().reverse().forEach(function (e) { var li = el('li'); li.appendChild(el('time', null, e.when)); li.appendChild(document.createTextNode(e.text)); ol.appendChild(li); });
-  det.appendChild(ol); card.appendChild(det);
+  det.appendChild(ol); body.appendChild(det);
+  res.appendChild(body); card.appendChild(res);
 }
 function loading(label) {
-  var card = $('#card'); card.className = 'card'; card.innerHTML = '';
-  card.appendChild(el('div', 'code', label)); card.appendChild(el('div', 'sk')); card.appendChild(el('div', 'sk')); card.appendChild(el('div', 'sk'));
+  var card = $('#card'); card.innerHTML = '';
+  var res = el('div', 'res'); res.appendChild(el('div', 'loadband'));
+  var body = el('div', 'body'); body.appendChild(el('div', 'code', label)); body.appendChild(el('div', 'sk')); body.appendChild(el('div', 'sk'));
+  res.appendChild(body); card.appendChild(res);
+}
+function counts() {
+  var rows = $('#list').children, g = 0, r = 0, n = 0;
+  for (var i = 0; i < rows.length; i++) { var c = rows[i].getAttribute('data-c'); if (c === 'g') g++; else if (c === 'r') r++; else n++; }
+  $('#sg').textContent = g; $('#sr').textContent = r; $('#sn').textContent = n;
+  $('#hc').textContent = rows.length ? 'Scanned (' + rows.length + ')' : 'Scanned'; $('#clear').hidden = !rows.length;
 }
 function addRow(key) {
-  var r = cache[key], list = $('#list');
+  var r = cache[key], list = $('#list'), c = r.err ? 'n' : r.age.c;
   var rk = r.err ? key : 'P' + clean(r.barcode);          // one row per parcel, whatever barcode was scanned
   var old = list.querySelector('[data-k="' + rk + '"]'); if (old) list.removeChild(old);
-  var row = el('div', 'row'); row.setAttribute('data-k', rk);
-  row.appendChild(el('span', 'dot ' + (r.err ? 'bad' : r.st.c)));
-  row.appendChild(el('span', 'c', r.label));
-  row.appendChild(el('span', 'a', r.err ? '-' : r.age.short));
-  row.appendChild(el('span', 'd', r.err ? r.err : r.created.d));
+  var row = el('div', 'row ' + c); row.setAttribute('data-k', rk); row.setAttribute('data-c', c);
+  var mid = el('div', 'c'); mid.appendChild(el('b', null, r.label));
+  mid.appendChild(el('small', null, r.err ? r.err : r.st + ' · created ' + r.created.d));
+  row.appendChild(mid); row.appendChild(el('span', 'chip ' + c, r.err ? 'n/a' : r.age.short));
   row.addEventListener('click', function () { render(key); window.scrollTo({top: 0, behavior: 'smooth'}); });
   list.insertBefore(row, list.firstChild);
-  var n = list.children.length;
-  $('#cnt').hidden = false; $('#cnt').textContent = n + ' scanned';
-  $('#hc').textContent = 'Scanned (' + n + ')'; $('#clear').hidden = false;
+  counts();
 }
-
-var ac = null;
-function beep(ok) {
-  try {
-    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
-    var o = ac.createOscillator(), g = ac.createGain();
-    o.frequency.value = ok ? 1150 : 380; g.gain.value = 0.08;
-    o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + (ok ? 0.09 : 0.25));
-  } catch (e) {}
-  try { navigator.vibrate(ok ? 70 : [60, 60, 60]); } catch (e) {}
-}
-function flash() { var w = $('#win'); w.classList.add('hit'); setTimeout(function () { w.classList.remove('hit'); }, 450); }
 
 function lookup(raw) {
   var key = clean(raw);
-  if (key.length < 6) { cache[key] = {err: 'Barcode too short', label: String(raw)}; render(key); beep(false); return Promise.resolve(); }
-  var label = fmtCode(key);
+  if (key.length < 6) { cache[key] = {err: 'Barcode too short', label: String(raw)}; render(key); play('n'); showBadge('n', 'Too short'); return Promise.resolve(); }
+  var label = fmtCode(key), locked = false;
   loading(label);
-  var locked = false;
   return fetch(API + encodeURIComponent(key), {cache: 'no-store', headers: hdrs()}).then(function (res) {
     if (res.status === 401) { locked = true; clearPin(); showGate('Wrong or changed PIN. Enter the team PIN.'); return; }
-    if (res.status === 404) { cache[key] = {err: 'Not found in Packeta tracking', label: label}; return; }
+    if (res.status === 404) { cache[key] = {err: 'Not found', label: label}; return; }
     if (!res.ok) throw new Error('http ' + res.status);
     return res.json().then(function (j) {
       var it = j.item || {}, td = it.trackingDetails || [];
-      if (!td.length) { cache[key] = {err: 'No Packeta events yet', label: fmtCode(it.barcode || key)}; return; }
-      var ev = td.map(function (e) { var p = pt(e.time); return {p: p, raw: e.time, text: strip(e.text), when: p ? p.d + ' ' + p.hm : e.time}; })
+      var ev = td.map(function (e) { var p = pt(e.time); return {p: p, text: strip(e.text), when: p ? p.d + ' ' + p.hm : e.time}; })
         .filter(function (e) { return e.p; }).sort(function (a, b) { return a.p.t - b.p.t; });
-      var first = ev[0], recv = null, recvAt = '';
+      if (!ev.length) { cache[key] = {err: 'No Packeta events yet', label: fmtCode(it.barcode || key)}; return; }
+      var recv = null, recvAt = '';
       for (var i = 0; i < ev.length; i++) {
         var m = ev[i].text.match(/received the parcel for transport\.?\s*(.*)$/i);
         if (m) { recv = ev[i].p; recvAt = m[1] || ''; break; }
       }
       cache[key] = {
         label: fmtCode(it.barcode || key), barcode: it.barcode || key, scanned: key,
-        age: age(Date.now() - first.p.t), created: first.p, recv: recv, recvAt: recvAt,
+        age: age(Date.now() - ev[0].p.t), created: ev[0].p, recv: recv, recvAt: recvAt, last: ev[ev.length - 1],
         st: status(it.packetStatus), sender: strip(it.sender).replace(/_+$/, ''), dest: strip(it.branchAddress), events: ev
       };
     });
-  }).catch(function () { cache[key] = {err: 'No connection to Packeta', label: label}; })
-    .then(function () { if (locked) return; var r = cache[key]; render(key); addRow(key); beep(!r.err); });
+  }).catch(function () { cache[key] = {err: 'No connection', label: label}; })
+    .then(function () {
+      if (locked) return;
+      var r = cache[key], c = r.err ? 'n' : r.age.c;
+      render(key); addRow(key); play(c); showBadge(c, r.err ? r.err : r.age.short);
+    });
 }
 
 // A barcode that stays in front of the camera is checked once, again only after 8 s out of view
@@ -263,7 +318,7 @@ function onCode(text, typed) {
   var key = clean(text), now = Date.now(), prev = seen[key];
   seen[key] = now;
   if (!typed && prev && now - prev < 8000) return;
-  busy = true; if (!typed) flash();
+  busy = true;
   lookup(text).then(function () { busy = false; }, function () { busy = false; });
 }
 
@@ -282,7 +337,6 @@ function setupTorch() {
   var b = $('#torch'); b.hidden = false; b.classList.toggle('on', torchOn);
   b.onclick = function () { torchOn = !torchOn; t.applyConstraints({advanced: [{torch: torchOn}]}).catch(function () {}); b.classList.toggle('on', torchOn); };
 }
-function blocked(msg) { $('#blockedTxt').textContent = msg; $('#blocked').classList.add('show'); }
 function start() {
   stop(); $('#blocked').classList.remove('show');
   var v = $('#v');
@@ -309,9 +363,10 @@ function start() {
   }).catch(onCamErr);
 }
 function onCamErr(e) {
-  var n = e && e.name;
-  blocked(n === 'NotAllowedError' ? 'Camera access is blocked. Allow the camera for this app in the phone settings, then tap below.'
-    : 'Camera could not start. You can still type a barcode below.');
+  $('#blockedTxt').textContent = (e && e.name === 'NotAllowedError')
+    ? 'Camera access is blocked. Allow the camera for this app in the phone settings, then tap below.'
+    : 'Camera could not start. You can still type a barcode below.';
+  $('#blocked').classList.add('show');
 }
 function showGate(msg) {
   stop(); $('#gate').hidden = false; $('#gerr').textContent = msg || ''; $('#gpin').value = '';
@@ -332,7 +387,7 @@ document.addEventListener('visibilitychange', function () { if (document.hidden)
 $('#manual').addEventListener('submit', function (e) {
   e.preventDefault(); var t = $('#mi').value; $('#mi').value = ''; $('#mi').blur(); if (t.trim()) onCode(t, true);
 });
-$('#clear').addEventListener('click', function () { $('#list').innerHTML = ''; $('#cnt').hidden = true; $('#clear').hidden = true; $('#hc').textContent = 'Scanned'; seen = {}; });
+$('#clear').addEventListener('click', function () { $('#list').innerHTML = ''; seen = {}; counts(); });
 if (NEEDS_PIN && !getPin()) showGate(''); else start();
 })();
 </script>
