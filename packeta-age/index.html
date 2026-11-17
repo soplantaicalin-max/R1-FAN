@@ -86,6 +86,14 @@ form button{background:var(--ink);color:#fff;border:0;border-radius:12px;padding
 .row .c{flex:1;min-width:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row .a{font-weight:800;font-size:15px}
 .row .d{color:var(--mute);font-size:12px;width:74px;text-align:right}
+.gate{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px}
+.gate[hidden]{display:none}
+.gcard{background:#fff;border-radius:18px;padding:26px 22px;width:100%;max-width:340px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.05),0 12px 32px rgba(0,0,0,.08)}
+.glogo{width:56px;height:56px;border-radius:14px;background:var(--red);color:#fff;font-weight:900;font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
+.gcard h2{margin:0;font-size:20px}.gcard p{margin:4px 0 16px;color:var(--mute)}
+.gcard input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:18px;text-align:center}
+.gerr{color:var(--bad);font-size:13px;min-height:20px;margin:8px 0}
+.gcard button{width:100%;background:var(--red);color:#fff;border:0;border-radius:12px;padding:12px;font-weight:700;font-size:16px}
 </style>
 </head>
 <body>
@@ -106,14 +114,26 @@ form button{background:var(--ink);color:#fff;border:0;border-radius:12px;padding
   <div class="hh"><span id="hc">Scanned</span><button id="clear" hidden>Clear</button></div>
   <div class="list" id="list"></div>
 </main>
+<div class="gate" id="gate" hidden><form class="gcard" id="gform">
+  <div class="glogo">Z</div><h2>Packeta Age</h2><p>Enter the team PIN</p>
+  <input id="gpin" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="PIN">
+  <div class="gerr" id="gerr"></div><button type="submit">Unlock</button>
+</form></div>
 <script src="zxing.min.js"></script>
 <script>
 (function () {
 var $ = function (s) { return document.querySelector(s); };
 // In the Android app the lookup is answered by the app; on the web by the Supabase helper.
-var RELAY = 'https://riacmlgvmabbobqjgzjo.supabase.co/functions/v1/packeta-track?id=';
+var RELAY_BASE = 'https://riacmlgvmabbobqjgzjo.supabase.co/functions/v1/packeta-track';
+var RELAY = RELAY_BASE + '?id=';
 var API = new URLSearchParams(location.search).get('api') || (location.hostname === 'packeta-age.local' ? '/api/' : RELAY);
-var busy = false, stream = null, reader = null, timer = null, cache = {}, seen = {}, order = [], torchOn = false;
+var busy = false, stream = null, reader = null, timer = null, cache = {}, seen = {}, torchOn = false;
+// The web version asks for the team PIN once per phone; the Android app does not need it
+var NEEDS_PIN = (API === RELAY), PIN_KEY = 'packeta-age-pin', memPin = '';
+function getPin() { try { return localStorage.getItem(PIN_KEY) || memPin; } catch (e) { return memPin; } }
+function setPin(p) { memPin = p; try { localStorage.setItem(PIN_KEY, p); } catch (e) {} }
+function clearPin() { memPin = ''; try { localStorage.removeItem(PIN_KEY); } catch (e) {} }
+function hdrs() { return NEEDS_PIN ? {'x-pin': getPin()} : {}; }
 
 function clean(raw) { return String(raw).replace(/[^0-9A-Za-z]/g, '').toUpperCase(); }
 function fmtCode(b) { var s = String(b).replace(/^Z/i, ''); return /^\d{10}$/.test(s) ? 'Z ' + s.slice(0, 3) + ' ' + s.slice(3, 7) + ' ' + s.slice(7) : String(b); }
@@ -212,7 +232,9 @@ function lookup(raw) {
   if (key.length < 6) { cache[key] = {err: 'Barcode too short', label: String(raw)}; render(key); beep(false); return Promise.resolve(); }
   var label = fmtCode(key);
   loading(label);
-  return fetch(API + encodeURIComponent(key), {cache: 'no-store'}).then(function (res) {
+  var locked = false;
+  return fetch(API + encodeURIComponent(key), {cache: 'no-store', headers: hdrs()}).then(function (res) {
+    if (res.status === 401) { locked = true; clearPin(); showGate('Wrong or changed PIN. Enter the team PIN.'); return; }
     if (res.status === 404) { cache[key] = {err: 'Not found in Packeta tracking', label: label}; return; }
     if (!res.ok) throw new Error('http ' + res.status);
     return res.json().then(function (j) {
@@ -232,7 +254,7 @@ function lookup(raw) {
       };
     });
   }).catch(function () { cache[key] = {err: 'No connection to Packeta', label: label}; })
-    .then(function () { var r = cache[key]; render(key); addRow(key); beep(!r.err); });
+    .then(function () { if (locked) return; var r = cache[key]; render(key); addRow(key); beep(!r.err); });
 }
 
 // A barcode that stays in front of the camera is checked once, again only after 8 s out of view
@@ -291,13 +313,27 @@ function onCamErr(e) {
   blocked(n === 'NotAllowedError' ? 'Camera access is blocked. Allow the camera for this app in the phone settings, then tap below.'
     : 'Camera could not start. You can still type a barcode below.');
 }
+function showGate(msg) {
+  stop(); $('#gate').hidden = false; $('#gerr').textContent = msg || ''; $('#gpin').value = '';
+  setTimeout(function () { try { $('#gpin').focus(); } catch (e) {} }, 50);
+}
+$('#gform').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var p = $('#gpin').value.trim(); if (!p) return;
+  $('#gerr').textContent = 'Checking...';
+  fetch(RELAY_BASE + '?ping=1', {cache: 'no-store', headers: {'x-pin': p}}).then(function (r) {
+    if (r.ok) { setPin(p); $('#gate').hidden = true; $('#gerr').textContent = ''; $('#gpin').blur(); start(); }
+    else if (r.status === 401) { $('#gerr').textContent = 'Wrong PIN'; }
+    else { $('#gerr').textContent = 'Could not check the PIN. Try again.'; }
+  }).catch(function () { $('#gerr').textContent = 'No internet connection'; });
+});
 $('#retry').addEventListener('click', start);
-document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else if ($('#gate').hidden) start(); });
 $('#manual').addEventListener('submit', function (e) {
   e.preventDefault(); var t = $('#mi').value; $('#mi').value = ''; $('#mi').blur(); if (t.trim()) onCode(t, true);
 });
 $('#clear').addEventListener('click', function () { $('#list').innerHTML = ''; $('#cnt').hidden = true; $('#clear').hidden = true; $('#hc').textContent = 'Scanned'; seen = {}; });
-start();
+if (NEEDS_PIN && !getPin()) showGate(''); else start();
 })();
 </script>
 </body>
