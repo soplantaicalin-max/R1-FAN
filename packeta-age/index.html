@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#CB333B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Packeta Age">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<title>Packeta Age</title>
+<style>
+:root{--red:#CB333B;--red-d:#9E2028;--ink:#1A1D24;--mute:#6B7280;--soft:#9CA3AF;--line:#E5E7EB;--bg:#F5F4F2;--card:#fff;
+  --ok:#1E7A3C;--ok-bg:#E2F1E8;--bad:#B42318;--bad-bg:#FCEEEC;--warn:#8A5A00;--warn-bg:#FFF4D6;--info:#1F6FB2;--info-bg:#E6F0FA;--n:#6B7280;--n-bg:#F3F4F6}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--red);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 0 var(--red-d)}
+.logo{width:30px;height:30px;border-radius:8px;background:#fff;color:var(--red);font-weight:900;display:grid;place-items:center;font-size:18px}
+.top h1{font-size:17px;margin:0;flex:1;font-weight:700}
+.chip{background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600}
+.chip.on{background:#fff;color:var(--red)}
+.cam{position:relative;height:min(42vh,360px);background:#111;overflow:hidden}
+.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.win{position:absolute;left:8%;right:8%;top:22%;bottom:22%;border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.42);transition:box-shadow .15s}
+.win.hit{box-shadow:0 0 0 999px rgba(30,122,60,.35);outline:3px solid #34C759}
+.win i{position:absolute;width:26px;height:26px;border:4px solid #fff}
+.win i:nth-child(1){left:-2px;top:-2px;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
+.win i:nth-child(2){right:-2px;top:-2px;border-left:0;border-bottom:0;border-radius:0 12px 0 0}
+.win i:nth-child(3){left:-2px;bottom:-2px;border-right:0;border-top:0;border-radius:0 0 0 12px}
+.win i:nth-child(4){right:-2px;bottom:-2px;border-left:0;border-top:0;border-radius:0 0 12px 0}
+.laser{position:absolute;left:6%;right:6%;height:2px;top:50%;background:var(--red);box-shadow:0 0 10px 1px var(--red);animation:sweep 2.2s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:translateY(-38px)}50%{transform:translateY(38px)}}
+.hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;color:#fff;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.6);padding:0 16px}
+.blocked{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;text-align:center;padding:20px;background:#111}
+.blocked.show{display:flex}
+.blocked button{background:var(--red);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
+main{padding:12px 12px calc(24px + env(safe-area-inset-bottom))}
+.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06);min-height:150px}
+.r1{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.code{font-weight:700;font-size:15px;letter-spacing:.4px}
+.sub{color:var(--mute);font-size:12px;margin-top:2px}
+.pill{border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg)}.pill.bad{color:var(--bad);background:var(--bad-bg)}
+.pill.warn{color:var(--warn);background:var(--warn-bg)}.pill.info{color:var(--info);background:var(--info-bg)}.pill.n{color:var(--n);background:var(--n-bg)}
+.age{display:flex;align-items:baseline;gap:8px;margin:10px 0 12px}
+.age .num{font-size:56px;font-weight:800;line-height:1;letter-spacing:-1px}
+.age .unit{font-size:16px;color:var(--mute);font-weight:600}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;border-top:1px solid var(--line);padding-top:12px}
+.facts div{min-width:0}
+.facts label{display:block;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.facts b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.facts small{display:block;color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+summary{color:var(--red);font-weight:700;font-size:13px;list-style:none}
+summary::-webkit-details-marker{display:none}
+.tl{list-style:none;margin:10px 0 0;padding:0}
+.tl li{position:relative;padding:0 0 12px 18px;font-size:13px}
+.tl li:before{content:"";position:absolute;left:4px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--soft)}
+.tl li:first-child:before{background:var(--red)}
+.tl li:after{content:"";position:absolute;left:7px;top:15px;bottom:-2px;width:2px;background:var(--line)}
+.tl li:last-child:after{display:none}
+.tl time{display:block;color:var(--mute);font-size:12px}
+.idle{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px}
+.idle b{font-size:20px}.idle span{color:var(--mute);font-size:14px}
+.msg{display:flex;gap:12px;align-items:flex-start}
+.msg .ico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;flex:none}
+.msg.bad .ico{background:var(--bad-bg);color:var(--bad)}
+.msg b{display:block;font-size:17px}
+.sk{height:14px;border-radius:7px;background:linear-gradient(90deg,#eee,#f6f6f6,#eee);background-size:200% 100%;animation:sh 1s linear infinite;margin:10px 0}
+@keyframes sh{to{background-position:-200% 0}}
+form{display:flex;gap:8px;margin:12px 0}
+form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:16px;background:#fff}
+form button{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:0 16px;font-weight:700}
+.hh{display:flex;justify-content:space-between;align-items:center;margin:14px 4px 6px;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.hh button{background:none;border:0;color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
+.list{background:#fff;border-radius:14px;overflow:hidden}
+.list:empty{display:none}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.warn{background:#D9A400}.dot.info{background:var(--info)}.dot.n{background:var(--soft)}
+.row .c{flex:1;min-width:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .a{font-weight:800;font-size:15px}
+.row .d{color:var(--mute);font-size:12px;width:74px;text-align:right}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Z</div><h1>Packeta Age</h1>
+  <button id="torch" class="chip" hidden>Light</button>
+  <span id="cnt" class="chip" hidden></span>
+</header>
+<section class="cam">
+  <video id="v" playsinline muted autoplay></video>
+  <div class="win" id="win"><i></i><i></i><i></i><i></i><div class="laser"></div></div>
+  <div class="hint" id="hint">Point at any barcode on the label</div>
+  <div class="blocked" id="blocked"><div id="blockedTxt">Camera is off</div><button id="retry">Turn camera on</button></div>
+</section>
+<main>
+  <div class="card idle" id="card"><b>Scan a parcel</b><span>Any barcode Packeta tracking knows: Packeta label, carrier AWB, international parcels.</span></div>
+  <form id="manual"><input id="mi" autocomplete="off" autocapitalize="characters" placeholder="Or type a barcode or tracking number"><button type="submit">Check</button></form>
+  <div class="hh"><span id="hc">Scanned</span><button id="clear" hidden>Clear</button></div>
+  <div class="list" id="list"></div>
+</main>
+<script src="zxing.min.js"></script>
+<script>
+(function () {
+var $ = function (s) { return document.querySelector(s); };
+// In the Android app the lookup is answered by the app; on the web by the Supabase helper.
+var RELAY = 'https://riacmlgvmabbobqjgzjo.supabase.co/functions/v1/packeta-track?id=';
+var API = new URLSearchParams(location.search).get('api') || (location.hostname === 'packeta-age.local' ? '/api/' : RELAY);
+var busy = false, stream = null, reader = null, timer = null, cache = {}, seen = {}, order = [], torchOn = false;
+
+function clean(raw) { return String(raw).replace(/[^0-9A-Za-z]/g, '').toUpperCase(); }
+function fmtCode(b) { var s = String(b).replace(/^Z/i, ''); return /^\d{10}$/.test(s) ? 'Z ' + s.slice(0, 3) + ' ' + s.slice(3, 7) + ' ' + s.slice(7) : String(b); }
+function strip(h) { return String(h || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim(); }
+function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+// Packeta times are Prague wall time
+function pragueOffset(ts) {
+  var p = new Intl.DateTimeFormat('en-US', {timeZone: 'Europe/Prague', hourCycle: 'h23', year: 'numeric', month: '2-digit',
+    day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).formatToParts(new Date(ts));
+  var g = function (k) { for (var i = 0; i < p.length; i++) if (p[i].type === k) return +p[i].value; return 0; };
+  return Date.UTC(g('year'), g('month') - 1, g('day'), g('hour'), g('minute'), g('second')) - ts;
+}
+function pt(s) {
+  var p = String(s).match(/(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+)/);
+  if (!p) return null;
+  var wall = Date.UTC(+p[1], +p[2] - 1, +p[3], +p[4], +p[5], +p[6]);
+  var t = wall - pragueOffset(wall); t = wall - pragueOffset(t);
+  return {t: t, d: p[3] + '.' + p[2] + '.' + p[1], hm: p[4] + ':' + p[5]};
+}
+function age(ms) {
+  var h = Math.max(0, Math.floor(ms / 3600000));
+  if (h < 24) return {num: h, unit: h === 1 ? 'hour old' : 'hours old', short: h + ' h'};
+  var d = Math.floor(h / 24);
+  return {num: d, unit: d === 1 ? 'day old' : 'days old', short: d + (d === 1 ? ' day' : ' days')};
+}
+function status(txt) {
+  var s = String(txt || '').toLowerCase();
+  if (/return|back to|sent back/.test(s)) return {c: 'bad', t: /returned|delivered back/.test(s) ? 'Returned' : 'Return'};
+  if (/cancel/.test(s)) return {c: 'n', t: 'Cancelled'};
+  if (/has been delivered|was delivered|is with you|picked up|collected/.test(s)) return {c: 'ok', t: 'Delivered'};
+  if (/ready|pick up|pick-up|stored/.test(s)) return {c: 'warn', t: 'Ready for pickup'};
+  if (/aware|waiting for the sender|data/.test(s)) return {c: 'n', t: 'Not handed over'};
+  return {c: 'info', t: 'On the way'};
+}
+
+function render(key) {
+  var r = cache[key], card = $('#card');
+  card.className = 'card'; card.innerHTML = '';
+  if (r.err) {
+    var m = el('div', 'msg bad'); m.appendChild(el('div', 'ico', '!'));
+    var w = el('div'); w.appendChild(el('b', null, r.err)); w.appendChild(el('div', 'sub', r.label)); m.appendChild(w);
+    card.appendChild(m); return;
+  }
+  var r1 = el('div', 'r1'), left = el('div');
+  left.appendChild(el('div', 'code', r.label));
+  if (r.scanned !== clean(r.barcode) && r.scanned !== 'Z' + clean(r.barcode)) left.appendChild(el('div', 'sub', 'Scanned ' + r.scanned));
+  r1.appendChild(left); r1.appendChild(el('span', 'pill ' + r.st.c, r.st.t)); card.appendChild(r1);
+  var a = el('div', 'age'); a.appendChild(el('span', 'num', String(r.age.num))); a.appendChild(el('span', 'unit', r.age.unit)); card.appendChild(a);
+  var f = el('div', 'facts');
+  var fact = function (label, main, small) { var d = el('div'); d.appendChild(el('label', null, label)); d.appendChild(el('b', null, main || 'n/a')); if (small) d.appendChild(el('small', null, small)); f.appendChild(d); };
+  fact('Created', r.created.d, r.created.hm);
+  fact('Received by Packeta', r.recv ? r.recv.d : 'not yet', r.recv ? r.recv.hm + (r.recvAt ? ' · ' + r.recvAt : '') : '');
+  fact('Sender', r.sender);
+  fact('Delivery to', r.dest);
+  card.appendChild(f);
+  var det = el('details'); det.appendChild(el('summary', null, 'All events (' + r.events.length + ')'));
+  var ol = el('ol', 'tl');
+  r.events.slice().reverse().forEach(function (e) { var li = el('li'); li.appendChild(el('time', null, e.when)); li.appendChild(document.createTextNode(e.text)); ol.appendChild(li); });
+  det.appendChild(ol); card.appendChild(det);
+}
+function loading(label) {
+  var card = $('#card'); card.className = 'card'; card.innerHTML = '';
+  card.appendChild(el('div', 'code', label)); card.appendChild(el('div', 'sk')); card.appendChild(el('div', 'sk')); card.appendChild(el('div', 'sk'));
+}
+function addRow(key) {
+  var r = cache[key], list = $('#list');
+  var rk = r.err ? key : 'P' + clean(r.barcode);          // one row per parcel, whatever barcode was scanned
+  var old = list.querySelector('[data-k="' + rk + '"]'); if (old) list.removeChild(old);
+  var row = el('div', 'row'); row.setAttribute('data-k', rk);
+  row.appendChild(el('span', 'dot ' + (r.err ? 'bad' : r.st.c)));
+  row.appendChild(el('span', 'c', r.label));
+  row.appendChild(el('span', 'a', r.err ? '-' : r.age.short));
+  row.appendChild(el('span', 'd', r.err ? r.err : r.created.d));
+  row.addEventListener('click', function () { render(key); window.scrollTo({top: 0, behavior: 'smooth'}); });
+  list.insertBefore(row, list.firstChild);
+  var n = list.children.length;
+  $('#cnt').hidden = false; $('#cnt').textContent = n + ' scanned';
+  $('#hc').textContent = 'Scanned (' + n + ')'; $('#clear').hidden = false;
+}
+
+var ac = null;
+function beep(ok) {
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    var o = ac.createOscillator(), g = ac.createGain();
+    o.frequency.value = ok ? 1150 : 380; g.gain.value = 0.08;
+    o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + (ok ? 0.09 : 0.25));
+  } catch (e) {}
+  try { navigator.vibrate(ok ? 70 : [60, 60, 60]); } catch (e) {}
+}
+function flash() { var w = $('#win'); w.classList.add('hit'); setTimeout(function () { w.classList.remove('hit'); }, 450); }
+
+function lookup(raw) {
+  var key = clean(raw);
+  if (key.length < 6) { cache[key] = {err: 'Barcode too short', label: String(raw)}; render(key); beep(false); return Promise.resolve(); }
+  var label = fmtCode(key);
+  loading(label);
+  return fetch(API + encodeURIComponent(key), {cache: 'no-store'}).then(function (res) {
+    if (res.status === 404) { cache[key] = {err: 'Not found in Packeta tracking', label: label}; return; }
+    if (!res.ok) throw new Error('http ' + res.status);
+    return res.json().then(function (j) {
+      var it = j.item || {}, td = it.trackingDetails || [];
+      if (!td.length) { cache[key] = {err: 'No Packeta events yet', label: fmtCode(it.barcode || key)}; return; }
+      var ev = td.map(function (e) { var p = pt(e.time); return {p: p, raw: e.time, text: strip(e.text), when: p ? p.d + ' ' + p.hm : e.time}; })
+        .filter(function (e) { return e.p; }).sort(function (a, b) { return a.p.t - b.p.t; });
+      var first = ev[0], recv = null, recvAt = '';
+      for (var i = 0; i < ev.length; i++) {
+        var m = ev[i].text.match(/received the parcel for transport\.?\s*(.*)$/i);
+        if (m) { recv = ev[i].p; recvAt = m[1] || ''; break; }
+      }
+      cache[key] = {
+        label: fmtCode(it.barcode || key), barcode: it.barcode || key, scanned: key,
+        age: age(Date.now() - first.p.t), created: first.p, recv: recv, recvAt: recvAt,
+        st: status(it.packetStatus), sender: strip(it.sender).replace(/_+$/, ''), dest: strip(it.branchAddress), events: ev
+      };
+    });
+  }).catch(function () { cache[key] = {err: 'No connection to Packeta', label: label}; })
+    .then(function () { var r = cache[key]; render(key); addRow(key); beep(!r.err); });
+}
+
+// A barcode that stays in front of the camera is checked once, again only after 8 s out of view
+function onCode(text, typed) {
+  if (busy) return;
+  var key = clean(text), now = Date.now(), prev = seen[key];
+  seen[key] = now;
+  if (!typed && prev && now - prev < 8000) return;
+  busy = true; if (!typed) flash();
+  lookup(text).then(function () { busy = false; }, function () { busy = false; });
+}
+
+var VIDEO = {facingMode: 'environment', width: {ideal: 1280}, height: {ideal: 720}};
+var FORMATS = ['CODE_128', 'CODE_39', 'CODE_93', 'ITF', 'EAN_13', 'EAN_8', 'UPC_A', 'CODABAR', 'QR_CODE', 'DATA_MATRIX', 'PDF_417'];
+function stop() {
+  if (timer) { clearTimeout(timer); timer = null; }
+  if (reader) { try { reader.reset(); } catch (e) {} reader = null; }
+  var s = stream || ($('#v').srcObject); if (s) s.getTracks().forEach(function (t) { t.stop(); });
+  stream = null; $('#v').srcObject = null; torchOn = false; $('#torch').hidden = true;
+}
+function setupTorch() {
+  var s = $('#v').srcObject, t = s && s.getVideoTracks && s.getVideoTracks()[0];
+  var caps = t && t.getCapabilities ? t.getCapabilities() : {};
+  if (!caps.torch) return;
+  var b = $('#torch'); b.hidden = false; b.classList.toggle('on', torchOn);
+  b.onclick = function () { torchOn = !torchOn; t.applyConstraints({advanced: [{torch: torchOn}]}).catch(function () {}); b.classList.toggle('on', torchOn); };
+}
+function blocked(msg) { $('#blockedTxt').textContent = msg; $('#blocked').classList.add('show'); }
+function start() {
+  stop(); $('#blocked').classList.remove('show');
+  var v = $('#v');
+  var useZxing = function () {
+    var hints = new Map();
+    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, FORMATS.map(function (f) { return ZXing.BarcodeFormat[f]; }));
+    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+    reader = new ZXing.BrowserMultiFormatReader(hints, 120);
+    return reader.decodeFromConstraints({video: VIDEO}, v, function (res) { if (res) onCode(res.getText()); }).then(setupTorch);
+  };
+  var nat = ('BarcodeDetector' in window) ? BarcodeDetector.getSupportedFormats().catch(function () { return []; }) : Promise.resolve([]);
+  nat.then(function (fm) {
+    var want = ['code_128', 'code_39', 'code_93', 'itf', 'ean_13', 'ean_8', 'upc_a', 'codabar', 'qr_code', 'data_matrix', 'pdf417'].filter(function (f) { return fm.indexOf(f) >= 0; });
+    if (want.indexOf('code_128') < 0) return useZxing();
+    var det = new BarcodeDetector({formats: want}), fails = 0;
+    return navigator.mediaDevices.getUserMedia({video: VIDEO}).then(function (st) { stream = st; v.srcObject = st; return v.play(); }).then(function () {
+      setupTorch();
+      var loop = function () {
+        det.detect(v).then(function (b) { fails = 0; if (b.length) onCode(b[0].rawValue); }).catch(function () { fails++; })
+          .then(function () { if (!stream) return; if (fails > 20) { stop(); useZxing().catch(onCamErr); return; } timer = setTimeout(loop, 110); });
+      };
+      loop();
+    });
+  }).catch(onCamErr);
+}
+function onCamErr(e) {
+  var n = e && e.name;
+  blocked(n === 'NotAllowedError' ? 'Camera access is blocked. Allow the camera for this app in the phone settings, then tap below.'
+    : 'Camera could not start. You can still type a barcode below.');
+}
+$('#retry').addEventListener('click', start);
+document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+$('#manual').addEventListener('submit', function (e) {
+  e.preventDefault(); var t = $('#mi').value; $('#mi').value = ''; $('#mi').blur(); if (t.trim()) onCode(t, true);
+});
+$('#clear').addEventListener('click', function () { $('#list').innerHTML = ''; $('#cnt').hidden = true; $('#clear').hidden = true; $('#hc').textContent = 'Scanned'; seen = {}; });
+start();
+})();
+</script>
+</body>
+</html>
