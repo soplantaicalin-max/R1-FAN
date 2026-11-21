@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>diag</title></head><body><pre id="o">running...</pre>
+<script>
+(function(){
+var API='https://generativelanguage.googleapis.com/v1beta',out=[];
+function w(t){out.push(t);document.getElementById('o').textContent=out.join('\n');}
+function t(name,url,opt){return fetch(url,opt).then(function(r){return r.text().then(function(x){w(name+': HTTP '+r.status+' | '+x.replace(/\s+/g,' ').slice(0,160));});},function(e){w(name+': NETWORK ERROR | '+e.message);});}
+t('GET models',API+'/models?pageSize=1',{headers:{'x-goog-api-key':'dummy-not-a-real-key'}})
+.then(function(){return t('POST generate',API+'/models/gemini-3.1-flash-image:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':'dummy-not-a-real-key'},body:JSON.stringify({contents:[{parts:[{text:'hi'}]}]})});})
+.then(function(){w('DONE');});
+})();
+</script></body></html>
