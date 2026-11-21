@@ -13,7 +13,7 @@
 <link rel="icon" href="icon-192.png">
 <title>5S Standard</title>
 <style>
-:root{--brand:#BA1B02;--brand-d:#8F1500;--ink:#16181D;--mute:#6B7280;--line:#E7E5E4;--bg:#F4F2EF;--card:#fff;
+:root{--brand:#BA1B02;--ink:#16181D;--mute:#6B7280;--line:#E7E5E4;--bg:#F4F2EF;--card:#fff;
 --pos:#1E7A3C;--pos-bg:#E2F1E8;--pos-bd:#A3D4B5;--neg:#B42318;--neg-bg:#FCEEEC;--neg-bd:#E8A9A2;
 --sh:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -27,30 +27,52 @@ button,input{font:inherit}
 .ibtn{background:rgba(255,255,255,.16);border:0;color:#fff;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 main{max-width:760px;margin:0 auto;padding:14px 14px 28px}
 .card{background:var(--card);border-radius:14px;box-shadow:var(--sh);padding:16px;margin-bottom:14px}
-h1{font-size:21px;margin:0 0 4px}
-.sub{color:var(--mute);font-size:15px;margin:0 0 14px}
-.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;border-radius:12px;border:0;padding:12px 16px;font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;margin-top:10px;color:var(--ink);background:#fff}
-.btn svg{margin-right:10px;flex:none}
+h1{font-size:21px;margin:0 0 2px}
+.sub{color:var(--mute);font-size:14px;margin:0}
+.lbl{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--mute);text-transform:uppercase;margin-top:14px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border-radius:12px;border:0;padding:11px 14px;font-weight:700;font-size:16px;cursor:pointer;margin-top:10px;color:var(--ink);background:#fff;text-align:center}
+.btn svg{margin-right:9px;flex:none}
 .btn.primary{background:var(--brand);color:#fff}
-.btn.magic{background:linear-gradient(135deg,#BA1B02,#E0452C);color:#fff;min-height:62px;font-size:19px;box-shadow:0 6px 18px rgba(186,27,2,.28)}
+.btn.magic{background:linear-gradient(135deg,#BA1B02,#E0452C);color:#fff;box-shadow:0 6px 18px rgba(186,27,2,.25)}
 .btn.sec{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
-.btn.ghost{background:transparent;color:var(--mute);min-height:44px;font-weight:600;font-size:15px}
-.btn[disabled]{opacity:.55;cursor:default}
+.btn[disabled]{opacity:.5;cursor:default}
 .row{display:flex;margin:0 -5px}.row>*{flex:1;margin-left:5px;margin-right:5px}
 .vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
-.drop{border:2px dashed var(--line);border-radius:14px;padding:6px 12px 14px;text-align:center}
-.drop.on{border-color:var(--brand);background:#FCEFF0}
-.hint{color:var(--mute);font-size:13px;margin-top:12px}
-.frame{position:relative;margin:0 auto;border-radius:12px;overflow:hidden;background:#222}
+.chips{display:flex;flex-wrap:wrap;margin:4px -4px 0}
+.chip{margin:4px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-weight:700;font-size:15px;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.week{display:flex;align-items:center;margin-top:12px;padding:12px;border-radius:12px;background:#F7F0E5;border:1px solid #EADDC6}
+.week .wt{flex:1}.week .wt b{display:block;font-size:15px}.week .wt span{font-size:13px;color:var(--mute)}
+.week .btn{width:auto;min-height:40px;margin:0 0 0 10px;padding:8px 12px;font-size:14px}
+.pp{display:inline-block;font-size:13px;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
+.pp.ok{color:var(--pos);background:var(--pos-bg);border-color:var(--pos-bd)}
+.pp.ko{color:var(--neg);background:var(--neg-bg);border-color:var(--neg-bd)}
+.pp.na{color:#6B7280;background:#F3F4F6;border-color:#E5E7EB}
+.zrow{display:flex;align-items:center;padding:12px 2px;border-top:1px solid var(--line);cursor:pointer}
+.zrow:first-of-type{border-top:0}
+.zrow .zn{flex:1;font-weight:700;padding-right:8px}.zrow .zs{font-size:13px;color:var(--mute);font-weight:500}
+.zrow .chev{color:#C4C0BA;font-size:22px;margin-left:8px}
+.back{background:none;border:0;color:var(--brand);font-weight:700;padding:0;margin:0 0 8px;cursor:pointer;font-size:15px}
+.frame{position:relative;margin:10px auto 0;border-radius:12px;overflow:hidden;background:#222}
 .frame img{display:block;width:100%;height:100%;object-fit:cover}
-.note{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:15px;background:#fff;color:var(--ink)}
-.busy{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(22,24,29,.55);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:17px;overflow:hidden}
-.busy small{font-weight:500;opacity:.85;margin-top:6px;font-size:14px}
-.spin{width:46px;height:46px;border-radius:50%;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;animation:sp 1s linear infinite;margin-bottom:12px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.scan{position:absolute;left:0;right:0;height:35%;top:-35%;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.22),rgba(255,255,255,0));animation:sc 2.2s ease-in-out infinite}
-@keyframes sc{to{top:100%}}
-.cmp{position:relative;margin:0 auto;border-radius:12px;overflow:hidden;background:#222;touch-action:pan-y;cursor:ew-resize;-webkit-user-select:none;-moz-user-select:none;user-select:none}
+.stdimg{display:block;width:100%;border-radius:12px;margin-top:10px}
+.empty{color:var(--mute);font-size:14px;border:2px dashed var(--line);border-radius:12px;padding:22px 16px;background:#FAFAF9;text-align:center;margin-top:10px}
+.sgrp{margin-top:14px}
+.sgrp b{font-size:12px;letter-spacing:.06em;color:var(--brand);text-transform:uppercase}
+.crit{padding:7px 0;border-top:1px solid var(--line);font-size:15px}
+.sgrp .crit:first-of-type{border-top:0}
+.ci{display:flex;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.ci .t{flex:1;font-size:15px;padding-right:8px}
+.ci.nok .t{color:var(--neg);font-weight:600}
+.yn{width:50px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:20px;font-weight:800;margin-left:6px;cursor:pointer;color:#A8A29E;flex:none}
+.yn.y.on{background:var(--pos);border-color:var(--pos);color:#fff}
+.yn.n.on{background:var(--neg);border-color:var(--neg);color:#fff}
+.in{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px;font-size:15px;background:#fff;color:var(--ink);margin-top:6px}
+.score{text-align:center;padding:4px 0 6px}
+.score .v{font-size:46px;font-weight:800;line-height:1.1}
+.score .s{color:var(--mute);font-size:14px}
+.vg{color:var(--pos)}.vr{color:var(--neg)}
+.cmp{position:relative;margin:10px auto 0;border-radius:12px;overflow:hidden;background:#222;touch-action:pan-y;cursor:ew-resize;-webkit-user-select:none;-moz-user-select:none;user-select:none}
 .cmp img{display:block;-webkit-user-drag:none;pointer-events:none}
 .cmp .aft{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
 .cmp .bwrap{position:absolute;top:0;left:0;height:100%;overflow:hidden}
@@ -60,24 +82,30 @@ h1{font-size:21px;margin:0 0 4px}
 .pill{position:absolute;top:10px;font-size:12px;font-weight:800;letter-spacing:.04em;padding:5px 10px;border-radius:999px;border:1px solid}
 .pill.b{left:10px;color:var(--neg);background:var(--neg-bg);border-color:var(--neg-bd)}
 .pill.a{right:10px;color:var(--pos);background:var(--pos-bg);border-color:var(--pos-bd)}
-.lbl{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--mute);text-transform:uppercase;margin-top:14px}
-.acts{margin:6px 0 2px;padding:0;list-style:none}
-.acts li{position:relative;padding:8px 0 8px 30px;border-top:1px solid var(--line);font-size:15px}
-.acts li:first-child{border-top:0}
-.acts li:before{content:"";position:absolute;left:3px;top:10px;width:17px;height:17px;border-radius:50%;background:var(--pos-bg);border:1.5px solid var(--pos)}
-.acts li:after{content:"";position:absolute;left:9px;top:13px;width:5px;height:9px;border:solid var(--pos);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.busy{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(22,24,29,.55);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:16px;z-index:3}
+.busy small{font-weight:500;opacity:.85;margin-top:6px;font-size:14px}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;animation:sp 1s linear infinite;margin-bottom:12px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hint{color:var(--mute);font-size:13px;margin-top:8px;text-align:center}
+.nok{margin:6px 0 0;padding:0;list-style:none}
+.nok li{position:relative;padding:8px 0 8px 26px;border-top:1px solid var(--line);font-size:15px}
+.nok li:first-child{border-top:0}
+.nok li:before{content:"\2717";position:absolute;left:4px;top:8px;color:var(--neg);font-weight:800}
+.who{font-size:14px;margin-top:6px;font-weight:600}
+table.wk{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+table.wk td{padding:9px 4px;border-top:1px solid var(--line)}
+table.wk td.r{text-align:right;white-space:nowrap}
 .err{border:1.5px solid var(--neg-bd);background:var(--neg-bg)}
 .err b{color:var(--neg);display:block;font-size:16px}
 .err pre{white-space:pre-wrap;word-break:break-word;font-size:12px;background:#fff;border:1px solid var(--neg-bd);border-radius:8px;padding:10px;margin:10px 0 0;max-height:240px;overflow:auto;font-family:Menlo,Consolas,monospace}
-.ov{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(22,24,29,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:#fff;width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:18px 16px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
-@media (min-width:700px){.ov{align-items:center}.sheet{border-radius:18px}}
-.sheet h2{margin:0 0 6px;font-size:19px}
-.field{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px;font-size:15px;margin-top:6px;font-family:Menlo,Consolas,monospace}
-.st{font-size:14px;margin-top:10px;min-height:20px;word-break:break-word}
-.st.ok{color:var(--pos);font-weight:700}.st.bad{color:var(--neg)}
 .small{font-size:13px;color:var(--mute);margin-top:8px}
 .small a{color:var(--brand)}
+.ov{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(22,24,29,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:18px 16px;padding-bottom:calc(18px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+@media (min-width:700px){.ov{align-items:center}.sheet{border-radius:18px}}
+.sheet h2{margin:0 0 4px;font-size:19px}
+.st{font-size:14px;margin-top:10px;min-height:20px;word-break:break-word}
+.st.ok{color:var(--pos);font-weight:700}.st.bad{color:var(--neg)}
 .foot{color:var(--mute);font-size:12px;text-align:center;margin:6px 0 0;padding:0 10px}
 </style>
 </head>
@@ -87,56 +115,95 @@ h1{font-size:21px;margin:0 0 4px}
   <button id="bSet" class="ibtn" aria-label="Setari"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 </header>
 <main>
-  <section id="sPick" class="card">
-    <h1>Cum arata bine</h1>
-    <p class="sub">Fa poza zonei care nu arata ok. Un buton si vezi aceeasi zona la standard 5S.</p>
-    <div id="drop" class="drop">
-      <label class="btn primary" for="inCam"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Fa poza zonei</label>
-      <label class="btn sec" for="inGal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>Alege din galerie</label>
-      <div class="hint">Pe PC: Ctrl+V sau trage poza aici</div>
+  <section id="sHome">
+    <div class="card">
+      <h1>Standard 5S depozit</h1>
+      <p class="sub" id="hSub"></p>
+      <div class="lbl">Depozit</div>
+      <div class="chips" id="depChips"></div>
+      <div class="week"><div class="wt"><b id="wTitle"></b><span id="wInfo"></span></div><span id="wScore" class="pp na">n/a</span><button id="bWeek" class="btn sec">Raport</button></div>
     </div>
+    <div class="card"><div class="lbl" style="margin-top:0">Zone · alege zona pentru audit</div><div id="zoneList"></div></div>
+  </section>
+
+  <section id="sZone" class="card" hidden>
+    <button class="back" id="bBackZ">&#8249; Zone</button>
+    <h1 id="zTitle"></h1><p class="sub" id="zDep"></p>
+    <div id="zStd"></div>
+    <div class="row"><label class="btn sec" for="inStd" id="lblStd">Seteaza poza standard</label><button id="bSheet" class="btn sec">Fisa A4</button></div>
+    <input id="inStd" class="vh" type="file" accept="image/*">
+    <div id="zCrit"></div>
+    <button id="bStart" class="btn primary">Incepe auditul</button>
+  </section>
+
+  <section id="sAudit" class="card" hidden>
+    <button class="back" id="bBackA">&#8249; Zona</button>
+    <h1 id="aTitle"></h1><p class="sub" id="aDep"></p>
+    <div id="aPick">
+      <label class="btn sec" for="inCam"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Fa poza zonei acum</label>
+      <div class="hint">sau <label for="inGal" style="color:#BA1B02;font-weight:700;cursor:pointer">alege din galerie</label> · pe PC: Ctrl+V</div>
+    </div>
+    <div id="aPrev" hidden><div id="fPhoto" class="frame"><img id="iPhoto" alt="Poza zonei"></div><div class="hint"><label for="inCam" style="color:#BA1B02;font-weight:700;cursor:pointer">Alta poza</label></div></div>
     <input id="inCam" class="vh" type="file" accept="image/*" capture="environment">
     <input id="inGal" class="vh" type="file" accept="image/*">
-  </section>
-
-  <section id="sPhoto" class="card" hidden>
-    <div id="fPhoto" class="frame"><img id="iPhoto" alt="Poza zonei"><div id="busy" class="busy" hidden><div class="scan"></div><div class="spin"></div>Lucrez la standard<small id="busyT">0 s</small></div></div>
-    <input id="note" class="note" type="text" maxlength="140" placeholder="Optional: ce sa repare (ex: culoar liber, fara folie pe jos)">
-    <button id="bMagic" class="btn magic"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2l1.9 5.6L18.5 9.5l-5.6 1.9L11 17l-1.9-5.6L3.5 9.5l5.6-1.9z"/><path d="M19 13.5l.9 2.6 2.6.9-2.6.9L19 20.5l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Arata standardul 5S</button>
-    <button id="bReset1" class="btn ghost">Schimba poza</button>
-  </section>
-
-  <section id="sRes" class="card" hidden>
-    <div id="cmp" class="cmp">
-      <img id="iAft" class="aft" alt="Standard 5S">
-      <div id="bwrap" class="bwrap"><img id="iBef" alt="Inainte"></div>
-      <div id="hdl" class="hdl"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#BA1B02"><path d="M9 6l-6 6 6 6zM15 6l6 6-6 6z"/></svg></i></div>
-      <span class="pill b">INAINTE</span><span class="pill a">STANDARD 5S · AI</span>
+    <div id="aList"></div>
+    <div id="aOwnerBox" hidden>
+      <div class="lbl">Cine corecteaza si pana cand</div>
+      <input id="aOwner" class="in" type="text" maxlength="60" placeholder="Nume">
+      <input id="aDue" class="in" type="date">
     </div>
-    <div class="hint" style="text-align:center">Trage linia ca sa compari</div>
-    <div id="actsBox" hidden><div class="lbl">Ce facem</div><ul id="acts" class="acts"></ul></div>
-    <button id="bShare" class="btn primary"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Trimite imaginea</button>
-    <div class="row"><button id="bAgain" class="btn sec"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Alta varianta</button><button id="bNew" class="btn sec"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Poza noua</button></div>
+    <button id="bFinish" class="btn primary" disabled>Finalizeaza auditul</button>
+  </section>
+
+  <section id="sResult" class="card" hidden>
+    <p class="sub" id="rZone" style="text-align:center"></p>
+    <div class="score"><div class="v" id="rScoreV"></div><div class="s" id="rScoreS"></div></div>
+    <div id="rCmpWrap" style="position:relative">
+      <div id="cmp" class="cmp" hidden>
+        <img id="iAft" class="aft" alt="Standard">
+        <div id="bwrap" class="bwrap"><img id="iBef" alt="Acum"></div>
+        <div id="hdl" class="hdl"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#BA1B02"><path d="M9 6l-6 6 6 6zM15 6l6 6-6 6z"/></svg></i></div>
+        <span class="pill b">ACUM</span><span class="pill a" id="pillA">STANDARD</span>
+        <div id="rBusy" class="busy" hidden><div class="spin"></div>Lucrez la imagine<small id="rBusyT">0 s</small></div>
+      </div>
+      <div id="rSingle" class="frame" hidden><img id="rSingleImg" alt="Acum"><span class="pill b">ACUM</span><div id="rBusy2" class="busy" hidden><div class="spin"></div>Lucrez la imagine<small id="rBusyT2">0 s</small></div></div>
+    </div>
+    <div class="hint" id="rHint"></div>
+    <div id="rNokBox"><div class="lbl">De corectat</div><ul class="nok" id="rNok"></ul><div class="who" id="rWho"></div></div>
+    <button id="bShareA" class="btn primary"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Trimite auditul</button>
+    <button id="bAI" class="btn magic" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2l1.9 5.6L18.5 9.5l-5.6 1.9L11 17l-1.9-5.6L3.5 9.5l5.6-1.9z"/><path d="M19 13.5l.9 2.6 2.6.9-2.6.9L19 20.5l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Arata cu AI cum ar trebui</button>
+    <button id="bDone" class="btn sec">Inapoi la zone</button>
+  </section>
+
+  <section id="sWeek" class="card" hidden>
+    <button class="back" id="bBackW">&#8249; Zone</button>
+    <h1>Raport 5S</h1><p class="sub" id="wkTitle"></p>
+    <div class="score"><div class="v" id="wkScoreV"></div><div class="s" id="wkScoreS"></div></div>
+    <table class="wk"><tbody id="wkRows"></tbody></table>
+    <div id="wkNokBox"><div class="lbl">De corectat</div><ul class="nok" id="wkNok"></ul></div>
+    <button id="bShareW" class="btn primary">Trimite raportul</button>
   </section>
 
   <section id="sErr" class="card err" hidden>
     <b id="eT">Eroare</b>
     <div id="eHelp" class="small"></div>
     <pre id="eRaw"></pre>
-    <button id="bErrX" class="btn ghost">Inchide</button>
+    <button id="bErrX" class="btn sec">Inchide</button>
   </section>
 
-  <p class="foot">Poza pleaca la Google Gemini doar cand apesi butonul. Nu se salveaza nimic pe server.</p>
+  <p class="foot">Pozele si auditurile raman pe acest telefon. Butonul AI apare doar daca pui o cheie Google in Setari.</p>
 </main>
 
 <div id="ov" class="ov" hidden>
   <div class="sheet">
     <h2>Setari</h2>
-    <div class="lbl" style="margin-top:0">Cheie Google AI (Gemini)</div>
-    <input id="kIn" class="field" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Lipeste cheia aici">
+    <div class="lbl" style="margin-top:6px">Tinta scor 5S (%)</div>
+    <input id="tIn" class="in" type="number" min="50" max="100" step="1">
+    <div class="lbl">Cheie Google AI (optional, doar pentru butonul AI)</div>
+    <input id="kIn" class="in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Lipeste cheia aici">
     <div class="small">Ramane doar pe acest dispozitiv. O iei din <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>, pe un proiect cu facturare activa.</div>
     <div id="kSt" class="st"></div>
-    <button id="bKSave" class="btn primary">Salveaza si testeaza</button>
+    <button id="bKSave" class="btn primary">Salveaza</button>
     <div class="row"><button id="bKDel" class="btn sec">Sterge cheia</button><button id="bKClose" class="btn sec">Inchide</button></div>
   </div>
 </div>
@@ -144,14 +211,15 @@ h1{font-size:21px;margin:0 0 4px}
 <script>
 (function(){
 'use strict';
+var STD={"version":"1.0","date":"21.11.2026","s":{"S1":["Sortare","ce nu trebuie in zona, pleaca"],"S2":["Ordonare","un loc marcat pentru fiecare lucru"],"S3":["Curatenie","curat si verificat, zilnic"],"S4":["Standardizare","marcaje, etichete, fisa cu poza"],"S5":["Sustinere","check zilnic, audit, actiuni"]},"zones":[{"id":"RAMPA","name":"Rampa si docuri","crit":[["S1","Nimic pe jos: folie, chingi, cartoane, paleti rupti"],["S2","Coletele descarcate stau doar in zona marcata"],["S2","Fata usilor de doc libera"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Pardoseala maturata, fara pete"],["S4","Usi de doc numerotate, marcaj galben vizibil"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"SORT","name":"Sortare","crit":[["S1","Niciun colet pe jos, in afara custilor"],["S2","Fiecare directie are cusca etichetata cu codul ei"],["S2","Colete asezate drept, eticheta in fata"],["S2","Colete fara eticheta sau deteriorate: imediat la Exceptii"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Masa de sortare goala si curata la final de tura"],["S4","Marcaj galben pentru custi si culoare, vizibil"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"EXP","name":"Expeditie: paleti si Baliky","crit":[["S1","Fara paleti goi sau rupti in zona"],["S2","Paleti doar in locurile marcate, aliniati"],["S2","Destinatia vizibila pe fiecare palet si Balik"],["S2","Paleti infoliati, nimic peste conturul paletului"],["S2","Culoarul de transpalet liber"],["S4","Locurile de palet marcate si numerotate"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"EXC","name":"Exceptii: retururi, deteriorate, fara eticheta","crit":[["S1","Nimic pe jos, nimic pe raft fara loc"],["S2","Raft pe categorii: retur, deteriorat, fara eticheta, asteptare"],["S2","Fiecare colet are data intrarii scrisa"],["S3","Raft curat, fara cutii rupte sau goale"],["S4","Fiecare locatie de raft etichetata"],["S5","Lista exceptiilor verificata zilnic"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"LUCRU","name":"Statie de lucru","crit":[["S1","Pe masa doar PC, imprimanta, scanner, consumabile"],["S1","Fara obiecte personale pe masa"],["S2","Scanerele la incarcat, pe locul numerotat"],["S2","Cabluri prinse, nimic pe jos"],["S3","Masa si echipamentele curate"],["S4","Contur marcat pentru fiecare obiect de pe masa"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"ECH","name":"Echipamente: transpaleti, carucioare, incarcatoare","crit":[["S1","Echipament defect: eticheta rosie, scos din lucru"],["S2","Fiecare echipament parcat in locul marcat"],["S2","Incarcatoare si cabluri ordonate, nimic pe jos"],["S3","Echipamente curate, fara folie sau chingi agatate"],["S4","Locuri de parcare marcate si numerotate"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"DES","name":"Deseuri","crit":[["S1","Containere separate: carton, folie, menajer"],["S2","Fiecare container etichetat"],["S2","Niciun container plin peste margine"],["S3","Zona din jurul containerelor curata"],["S4","Programul de golire afisat"],["S5","Fisa zonei afisata, check zilnic semnat"]]}]};
+var DEPOTS=[['R01','R01 Bucuresti'],['R41','R41 Oradea']];
 var API='https://generativelanguage.googleapis.com/v1beta';
-var K_KEY='5s.key',K_MODEL='5s.model';
+var K_KEY='5s.key',K_MODEL='5s.model',K_DEP='5s.depot',K_TGT='5s.target';
 var MAXSIDE=1536,TIMEOUT=120000;
 var RATIOS=[['1:1',1],['2:3',2/3],['3:2',3/2],['3:4',3/4],['4:3',4/3],['4:5',4/5],['5:4',5/4],['9:16',9/16],['16:9',16/9],['21:9',21/9]];
 var PREF=[/nano-banana-2\.1/,/3\.1-flash-image/,/nano-banana(?!.*lite)/,/pro-image/,/2\.5-flash-image/];
 var FALLBACK=['gemini-nano-banana-2.1','gemini-3.1-flash-image','gemini-2.5-flash-image'];
 var FONT='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif';
-
 var PROMPT=[
 'Edit this photo. It shows a zone in a parcel logistics depot (Packeta Romania) that does not meet the 5S standard. Create the SAME photo after the depot team has applied 5S properly, so the team can see what good looks like.',
 '',
@@ -162,27 +230,57 @@ var PROMPT=[
 '- the purpose of the zone: parcels, pallets and cages that belong to the work stay, but in order',
 '- people stay as they are; do not add people',
 '',
-'CHANGE ONLY WHAT A DEPOT TEAM CAN DO IN ONE SHIFT WITH WHAT IT HAS, PLUS TAPE, LABELS AND BINS:',
-'1. Sort: remove trash, stretch film, straps, loose or empty cardboard, broken pallets, cups, bottles, personal items and anything that does not belong in this zone.',
-'2. Set in order: parcels stacked straight in cages, roll containers or on pallets, labels facing out; nothing on the floor outside a marked area; pallets aligned inside marked bays; scanners, cutters, tape guns and carts in fixed places; aisles and walkways completely free; fire extinguishers, exits, electrical panels and dock doors kept clear.',
-'3. Shine: floor swept and clean, surfaces wiped, no spills or dust.',
-'4. Standardize: yellow floor lines for walkways and pallet bays; short simple labels (letters and numbers) on racks, bins and locations; separate bins for cardboard, plastic film and general waste.',
+'CHANGE ONLY WHAT A DEPOT TEAM CAN DO IN ONE SHIFT WITH WHAT IT HAS, PLUS TAPE, LABELS AND BINS.',
 '',
 'RESULT: a believable smartphone photo of the same place on a good day. Realistic, not a render, not luxury. No new furniture or machines. No added logos or brand names.'
 ].join('\n');
-var ASK_TXT='\n\nAfter the image, write at most 5 short lines in Romanian without diacritics. Each line starts with "- " and names one concrete action you applied, at most 8 words. No other text.';
 
-var st={photo:null,after:null,acts:[],busy:false,models:null,shareBlob:null,pos:50,drag:false,ticker:null};
+var st={depot:'R01',zone:null,photo:null,ans:[],std:null,aiUrl:null,last:null,busy:false,models:null,pos:50,drag:false,ticker:null,shareBlob:null};
 
+/* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
 function lsGet(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
-function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){return false;}}
 function lsDel(k){try{localStorage.removeItem(k);}catch(e){}}
 function mk(kind,msg,extra){var e=new Error(msg);e.kind=kind;if(extra){for(var k in extra){if(extra.hasOwnProperty(k))e[k]=extra[k];}}return e;}
 function clean(s){s=String(s||'');if(s.normalize)s=s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');return s.replace(/[\u2013\u2014]/g,'-');}
 function p2(n){return (n<10?'0':'')+n;}
+function today(){var d=new Date();return p2(d.getDate())+'.'+p2(d.getMonth()+1)+'.'+d.getFullYear();}
+function fmtDate(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?(m[3]+'.'+m[2]+'.'+m[1]):(s||'');}
+function target(){var t=parseFloat(lsGet(K_TGT));return (t>=50&&t<=100)?t:90;}
+function pct(ok,tot){return tot?ok/tot*100:null;}
+function fmt(p){if(p==null)return 'n/a';var r=Math.round(p*10)/10;return (r%1===0?String(r):r.toFixed(1).replace('.',','))+'%';}
+function cls(p){return p==null?'na':(p>=target()?'ok':'ko');}
+function setPill(el,p){el.className='pp '+cls(p);el.textContent=fmt(p);}
+function depName(){for(var i=0;i<DEPOTS.length;i++){if(DEPOTS[i][0]===st.depot)return DEPOTS[i][1];}return st.depot;}
+function zoneById(id){for(var i=0;i<STD.zones.length;i++){if(STD.zones[i].id===id)return STD.zones[i];}return null;}
+function groups(z){var out=[],map={};z.crit.forEach(function(c,i){if(!map[c[0]]){map[c[0]]={s:c[0],items:[],idx:[]};out.push(map[c[0]]);}map[c[0]].items.push(c[1]);map[c[0]].idx.push(i);});return out;}
+function isoWeek(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);var y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));return {y:t.getUTCFullYear(),w:Math.ceil(((t-y0)/864e5+1)/7)};}
+function wkKey(){var k=isoWeek(new Date());return '5s.wk.'+st.depot+'.'+k.y+'-'+p2(k.w);}
+function wkGet(){try{return JSON.parse(lsGet(wkKey())||'{}')||{};}catch(e){return {};}}
+function wkSet(o){if(!lsSet(wkKey(),JSON.stringify(o)))showErr(mk('file','Auditul nu s-a putut salva pe acest telefon (memorie plina).'));}
+var SECS=['sHome','sZone','sAudit','sResult','sWeek'];
+function show(id){SECS.forEach(function(s){$(s).hidden=(s!==id);});hideErr();window.scrollTo(0,0);fit();}
 
-function show(id){['sPick','sPhoto','sRes'].forEach(function(s){$(s).hidden=(s!==id);});fit();}
+/* ---------- standard photos: IndexedDB, fallback localStorage, then memory ---------- */
+var DB=null,MEM={};
+function db(){return new Promise(function(ok,no){
+  if(DB){ok(DB);return;}
+  if(!window.indexedDB){no(new Error('no indexedDB'));return;}
+  var r;try{r=indexedDB.open('5s-standard',1);}catch(e){no(e);return;}
+  r.onupgradeneeded=function(){r.result.createObjectStore('photos');};
+  r.onsuccess=function(){DB=r.result;ok(DB);};
+  r.onerror=function(){no(r.error||new Error('indexedDB'));};
+});}
+function stdKey(z){return st.depot+':'+z;}
+function stdGet(z){var k=stdKey(z);
+  return db().then(function(d){return new Promise(function(ok,no){var q=d.transaction('photos','readonly').objectStore('photos').get(k);q.onsuccess=function(){ok(q.result||null);};q.onerror=function(){no(q.error);};});})
+  .catch(function(){var v=lsGet('5s.std.'+k);return v?{url:v}:(MEM[k]||null);});
+}
+function stdPut(z,url){var k=stdKey(z),v={url:url,ts:Date.now()};MEM[k]=v;
+  return db().then(function(d){return new Promise(function(ok,no){var tx=d.transaction('photos','readwrite');tx.objectStore('photos').put(v,k);tx.oncomplete=function(){ok();};tx.onerror=function(){no(tx.error);};});})
+  .catch(function(){if(!lsSet('5s.std.'+k,url))throw mk('file','Poza standard nu s-a putut salva pe acest telefon. Ramane pana inchizi pagina.');});
+}
 
 /* ---------- photo in ---------- */
 function pickRatio(a){var best=RATIOS[0],bd=1e9;RATIOS.forEach(function(r){var d=Math.abs(Math.log(a)-Math.log(r[1]));if(d<bd){bd=d;best=r;}});return best;}
@@ -197,7 +295,7 @@ function loadBlob(blob){
         var s=Math.min(1,MAXSIDE/Math.max(sw,sh)),cw=Math.round(sw*s),ch=Math.round(sh*s);
         var c=document.createElement('canvas');c.width=cw;c.height=ch;
         var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cw,ch);x.drawImage(img,sx,sy,sw,sh,0,0,cw,ch);
-        var d=c.toDataURL('image/jpeg',0.9);URL.revokeObjectURL(u);
+        var d=c.toDataURL('image/jpeg',0.88);URL.revokeObjectURL(u);
         res({url:d,b64:d.slice(d.indexOf(',')+1),w:cw,h:ch,ar:r[0],ratio:cw/ch});
       }catch(e){rej(mk('file','Poza nu se poate pregati: '+e.message));}
     };
@@ -205,36 +303,164 @@ function loadBlob(blob){
     img.src=u;
   });
 }
-function onBlob(b){
-  if(st.busy)return;
-  hideErr();
-  loadBlob(b).then(function(p){
-    st.photo=p;st.after=null;st.acts=[];st.shareBlob=null;
-    $('iPhoto').src=p.url;show('sPhoto');window.scrollTo(0,0);
-  }).catch(showErr);
-}
-['inCam','inGal'].forEach(function(id){$(id).addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(f)onBlob(f);});});
+function auditPhoto(b){loadBlob(b).then(function(p){st.photo=p;renderAPhoto();}).catch(showErr);}
+function stdPhoto(b){loadBlob(b).then(function(p){return stdPut(st.zone.id,p.url).then(function(){st.std={url:p.url};renderStd();},function(e){st.std={url:p.url};renderStd();showErr(e);});}).catch(showErr);}
+function routeBlob(b){if(!$('sAudit').hidden)auditPhoto(b);else if(!$('sZone').hidden)stdPhoto(b);}
+['inCam','inGal'].forEach(function(id){$(id).addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(f)auditPhoto(f);});});
+$('inStd').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(f)stdPhoto(f);});
 document.addEventListener('paste',function(e){
   var cd=e.clipboardData;if(!cd)return;
   var it=cd.items||[],i,f;
-  for(i=0;i<it.length;i++){if(it[i].kind==='file'&&/^image\//.test(it[i].type)){f=it[i].getAsFile();if(f){e.preventDefault();onBlob(f);return;}}}
-  var fs=cd.files||[];
-  for(i=0;i<fs.length;i++){if(/^image\//.test(fs[i].type)){e.preventDefault();onBlob(fs[i]);return;}}
+  for(i=0;i<it.length;i++){if(it[i].kind==='file'&&/^image\//.test(it[i].type)){f=it[i].getAsFile();if(f){e.preventDefault();routeBlob(f);return;}}}
+  var fs=cd.files||[];for(i=0;i<fs.length;i++){if(/^image\//.test(fs[i].type)){e.preventDefault();routeBlob(fs[i]);return;}}
 });
-['dragenter','dragover'].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();$('drop').classList.add('on');});});
-document.addEventListener('dragleave',function(e){if(!e.relatedTarget)$('drop').classList.remove('on');});
-document.addEventListener('drop',function(e){e.preventDefault();$('drop').classList.remove('on');var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)onBlob(f);});
+['dragenter','dragover'].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();});});
+document.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)routeBlob(f);});
+
+/* ---------- home ---------- */
+function renderHome(){
+  var tot=0;STD.zones.forEach(function(z){tot+=z.crit.length;});
+  $('hSub').textContent='v'+STD.version+' · '+STD.zones.length+' zone · '+tot+' criterii · tinta '+fmt(target());
+  var ch=$('depChips');ch.innerHTML='';
+  DEPOTS.forEach(function(d){var b=document.createElement('button');b.className='chip'+(d[0]===st.depot?' on':'');b.textContent=d[1];
+    b.onclick=function(){st.depot=d[0];lsSet(K_DEP,d[0]);renderHome();};ch.appendChild(b);});
+  var wk=wkGet(),so=0,stt=0,n=0;
+  STD.zones.forEach(function(z){var r=wk[z.id];if(r){so+=r.ok;stt+=r.tot;n++;}});
+  $('wTitle').textContent='Saptamana '+isoWeek(new Date()).w;
+  $('wInfo').textContent=n+' din '+STD.zones.length+' zone auditate';
+  setPill($('wScore'),pct(so,stt));$('bWeek').disabled=!n;
+  var L=$('zoneList');L.innerHTML='';
+  STD.zones.forEach(function(z){
+    var r=wk[z.id],row=document.createElement('div');row.className='zrow';
+    var zn=document.createElement('div');zn.className='zn';zn.appendChild(document.createTextNode(z.name));
+    var sm=document.createElement('div');sm.className='zs';sm.textContent=z.crit.length+' criterii';zn.appendChild(sm);row.appendChild(zn);
+    var pp=document.createElement('span');setPill(pp,r?pct(r.ok,r.tot):null);row.appendChild(pp);
+    var cv=document.createElement('span');cv.className='chev';cv.textContent='\u203A';row.appendChild(cv);
+    row.onclick=function(){openZone(z.id);};L.appendChild(row);
+    stdGet(z.id).then(function(v){if(!v)sm.textContent=z.crit.length+' criterii · fara poza standard';}).catch(function(){});
+  });
+}
+$('bWeek').addEventListener('click',function(){renderWeek();show('sWeek');});
+
+/* ---------- zone ---------- */
+function critList(el,z){
+  el.innerHTML='';
+  groups(z).forEach(function(g){var d=document.createElement('div');d.className='sgrp';var b=document.createElement('b');b.textContent=g.s+' '+STD.s[g.s][0];d.appendChild(b);
+    g.items.forEach(function(t){var c=document.createElement('div');c.className='crit';c.textContent=t;d.appendChild(c);});el.appendChild(d);});
+}
+function openZone(id){
+  st.zone=zoneById(id);st.std=null;
+  $('zTitle').textContent=st.zone.name;$('zDep').textContent=depName();
+  critList($('zCrit'),st.zone);renderStd();show('sZone');
+  stdGet(id).then(function(v){st.std=v;renderStd();}).catch(function(){});
+}
+function renderStd(){
+  var b=$('zStd');b.innerHTML='';
+  if(st.std&&st.std.url){var im=document.createElement('img');im.className='stdimg';im.alt='Poza standard';im.src=st.std.url;b.appendChild(im);$('lblStd').textContent='Schimba poza standard';}
+  else{var e=document.createElement('div');e.className='empty';e.textContent='Fara poza standard. Dupa 5S blitz, fa poza din punctul foto marcat si seteaz-o aici.';b.appendChild(e);$('lblStd').textContent='Seteaza poza standard';}
+}
+$('bBackZ').addEventListener('click',function(){renderHome();show('sHome');});
+$('bStart').addEventListener('click',startAudit);
+$('bSheet').addEventListener('click',function(){buildSheet().then(function(b){doShare(b,'5S_Fisa_'+st.depot+'_'+st.zone.id+'.jpg');},showErr);});
+
+/* ---------- audit ---------- */
+function startAudit(){
+  st.photo=null;st.aiUrl=null;st.ans=st.zone.crit.map(function(){return null;});
+  $('aTitle').textContent=st.zone.name;$('aDep').textContent=depName()+' · audit '+today();
+  $('aOwner').value='';$('aDue').value='';
+  renderAPhoto();renderAList();show('sAudit');
+}
+function renderAPhoto(){var has=!!st.photo;$('aPrev').hidden=!has;$('aPick').hidden=has;if(has){$('iPhoto').src=st.photo.url;fit();}}
+function renderAList(){
+  var L=$('aList');L.innerHTML='';
+  groups(st.zone).forEach(function(g){
+    var h=document.createElement('div');h.className='sgrp';var b=document.createElement('b');b.textContent=g.s+' '+STD.s[g.s][0];h.appendChild(b);L.appendChild(h);
+    g.idx.forEach(function(i){
+      var row=document.createElement('div');row.className='ci'+(st.ans[i]===false?' nok':'');
+      var t=document.createElement('div');t.className='t';t.textContent=st.zone.crit[i][1];row.appendChild(t);
+      [true,false].forEach(function(v){var bt=document.createElement('button');bt.className='yn '+(v?'y':'n')+(st.ans[i]===v?' on':'');
+        bt.textContent=v?'\u2713':'\u2717';bt.setAttribute('aria-label',v?'Da':'Nu');bt.onclick=function(){st.ans[i]=v;renderAList();};row.appendChild(bt);});
+      L.appendChild(row);
+    });
+  });
+  updateFinish();
+}
+function updateFinish(){
+  var left=st.ans.filter(function(a){return a===null;}).length,anyNok=st.ans.some(function(a){return a===false;});
+  $('aOwnerBox').hidden=!anyNok;
+  var need=anyNok&&(!$('aOwner').value.trim()||!$('aDue').value.trim());
+  var b=$('bFinish');b.disabled=(left>0)||need;
+  b.textContent=left?('Mai ai '+left+' criterii'):(need?'Pune cine corecteaza si termenul':'Finalizeaza auditul');
+}
+$('aOwner').addEventListener('input',updateFinish);$('aDue').addEventListener('input',updateFinish);$('aDue').addEventListener('change',updateFinish);
+$('bBackA').addEventListener('click',function(){show('sZone');});
+$('bFinish').addEventListener('click',function(){
+  var ok=0,nok=[];st.ans.forEach(function(a,i){if(a)ok++;else nok.push(i);});
+  var rec={ok:ok,tot:st.ans.length,nok:nok,owner:nok.length?clean($('aOwner').value.trim()):'',due:nok.length?$('aDue').value.trim():'',ts:Date.now()};
+  var wk=wkGet();wk[st.zone.id]=rec;wkSet(wk);
+  st.last=rec;st.aiUrl=null;renderResult();show('sResult');reveal();
+});
+
+/* ---------- result ---------- */
+function rightImg(){if(st.aiUrl)return {url:st.aiUrl,lab:'STANDARD 5S · AI'};if(st.std&&st.std.url)return {url:st.std.url,lab:'STANDARD'};return null;}
+function renderResult(){
+  var r=st.last,p=pct(r.ok,r.tot);
+  $('rZone').textContent=st.zone.name+' · '+depName()+' · '+today();
+  var v=$('rScoreV');v.textContent=fmt(p);v.className='v '+(p>=target()?'vg':'vr');
+  $('rScoreS').textContent=r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target());
+  var R=rightImg();
+  $('cmp').hidden=!(st.photo&&R);$('rSingle').hidden=!(st.photo&&!R);
+  if(st.photo&&R){$('iBef').src=st.photo.url;$('iAft').src=R.url;$('pillA').textContent=R.lab;}
+  if(st.photo&&!R)$('rSingleImg').src=st.photo.url;
+  $('rHint').textContent=!st.photo?'Fara poza la acest audit.':(R?'Trage linia ca sa compari':'Seteaza poza standard a zonei ca sa compari.');
+  var ul=$('rNok');ul.innerHTML='';
+  r.nok.forEach(function(i){var li=document.createElement('li');li.textContent=st.zone.crit[i][1];ul.appendChild(li);});
+  $('rNokBox').hidden=!r.nok.length;
+  $('rWho').textContent=r.nok.length?('Cine: '+r.owner+' · Pana cand: '+fmtDate(r.due)):'';
+  $('bAI').hidden=!(lsGet(K_KEY)&&st.photo);
+  st.shareBlob=null;fit();
+}
+$('bDone').addEventListener('click',function(){renderHome();show('sHome');});
+$('bShareA').addEventListener('click',function(){buildAuditImg().then(function(b){doShare(b,'5S_'+st.depot+'_'+st.zone.id+'_'+stamp()+'.jpg');},showErr);});
+
+/* ---------- week ---------- */
+function weekData(){
+  var wk=wkGet(),rows=[],acts=[],so=0,stt=0;
+  STD.zones.forEach(function(z){var r=wk[z.id];rows.push({z:z,r:r||null});
+    if(r){so+=r.ok;stt+=r.tot;r.nok.forEach(function(i){acts.push(z.name+': '+z.crit[i][1]+' · '+r.owner+' · '+fmtDate(r.due));});}});
+  return {rows:rows,acts:acts,ok:so,tot:stt,p:pct(so,stt)};
+}
+function renderWeek(){
+  var d=weekData();
+  $('wkTitle').textContent=depName()+' · saptamana '+isoWeek(new Date()).w;
+  var v=$('wkScoreV');v.textContent=fmt(d.p);v.className='v '+(d.p==null?'':(d.p>=target()?'vg':'vr'));
+  $('wkScoreS').textContent=d.ok+' din '+d.tot+' criterii OK in zonele auditate · tinta '+fmt(target());
+  var tb=$('wkRows');tb.innerHTML='';
+  d.rows.forEach(function(x){var tr=document.createElement('tr');
+    var a=document.createElement('td');a.textContent=x.z.name;tr.appendChild(a);
+    var b=document.createElement('td');b.className='r';b.textContent=x.r?(x.r.ok+'/'+x.r.tot):'';tr.appendChild(b);
+    var c=document.createElement('td');c.className='r';var sp=document.createElement('span');setPill(sp,x.r?pct(x.r.ok,x.r.tot):null);c.appendChild(sp);tr.appendChild(c);
+    tb.appendChild(tr);});
+  var ul=$('wkNok');ul.innerHTML='';
+  d.acts.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+  $('wkNokBox').hidden=!d.acts.length;
+}
+$('bBackW').addEventListener('click',function(){renderHome();show('sHome');});
+$('bShareW').addEventListener('click',function(){buildWeekImg().then(function(b){doShare(b,'5S_Raport_'+st.depot+'_S'+isoWeek(new Date()).w+'.jpg');},showErr);});
 
 /* ---------- sizes and slider ---------- */
 function fitBox(el,ratio){
   var pn=el.parentNode,cs=window.getComputedStyle(pn);
-  var pw=(pn.clientWidth-parseFloat(cs.paddingLeft||0)-parseFloat(cs.paddingRight||0))||300,mh=Math.max(260,window.innerHeight*0.66);
+  var pw=(pn.clientWidth-parseFloat(cs.paddingLeft||0)-parseFloat(cs.paddingRight||0))||300,mh=Math.max(260,window.innerHeight*0.62);
   var w=Math.min(pw,mh*ratio);el.style.width=Math.round(w)+'px';el.style.height=Math.round(w/ratio)+'px';return Math.round(w);
 }
 function fit(){
   if(!st.photo)return;
-  if(!$('sPhoto').hidden)fitBox($('fPhoto'),st.photo.ratio);
-  if(!$('sRes').hidden){var w=fitBox($('cmp'),st.photo.ratio);$('iBef').style.width=w+'px';setPos(st.pos);}
+  if(!$('sAudit').hidden&&!$('aPrev').hidden)fitBox($('fPhoto'),st.photo.ratio);
+  if(!$('sResult').hidden){
+    if(!$('cmp').hidden){var w=fitBox($('cmp'),st.photo.ratio);$('iBef').style.width=w+'px';setPos(st.pos);}
+    if(!$('rSingle').hidden)fitBox($('rSingle'),st.photo.ratio);
+  }
 }
 window.addEventListener('resize',fit);
 function setPos(p){st.pos=Math.max(0,Math.min(100,p));$('bwrap').style.width=st.pos+'%';$('hdl').style.left=st.pos+'%';}
@@ -247,12 +473,13 @@ cmp.addEventListener('touchstart',function(e){st.drag=true;setPos(px(e.touches[0
 cmp.addEventListener('touchmove',function(e){if(st.drag)setPos(px(e.touches[0].clientX));},{passive:true});
 cmp.addEventListener('touchend',function(){st.drag=false;});
 function reveal(){
+  if($('cmp').hidden)return;
   var t0=null,from=100,to=50,dur=1100;
   function step(t){if(st.drag)return;if(!t0)t0=t;var k=Math.min(1,(t-t0)/dur),e=k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2;setPos(from+(to-from)*e);if(k<1)requestAnimationFrame(step);}
   setPos(from);requestAnimationFrame(step);
 }
 
-/* ---------- Gemini ---------- */
+/* ---------- Gemini (optional) ---------- */
 function isKeyErr(e){return e.kind==='http'&&((e.status===400&&/api key/i.test(e.message||''))||e.status===401||e.status===403);}
 function api(path,key,body){
   var opt={method:body?'POST':'GET',headers:{'x-goog-api-key':key}};
@@ -272,176 +499,174 @@ function api(path,key,body){
 function rank(n){var pv=/preview|exp/.test(n)?1:0;for(var i=0;i<PREF.length;i++){if(PREF[i].test(n))return i*2+pv;}return PREF.length*2+pv;}
 function discover(key){
   return api('/models?pageSize=1000',key).then(function(j){
-    var names=(j.models||[]).filter(function(m){
-      var n=m.name||'',meth=m.supportedGenerationMethods||[];
-      return /image|nano-banana/.test(n)&&!/imagen/.test(n)&&meth.indexOf('generateContent')>=0;
-    }).map(function(m){return m.name.replace(/^models\//,'');});
-    names.sort(function(a,b){return rank(a)-rank(b);});
-    return names;
+    var names=(j.models||[]).filter(function(m){var n=m.name||'',meth=m.supportedGenerationMethods||[];
+      return /image|nano-banana/.test(n)&&!/imagen/.test(n)&&meth.indexOf('generateContent')>=0;}).map(function(m){return m.name.replace(/^models\//,'');});
+    names.sort(function(a,b){return rank(a)-rank(b);});return names;
   });
 }
 function getModels(key){
   if(st.models)return Promise.resolve(st.models);
   return discover(key).then(function(list){
     if(!list.length)list=FALLBACK.slice();
-    var saved=lsGet(K_MODEL),i=list.indexOf(saved);
-    if(saved&&i>0){list.splice(i,1);list.unshift(saved);}
+    var saved=lsGet(K_MODEL),i=list.indexOf(saved);if(saved&&i>0){list.splice(i,1);list.unshift(saved);}
     st.models=list;return list;
-  },function(e){
-    if(isKeyErr(e)||e.kind==='net'||e.kind==='timeout')throw e;
-    st.models=FALLBACK.slice();return st.models;
-  });
+  },function(e){if(isKeyErr(e)||e.kind==='net'||e.kind==='timeout')throw e;st.models=FALLBACK.slice();return st.models;});
 }
-function buildPrompt(note){var p=PROMPT;if(note)p+='\n\nPRIORITY FROM THE DEPOT MANAGER: '+note;return p+ASK_TXT;}
-function actions(t){
-  var re=/^([-*\u2022]|\d+[.)])\s+/;
-  return clean(t).split(/\r?\n/).map(function(l){return l.trim();}).filter(function(l){return re.test(l);}).map(function(l){
-    l=l.replace(re,'').replace(/\*\*/g,'').trim();return l.length>80?l.slice(0,77)+'...':l;
-  }).filter(function(l){return !!l;}).slice(0,5);
+function aiPrompt(){
+  var z=st.zone,p=PROMPT+'\n\nZONE: '+z.name+'. Its 5S standard (Romanian):\n'+z.crit.map(function(c){return '- '+c[1];}).join('\n');
+  if(st.last&&st.last.nok.length)p+='\n\nFIX FIRST (failed in the audit):\n'+st.last.nok.map(function(i){return '- '+z.crit[i][1];}).join('\n');
+  return p;
 }
 function parse(j){
   var c=j.candidates&&j.candidates[0];
   if(!c){var br=j.promptFeedback&&j.promptFeedback.blockReason;throw mk('block','Google a refuzat poza'+(br?' ('+br+')':'')+'.',{raw:JSON.stringify(j).slice(0,1500)});}
   var parts=(c.content&&c.content.parts)||[],img=null,txt=[];
-  parts.forEach(function(p){
-    if(p.thought)return;
-    var d=p.inlineData||p.inline_data;
-    if(d&&d.data){img={mime:d.mimeType||d.mime_type||'image/png',data:d.data};}
-    else if(p.text){txt.push(p.text);}
-  });
+  parts.forEach(function(p){if(p.thought)return;var d=p.inlineData||p.inline_data;if(d&&d.data){img={mime:d.mimeType||d.mime_type||'image/png',data:d.data};}else if(p.text){txt.push(p.text);}});
   if(!img)throw mk('noimg','Nu a venit nicio imagine'+(c.finishReason?' (motiv: '+c.finishReason+')':'')+'.',{finish:c.finishReason||'',raw:(txt.join('\n')||JSON.stringify(j)).slice(0,1500)});
-  return {url:'data:'+img.mime+';base64,'+img.data,acts:actions(txt.join('\n'))};
+  return 'data:'+img.mime+';base64,'+img.data;
 }
-function edit(key,model,note){
-  var ph=st.photo;
-  var contents=[{role:'user',parts:[{text:buildPrompt(note)},{inline_data:{mime_type:'image/jpeg',data:ph.b64}}]}];
-  var cfgs=[
-    {responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar,imageSize:'1K'}},
-    {responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar}},
-    {responseModalities:['TEXT','IMAGE']},
-    {responseModalities:['IMAGE']}
-  ];
+function edit(key,model){
+  var ph=st.photo,contents=[{role:'user',parts:[{text:aiPrompt()},{inline_data:{mime_type:'image/jpeg',data:ph.b64}}]}];
+  var cfgs=[{responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar,imageSize:'1K'}},{responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar}},{responseModalities:['TEXT','IMAGE']},{responseModalities:['IMAGE']}];
   var i=0;
-  function next(){
-    return api('/models/'+encodeURIComponent(model)+':generateContent',key,{contents:contents,generationConfig:cfgs[i]}).then(parse,function(e){
-      if(e.kind==='http'&&e.status===400&&!isKeyErr(e)&&i<cfgs.length-1){i++;return next();}
-      throw e;
-    });
-  }
+  function next(){return api('/models/'+encodeURIComponent(model)+':generateContent',key,{contents:contents,generationConfig:cfgs[i]}).then(parse,function(e){
+    if(e.kind==='http'&&e.status===400&&!isKeyErr(e)&&i<cfgs.length-1){i++;return next();}throw e;});}
   return next();
 }
-function modelSkip(e){
-  if(e.kind!=='http')return false;
-  var m=e.message||'';
-  return e.status===404||(e.status===429&&/limit:\s*0\b/.test(m))||(e.status===400&&/not found|not supported|unsupported|does not support/i.test(m));
+function modelSkip(e){if(e.kind!=='http')return false;var m=e.message||'';return e.status===404||(e.status===429&&/limit:\s*0\b/.test(m))||(e.status===400&&/not found|not supported|unsupported|does not support/i.test(m));}
+function aiBusy(on){
+  st.busy=on;$('bAI').disabled=on;$('bShareA').disabled=on;clearInterval(st.ticker);
+  var single=!$('rSingle').hidden,ov=single?$('rBusy2'):$('rBusy'),tt=single?$('rBusyT2'):$('rBusyT');
+  $('rBusy').hidden=true;$('rBusy2').hidden=true;
+  if(on){ov.hidden=false;var t0=Date.now();tt.textContent='0 s';st.ticker=setInterval(function(){tt.textContent=Math.round((Date.now()-t0)/1000)+' s';},1000);}
 }
-function generate(){
-  if(st.busy||!st.photo)return;
-  var key=lsGet(K_KEY);
-  if(!key){openSet('Prima data pune cheia Google AI. O pui o singura data pe acest dispozitiv.','');return;}
-  hideErr();busy(true);
-  var note=clean($('note').value.trim());
+$('bAI').addEventListener('click',function(){
+  if(st.busy||!st.photo)return;var key=lsGet(K_KEY);if(!key){openSet('Pune cheia Google AI ca sa folosesti butonul AI.','');return;}
+  hideErr();aiBusy(true);
   getModels(key).then(function(list){
     var i=0;
-    function tryNext(last){
-      if(i>=list.length)throw last||mk('nomodel','Niciun model de imagine disponibil pentru aceasta cheie.');
-      var m=list[i++];
-      return edit(key,m,note).then(function(out){lsSet(K_MODEL,m);return out;},function(e){if(modelSkip(e))return tryNext(e);throw e;});
-    }
+    function tryNext(last){if(i>=list.length)throw last||mk('nomodel','Niciun model de imagine disponibil pentru aceasta cheie.');var m=list[i++];
+      return edit(key,m).then(function(url){lsSet(K_MODEL,m);return url;},function(e){if(modelSkip(e))return tryNext(e);throw e;});}
     return tryNext(null);
-  }).then(function(out){busy(false);result(out);},function(e){busy(false);if(st.after)show('sRes');showErr(e);});
-}
-function busy(on){
-  st.busy=on;$('busy').hidden=!on;$('bMagic').disabled=on;$('bReset1').disabled=on;
-  clearInterval(st.ticker);
-  if(on){
-    show('sPhoto');var t0=Date.now();$('busyT').textContent='0 s';
-    st.ticker=setInterval(function(){$('busyT').textContent=Math.round((Date.now()-t0)/1000)+' s';},1000);
-  }
-}
-function result(out){
-  st.after=out;st.acts=out.acts;st.shareBlob=null;
-  $('iBef').src=st.photo.url;
-  var ul=$('acts');ul.innerHTML='';
-  out.acts.forEach(function(a){var li=document.createElement('li');li.textContent=a;ul.appendChild(li);});
-  $('actsBox').hidden=!out.acts.length;
-  var done=false,ia=$('iAft');
-  function go(){if(done)return;done=true;show('sRes');reveal();buildShare().then(function(b){st.shareBlob=b;},function(){});}
-  ia.onload=go;ia.src=out.url;setTimeout(go,2500);
-  try{if(navigator.vibrate)navigator.vibrate(40);}catch(x){}
-  window.scrollTo(0,0);
-}
+  }).then(function(url){aiBusy(false);st.aiUrl=url;renderResult();reveal();},function(e){aiBusy(false);showErr(e);});
+});
 
-/* ---------- share image ---------- */
+/* ---------- images to share ---------- */
 function loadImg(src){return new Promise(function(ok,no){var i=new Image();i.onload=function(){ok(i);};i.onerror=function(){no(mk('img','Imaginea nu se poate desena.'));};i.src=src;});}
 function rr(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();}
-function cover(x,img,X,Y,W,H){
-  var iw=img.naturalWidth,ih=img.naturalHeight,tr=W/H,sx=0,sy=0,sw=iw,sh=ih;
-  if(iw/ih>tr){sw=ih*tr;sx=(iw-sw)/2;}else{sh=iw/tr;sy=(ih-sh)/2;}
-  x.drawImage(img,sx,sy,sw,sh,X,Y,W,H);
-}
-function pill(x,X,Y,t,fg,bg,bd,right){
-  x.font='800 26px '+FONT;var w=x.measureText(t).width+34,h=46;if(right)X-=w;
-  rr(x,X,Y,w,h,23);x.fillStyle=bg;x.fill();x.lineWidth=2;x.strokeStyle=bd;x.stroke();
-  x.fillStyle=fg;x.textBaseline='middle';x.textAlign='left';x.fillText(t,X+17,Y+h/2+1);
-}
-function buildShare(){
-  return Promise.all([loadImg(st.photo.url),loadImg(st.after.url)]).then(function(im){
-    var r=st.photo.ratio,port=r<1,PW=port?720:1200,PH=Math.round(PW/r),G=20,HDR=96;
-    var acts=st.acts,FT=acts.length?(80+acts.length*44+G):0;
-    var W=port?PW*2+G*3:PW+G*2,H=HDR+G+(port?PH:PH*2+G)+G+FT;
+function cover(x,img,X,Y,W,H){var iw=img.naturalWidth,ih=img.naturalHeight,tr=W/H,sx=0,sy=0,sw=iw,sh=ih;if(iw/ih>tr){sw=ih*tr;sx=(iw-sw)/2;}else{sh=iw/tr;sy=(ih-sh)/2;}x.drawImage(img,sx,sy,sw,sh,X,Y,W,H);}
+function pill(x,X,Y,t,c,right){var P={ok:['#1E7A3C','#E2F1E8','#A3D4B5'],ko:['#B42318','#FCEEEC','#E8A9A2'],na:['#6B7280','#F3F4F6','#E5E7EB']}[c];
+  x.font='800 26px '+FONT;var w=x.measureText(t).width+34,h=46;if(right)X-=w;rr(x,X,Y,w,h,23);x.fillStyle=P[1];x.fill();x.lineWidth=2;x.strokeStyle=P[2];x.stroke();
+  x.fillStyle=P[0];x.textBaseline='middle';x.textAlign='left';x.fillText(t,X+17,Y+h/2+1);return w;}
+function fitText(x,t,mw){while(x.measureText(t).width>mw&&t.length>8)t=t.slice(0,-4)+'...';return t;}
+function band(x,W,title,right){x.fillStyle='#BA1B02';x.fillRect(0,0,W,96);x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';x.font='800 36px '+FONT;x.fillText(fitText(x,title,W-420),26,48);
+  x.font='600 26px '+FONT;x.textAlign='right';x.fillText(right,W-26,48);x.textAlign='left';}
+function toBlob(c){return new Promise(function(ok,no){c.toBlob(function(b){if(b)ok(b);else no(mk('img','Imaginea nu se poate salva.'));},'image/jpeg',0.9);});}
+function buildAuditImg(){
+  var R=rightImg(),srcs=[st.photo?st.photo.url:null,(st.photo&&R)?R.url:null];
+  return Promise.all(srcs.map(function(s){return s?loadImg(s):null;})).then(function(im){
+    var r=st.last,p=pct(r.ok,r.tot),G=20,HDR=96,SC=110;
+    var two=!!im[1],ratio=st.photo?st.photo.ratio:1,port=ratio<1;
+    var PW=two?(port?720:1200):(port?900:1200),PH=st.photo?Math.round(PW/ratio):0;
+    var W=two&&port?PW*2+G*3:PW+G*2,photosH=st.photo?(two&&!port?PH*2+G:PH)+G:0;
+    var lines=r.nok.map(function(i){return '- '+st.zone.crit[i][1];}),FT=lines.length?(80+lines.length*44+56+G):0;
+    var H=HDR+SC+photosH+FT+G;
     var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
-    x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);
-    x.fillStyle='#BA1B02';x.fillRect(0,0,W,HDR);
-    x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';x.font='800 38px '+FONT;
-    x.fillText('5S · cum arata bine',G+6,HDR/2);
-    var d=new Date();x.font='600 28px '+FONT;x.textAlign='right';x.fillText(p2(d.getDate())+'.'+p2(d.getMonth()+1)+'.'+d.getFullYear(),W-G-6,HDR/2);
-    var bx=G,by=HDR+G,ax=port?G*2+PW:G,ay=port?HDR+G:HDR+G*2+PH;
-    [[im[0],bx,by],[im[1],ax,ay]].forEach(function(a){x.save();rr(x,a[1],a[2],PW,PH,16);x.clip();cover(x,a[0],a[1],a[2],PW,PH);x.restore();});
-    pill(x,bx+16,by+16,'INAINTE','#B42318','#FCEEEC','#E8A9A2',false);
-    pill(x,ax+PW-16,ay+16,'STANDARD 5S · AI','#1E7A3C','#E2F1E8','#A3D4B5',true);
-    if(acts.length){
-      var fy=H-FT;x.fillStyle='#fff';rr(x,G,fy,W-G*2,FT-G,16);x.fill();
-      x.textAlign='left';x.textBaseline='alphabetic';x.fillStyle='#16181D';x.font='800 30px '+FONT;x.fillText('Ce facem',G+26,fy+52);
-      x.font='500 27px '+FONT;
-      acts.forEach(function(a,i){var t='- '+a,mw=W-G*2-52;while(x.measureText(t).width>mw&&t.length>8)t=t.slice(0,-4)+'...';x.fillText(t,G+26,fy+52+44*(i+1));});
+    x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);band(x,W,'5S · '+st.zone.name,st.depot+' · '+today());
+    x.fillStyle='#fff';rr(x,G,HDR+G,W-2*G,SC-G,16);x.fill();
+    pill(x,G+20,HDR+G+22,'SCOR '+fmt(p),cls(p),false);
+    x.fillStyle='#16181D';x.font='600 26px '+FONT;x.textBaseline='middle';x.fillText(r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target()),G+300,HDR+G+45);
+    var y=HDR+SC+G/2;
+    if(st.photo){
+      var bx=G,by=y,ax=two?(port?G*2+PW:G):0,ay=two?(port?y:y+PH+G):0;
+      x.save();rr(x,bx,by,PW,PH,16);x.clip();cover(x,im[0],bx,by,PW,PH);x.restore();pill(x,bx+16,by+16,'ACUM','ko',false);
+      if(two){x.save();rr(x,ax,ay,PW,PH,16);x.clip();cover(x,im[1],ax,ay,PW,PH);x.restore();pill(x,ax+PW-16,ay+16,R.lab,'ok',true);}
+      y+=photosH;
     }
-    return new Promise(function(ok,no){c.toBlob(function(b){if(b)ok(b);else no(mk('img','Imaginea nu se poate salva.'));},'image/jpeg',0.9);});
+    if(lines.length){
+      x.fillStyle='#fff';rr(x,G,y,W-2*G,FT-G,16);x.fill();x.textBaseline='alphabetic';x.textAlign='left';
+      x.fillStyle='#16181D';x.font='800 30px '+FONT;x.fillText('De corectat',G+26,y+52);x.font='500 27px '+FONT;
+      lines.forEach(function(t,i){x.fillText(fitText(x,t,W-2*G-52),G+26,y+52+44*(i+1));});
+      x.font='700 27px '+FONT;x.fillStyle='#B42318';x.fillText(fitText(x,'Cine: '+r.owner+' · Pana cand: '+fmtDate(r.due),W-2*G-52),G+26,y+52+44*(lines.length+1)+12);
+    }
+    return toBlob(c);
+  });
+}
+function buildWeekImg(){
+  var d=weekData(),W=1200,G=20,HDR=96,rowH=58,acts=d.acts.slice(0,14),more=d.acts.length-acts.length;
+  var TB=60+d.rows.length*rowH+20,AC=acts.length?(80+(acts.length+(more>0?1:0))*42+20):0,H=HDR+G+150+G+TB+G+AC+G;
+  var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+  x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);band(x,W,'5S · Raport '+depName(),'S'+isoWeek(new Date()).w+' · '+today());
+  var y=HDR+G;x.fillStyle='#fff';rr(x,G,y,W-2*G,150,16);x.fill();
+  x.textBaseline='middle';x.textAlign='left';x.font='800 64px '+FONT;x.fillStyle=d.p==null?'#6B7280':(d.p>=target()?'#1E7A3C':'#B42318');x.fillText(fmt(d.p),G+26,y+62);
+  x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText(d.ok+' din '+d.tot+' criterii OK · tinta '+fmt(target()),G+26,y+118);
+  y+=150+G;x.fillStyle='#fff';rr(x,G,y,W-2*G,TB,16);x.fill();
+  x.fillStyle='#6B7280';x.font='800 22px '+FONT;x.fillText('ZONA',G+26,y+36);x.textAlign='right';x.fillText('OK',W-G-200,y+36);x.textAlign='left';
+  d.rows.forEach(function(rw,i){var yy=y+60+i*rowH+rowH/2;x.strokeStyle='#E7E5E4';x.lineWidth=1;x.beginPath();x.moveTo(G+20,yy-rowH/2);x.lineTo(W-G-20,yy-rowH/2);x.stroke();
+    x.fillStyle='#16181D';x.font='600 27px '+FONT;x.textAlign='left';x.textBaseline='middle';x.fillText(fitText(x,rw.z.name,W-480),G+26,yy);
+    x.textAlign='right';x.fillText(rw.r?(rw.r.ok+'/'+rw.r.tot):'',W-G-200,yy);
+    var p=rw.r?pct(rw.r.ok,rw.r.tot):null;x.font='800 26px '+FONT;var tw=x.measureText(fmt(p)).width+34;pill(x,W-G-26-tw,yy-23,fmt(p),cls(p),false);});
+  y+=TB+G;
+  if(acts.length){x.fillStyle='#fff';rr(x,G,y,W-2*G,AC,16);x.fill();x.textBaseline='alphabetic';x.textAlign='left';x.fillStyle='#16181D';x.font='800 30px '+FONT;x.fillText('De corectat',G+26,y+52);
+    x.font='500 25px '+FONT;acts.forEach(function(t,i){x.fillText(fitText(x,'- '+t,W-2*G-52),G+26,y+52+42*(i+1));});
+    if(more>0){x.fillStyle='#6B7280';x.fillText('+ inca '+more,G+26,y+52+42*(acts.length+1));}}
+  return toBlob(c);
+}
+function buildSheet(){
+  var z=st.zone,W=1240,H=1754,M=60,gs=groups(z);
+  return (st.std&&st.std.url?loadImg(st.std.url):Promise.resolve(null)).then(function(img){
+    var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+    x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#BA1B02';x.fillRect(0,0,W,140);
+    x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';x.font='800 60px '+FONT;x.fillText('STANDARD 5S',M,70);
+    x.textAlign='right';x.font='700 30px '+FONT;x.fillText(depName(),W-M,54);x.font='500 24px '+FONT;x.fillText('v'+STD.version+' · '+STD.date,W-M,94);
+    x.textAlign='left';x.fillStyle='#16181D';x.font='800 46px '+FONT;x.fillText(fitText(x,z.name,W-2*M),M,200);
+    var critH=gs.length*46+z.crit.length*48,gridH=36+4*54,footH=70,top=240;
+    var ph=Math.max(300,Math.min(640,H-top-30-critH-30-gridH-footH));
+    rr(x,M,top,W-2*M,ph,18);
+    if(img){x.save();x.fillStyle='#F4F2EF';x.fill();x.clip();var bw=W-2*M,sc=Math.min(bw/img.naturalWidth,ph/img.naturalHeight),dw=img.naturalWidth*sc,dh=img.naturalHeight*sc;
+      x.drawImage(img,M+(bw-dw)/2,top+(ph-dh)/2,dw,dh);x.restore();}
+    else{x.save();x.fillStyle='#FAFAF9';x.fill();if(x.setLineDash)x.setLineDash([14,10]);x.lineWidth=3;x.strokeStyle='#C9C4BE';x.stroke();x.restore();
+      x.fillStyle='#9CA3AF';x.font='600 28px '+FONT;x.textAlign='center';x.fillText('Lipeste aici poza standard (dupa 5S blitz, din punctul foto)',W/2,top+ph/2);x.textAlign='left';}
+    var y=top+ph+46;
+    gs.forEach(function(g){x.fillStyle='#BA1B02';x.font='800 25px '+FONT;x.fillText(g.s+' '+STD.s[g.s][0].toUpperCase()+'  ·  '+STD.s[g.s][1],M,y);y+=46;
+      g.items.forEach(function(t){x.strokeStyle='#16181D';x.lineWidth=2.5;x.strokeRect(M+2,y-14,28,28);x.fillStyle='#16181D';x.font='500 29px '+FONT;x.fillText(fitText(x,t,W-2*M-50),M+48,y);y+=48;});});
+    y+=6;x.font='700 24px '+FONT;x.fillStyle='#16181D';x.fillText('Check zilnic, final de tura (initiale)',M,y);y+=26;
+    var days=['L','Ma','Mi','J','V','S','D'],lw=150,cw=(W-2*M-lw)/7,rh=54;
+    x.lineWidth=1.5;x.strokeStyle='#9CA3AF';x.font='700 24px '+FONT;x.textAlign='center';
+    for(var r=0;r<4;r++){for(var k=0;k<8;k++){var cx=k===0?M:M+lw+(k-1)*cw,w=k===0?lw:cw;x.strokeRect(cx,y+r*rh,w,rh);
+      var lab=r===0?(k===0?'':days[k-1]):(k===0?('Tura '+r):'');if(lab){x.fillStyle='#16181D';x.fillText(lab,cx+w/2,y+r*rh+rh/2);}}}
+    x.textAlign='left';y+=4*rh+48;x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText('Owner zona: __________________   Audit: saptamanal, cu scor',M,Math.min(y,H-40));
+    return toBlob(c);
   });
 }
 function stamp(){var d=new Date();return d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+'_'+p2(d.getHours())+p2(d.getMinutes());}
 function dl(blob,name){var u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(u);},4000);}
-function doShare(b){
-  var name='5S_'+stamp()+'.jpg',f=null;
-  try{f=new File([b],name,{type:'image/jpeg'});}catch(x){}
-  if(f&&navigator.share&&navigator.canShare){
-    try{if(navigator.canShare({files:[f]})){navigator.share({files:[f],title:'5S Standard'}).catch(function(e){if(!e||e.name!=='AbortError')dl(b,name);});return;}}catch(x){}
-  }
+function doShare(b,name){
+  var f=null;try{f=new File([b],name,{type:'image/jpeg'});}catch(x){}
+  if(f&&navigator.share&&navigator.canShare){try{if(navigator.canShare({files:[f]})){navigator.share({files:[f],title:'5S Standard'}).catch(function(e){if(!e||e.name!=='AbortError')dl(b,name);});return;}}catch(x){}}
   dl(b,name);
 }
 
 /* ---------- settings ---------- */
 function mask(k){return k.length>10?k.slice(0,4)+'...'+k.slice(-4):'****';}
 function setSt(t,c){var s=$('kSt');s.textContent=t;s.className='st'+(c?' '+c:'');}
-function openSet(msg,cls){
-  var k=lsGet(K_KEY);$('kIn').value='';$('kIn').placeholder=k?('Cheie salvata: '+mask(k)):'Lipeste cheia aici';
-  setSt(msg||(k?'Cheie salvata pe acest dispozitiv.':''),cls||'');$('ov').hidden=false;
-}
+function openSet(msg,cls2){var k=lsGet(K_KEY);$('kIn').value='';$('kIn').placeholder=k?('Cheie salvata: '+mask(k)):'Lipeste cheia aici';$('tIn').value=target();
+  setSt(msg||'',cls2||'');$('ov').hidden=false;}
 $('bSet').addEventListener('click',function(){openSet();});
-$('bKClose').addEventListener('click',function(){$('ov').hidden=true;});
-$('ov').addEventListener('click',function(e){if(e.target===$('ov'))$('ov').hidden=true;});
+$('bKClose').addEventListener('click',function(){$('ov').hidden=true;refresh();});
+$('ov').addEventListener('click',function(e){if(e.target===$('ov')){$('ov').hidden=true;refresh();}});
 $('bKDel').addEventListener('click',function(){lsDel(K_KEY);lsDel(K_MODEL);st.models=null;$('kIn').placeholder='Lipeste cheia aici';setSt('Cheie stearsa de pe acest dispozitiv.','');});
 $('bKSave').addEventListener('click',function(){
-  var v=$('kIn').value.trim();
-  if(v){lsSet(K_KEY,v);lsDel(K_MODEL);st.models=null;$('kIn').value='';$('kIn').placeholder='Cheie salvata: '+mask(v);}
-  var k=lsGet(K_KEY);if(!k){setSt('Lipeste intai cheia.','bad');return;}
+  var t=parseFloat($('tIn').value);if(t>=50&&t<=100)lsSet(K_TGT,String(Math.round(t)));else{setSt('Tinta trebuie sa fie intre 50 si 100.','bad');return;}
+  var v=$('kIn').value.trim();if(v){lsSet(K_KEY,v);lsDel(K_MODEL);st.models=null;$('kIn').value='';$('kIn').placeholder='Cheie salvata: '+mask(v);}
+  var k=lsGet(K_KEY);if(!k){setSt('Salvat. Tinta '+fmt(target())+'.','ok');return;}
   setSt('Testez cheia...','');$('bKSave').disabled=true;
-  discover(k).then(function(list){
-    $('bKSave').disabled=false;
+  discover(k).then(function(list){$('bKSave').disabled=false;
     if(!list.length){setSt('Cheia merge, dar nu vad modele de imagine. Verifica facturarea in Google AI Studio.','bad');return;}
-    setSt('Cheie OK · model: '+list[0],'ok');
+    setSt('Salvat. Cheie OK · model: '+list[0],'ok');
   },function(e){$('bKSave').disabled=false;var f=friendly(e);setSt(f.t+' '+f.h+' ('+(e.status?'HTTP '+e.status+': ':'')+(e.message||'')+')','bad');});
 });
+function refresh(){if(!$('sHome').hidden)renderHome();if(!$('sResult').hidden&&st.last)renderResult();}
 
 /* ---------- errors ---------- */
 function friendly(e){
@@ -461,11 +686,8 @@ function showErr(e){
   e=e||{};var f=friendly(e),raw=[];
   $('eT').textContent=f.t;$('eHelp').textContent=f.h;
   if(e.status)raw.push('HTTP '+e.status+(e.code?' · '+e.code:''));
-  if(e.message)raw.push(e.message);
-  if(e.finish)raw.push('finishReason: '+e.finish);
-  if(e.raw&&e.raw!==e.message)raw.push(e.raw);
-  $('eRaw').textContent=raw.join('\n\n')||String(e);
-  $('sErr').hidden=false;
+  if(e.message)raw.push(e.message);if(e.finish)raw.push('finishReason: '+e.finish);if(e.raw&&e.raw!==e.message)raw.push(e.raw);
+  $('eRaw').textContent=raw.join('\n\n')||String(e);$('sErr').hidden=false;
   try{$('sErr').scrollIntoView({behavior:'smooth',block:'start'});}catch(x){}
 }
 function hideErr(){$('sErr').hidden=true;}
@@ -473,17 +695,9 @@ $('bErrX').addEventListener('click',hideErr);
 window.addEventListener('error',function(ev){showErr(mk('js','Eroare in pagina: '+(ev.message||''),{raw:(ev.filename||'')+':'+(ev.lineno||'')}));});
 window.addEventListener('unhandledrejection',function(ev){var r=ev.reason;showErr(r&&r.kind?r:mk('js','Eroare: '+((r&&r.message)||r)));});
 
-/* ---------- buttons ---------- */
-function reset(){if(st.busy)return;st.photo=null;st.after=null;st.acts=[];st.shareBlob=null;$('note').value='';hideErr();show('sPick');window.scrollTo(0,0);}
-$('bMagic').addEventListener('click',generate);
-$('bAgain').addEventListener('click',generate);
-$('bNew').addEventListener('click',reset);
-$('bReset1').addEventListener('click',reset);
-$('bShare').addEventListener('click',function(){
-  if(st.shareBlob){doShare(st.shareBlob);return;}
-  buildShare().then(function(b){st.shareBlob=b;doShare(b);},showErr);
-});
-show('sPick');
+/* ---------- start ---------- */
+var d0=lsGet(K_DEP);for(var i=0;i<DEPOTS.length;i++){if(DEPOTS[i][0]===d0)st.depot=d0;}
+renderHome();show('sHome');
 })();
 </script>
 </body>
