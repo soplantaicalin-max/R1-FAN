@@ -61,9 +61,15 @@ h1{font-size:21px;margin:0 0 2px}
 .sgrp b{font-size:12px;letter-spacing:.06em;color:var(--brand);text-transform:uppercase}
 .crit{padding:7px 0;border-top:1px solid var(--line);font-size:15px}
 .sgrp .crit:first-of-type{border-top:0}
-.ci{display:flex;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
-.ci .t{flex:1;font-size:15px;padding-right:8px}
-.ci.nok .t{color:var(--neg);font-weight:600}
+.ci{display:flex;align-items:center;padding:11px 8px;margin:4px 0;border-radius:12px;background:#F6FBF8;border:1px solid #DCEFE3;cursor:pointer;-webkit-user-select:none;user-select:none}
+.ci .ic{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;margin-right:10px;color:#fff;background:var(--pos)}
+.ci .t{flex:1;font-size:15px;font-weight:600}
+.ci .t small{display:block;color:var(--mute);font-size:13px;font-weight:500;margin-top:2px}
+.ci .st2{flex:none;font-size:13px;font-weight:800;margin-left:8px;color:var(--pos)}
+.ci.nok{background:var(--neg-bg);border-color:var(--neg-bd)}
+.ci.nok .ic{background:var(--neg)}
+.ci.nok .t,.ci.nok .st2{color:var(--neg)}
+.qh{font-size:13px;color:var(--mute);font-weight:500}
 .yn{width:50px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:20px;font-weight:800;margin-left:6px;cursor:pointer;color:#A8A29E;flex:none}
 .yn.y.on{background:var(--pos);border-color:var(--pos);color:#fff}
 .yn.n.on{background:var(--neg);border-color:var(--neg);color:#fff}
@@ -145,8 +151,12 @@ table.wk td.r{text-align:right;white-space:nowrap}
     <div id="zStd"></div>
     <div class="row"><label class="btn sec" for="inStd" id="lblStd">Seteaza poza standard</label><button id="bSheet" class="btn sec">Fisa A4</button></div>
     <input id="inStd" class="vh" type="file" accept="image/*" multiple>
+    <div class="lbl">3 intrebari, aceleasi in fiecare zona</div>
+    <div id="zQuick"></div>
+    <button id="bQuick" class="btn primary">Verificare rapida · 30 sec</button>
+    <button id="bStart" class="btn sec">Audit complet · toate criteriile</button>
+    <div class="lbl">Standard complet</div>
     <div id="zCrit"></div>
-    <button id="bStart" class="btn primary">Incepe auditul</button>
   </section>
 
   <section id="sAudit" class="card" hidden>
@@ -158,10 +168,12 @@ table.wk td.r{text-align:right;white-space:nowrap}
     <div class="hint" id="aPhHint"></div>
     <input id="inCam" class="vh" type="file" accept="image/*" capture="environment">
     <input id="inGal" class="vh" type="file" accept="image/*" multiple>
+    <div class="hint" id="aHow" style="text-align:left">Implicit totul e OK. Atinge doar ce nu e ok.</div>
     <div id="aList"></div>
     <div id="aOwnerBox" hidden>
       <div class="lbl">Cine corecteaza si pana cand</div>
       <input id="aOwner" class="in" type="text" maxlength="60" placeholder="Nume">
+      <div class="chips" id="dueChips"></div>
       <input id="aDue" class="in" type="date">
     </div>
     <button id="bFinish" class="btn primary" disabled>Finalizeaza auditul</button>
@@ -191,7 +203,7 @@ table.wk td.r{text-align:right;white-space:nowrap}
   <section id="sWeek" class="card" hidden>
     <button class="back" id="bBackW">&#8249; Zone</button>
     <h1>Raport 5S</h1><p class="sub" id="wkTitle"></p>
-    <div class="score"><div class="v" id="wkScoreV"></div><div class="s" id="wkScoreS"></div></div>
+    <div class="score"><div class="v" id="wkScoreV"></div><div class="s" id="wkScoreS"></div><div class="s" id="wkZones" style="font-weight:700;color:#16181D"></div></div>
     <table class="wk"><tbody id="wkRows"></tbody></table>
     <div id="wkNokBox"><div class="lbl">De corectat</div><ul class="nok" id="wkNok"></ul></div>
     <button id="bShareW" class="btn primary">Trimite raportul</button>
@@ -224,7 +236,7 @@ table.wk td.r{text-align:right;white-space:nowrap}
 <script>
 (function(){
 'use strict';
-var STD={"version":"1.0","date":"21.11.2026","s":{"S1":["Sortare","ce nu trebuie in zona, pleaca"],"S2":["Ordonare","un loc marcat pentru fiecare lucru"],"S3":["Curatenie","curat si verificat, zilnic"],"S4":["Standardizare","marcaje, etichete, fisa cu poza"],"S5":["Sustinere","check zilnic, audit, actiuni"]},"zones":[{"id":"RAMPA","name":"Rampa si docuri","crit":[["S1","Nimic pe jos: folie, chingi, cartoane, paleti rupti"],["S2","Coletele descarcate stau doar in zona marcata"],["S2","Fata usilor de doc libera"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Pardoseala maturata, fara pete"],["S4","Usi de doc numerotate, marcaj galben vizibil"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"SORT","name":"Sortare","crit":[["S1","Niciun colet pe jos, in afara custilor"],["S2","Fiecare directie are cusca etichetata cu codul ei"],["S2","Colete asezate drept, eticheta in fata"],["S2","Colete fara eticheta sau deteriorate: imediat la Exceptii"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Masa de sortare goala si curata la final de tura"],["S4","Marcaj galben pentru custi si culoare, vizibil"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"EXP","name":"Expeditie: paleti si Baliky","crit":[["S1","Fara paleti goi sau rupti in zona"],["S2","Paleti doar in locurile marcate, aliniati"],["S2","Destinatia vizibila pe fiecare palet si Balik"],["S2","Paleti infoliati, nimic peste conturul paletului"],["S2","Culoarul de transpalet liber"],["S4","Locurile de palet marcate si numerotate"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"EXC","name":"Exceptii: retururi, deteriorate, fara eticheta","crit":[["S1","Nimic pe jos, nimic pe raft fara loc"],["S2","Raft pe categorii: retur, deteriorat, fara eticheta, asteptare"],["S2","Fiecare colet are data intrarii scrisa"],["S3","Raft curat, fara cutii rupte sau goale"],["S4","Fiecare locatie de raft etichetata"],["S5","Lista exceptiilor verificata zilnic"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"LUCRU","name":"Statie de lucru","crit":[["S1","Pe masa doar PC, imprimanta, scanner, consumabile"],["S1","Fara obiecte personale pe masa"],["S2","Scanerele la incarcat, pe locul numerotat"],["S2","Cabluri prinse, nimic pe jos"],["S3","Masa si echipamentele curate"],["S4","Contur marcat pentru fiecare obiect de pe masa"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"ECH","name":"Echipamente: transpaleti, carucioare, incarcatoare","crit":[["S1","Echipament defect: eticheta rosie, scos din lucru"],["S2","Fiecare echipament parcat in locul marcat"],["S2","Incarcatoare si cabluri ordonate, nimic pe jos"],["S3","Echipamente curate, fara folie sau chingi agatate"],["S4","Locuri de parcare marcate si numerotate"],["S5","Fisa zonei afisata, check zilnic semnat"]]},{"id":"DES","name":"Deseuri","crit":[["S1","Containere separate: carton, folie, menajer"],["S2","Fiecare container etichetat"],["S2","Niciun container plin peste margine"],["S3","Zona din jurul containerelor curata"],["S4","Programul de golire afisat"],["S5","Fisa zonei afisata, check zilnic semnat"]]}]};
+var STD={"version":"1.0","date":"21.11.2026","s":{"S1":["Sortare","ce nu trebuie in zona, pleaca"],"S2":["Ordonare","un loc marcat pentru fiecare lucru"],"S3":["Curatenie","curat si verificat, zilnic"],"S4":["Standardizare","marcaje, etichete, fisa cu poza"],"S5":["Sustinere","check zilnic, audit, actiuni"]},"zones":[{"id":"RAMPA","name":"Rampa si docuri","crit":[["S1","Nimic pe jos: folie, chingi, cartoane, paleti rupti"],["S2","Coletele descarcate stau doar in zona marcata"],["S2","Fata usilor de doc libera"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Pardoseala maturata, fara pete"],["S4","Usi de doc numerotate, marcaj galben vizibil"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Fara folie, chingi, cartoane, colete in afara marcajului","Colete in zona marcata, fata usilor si iesirile libere","Pardoseala maturata, fara pete"]},{"id":"SORT","name":"Sortare","crit":[["S1","Niciun colet pe jos, in afara custilor"],["S2","Fiecare directie are cusca etichetata cu codul ei"],["S2","Colete asezate drept, eticheta in fata"],["S2","Colete fara eticheta sau deteriorate: imediat la Exceptii"],["S2","Iesiri, stingatoare si tablouri electrice libere"],["S3","Masa de sortare goala si curata la final de tura"],["S4","Marcaj galben pentru custi si culoare, vizibil"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Niciun colet pe jos, in afara custilor","Custi etichetate, colete drept, exceptiile la Exceptii","Masa de sortare goala si curata la final de tura"]},{"id":"EXP","name":"Expeditie: paleti si Baliky","crit":[["S1","Fara paleti goi sau rupti in zona"],["S2","Paleti doar in locurile marcate, aliniati"],["S2","Destinatia vizibila pe fiecare palet si Balik"],["S2","Paleti infoliati, nimic peste conturul paletului"],["S2","Culoarul de transpalet liber"],["S4","Locurile de palet marcate si numerotate"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Fara paleti goi sau rupti, culoarul liber","Paleti in locurile marcate, infoliati, cu destinatia vizibila","Zona curata, folia si chingile la deseuri"]},{"id":"EXC","name":"Exceptii: retururi, deteriorate, fara eticheta","crit":[["S1","Nimic pe jos, nimic pe raft fara loc"],["S2","Raft pe categorii: retur, deteriorat, fara eticheta, asteptare"],["S2","Fiecare colet are data intrarii scrisa"],["S3","Raft curat, fara cutii rupte sau goale"],["S4","Fiecare locatie de raft etichetata"],["S5","Lista exceptiilor verificata zilnic"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Nimic pe jos, nimic pe raft fara loc","Raft pe categorii, fiecare colet cu data intrarii","Raft curat, fara cutii rupte sau goale"]},{"id":"LUCRU","name":"Statie de lucru","crit":[["S1","Pe masa doar PC, imprimanta, scanner, consumabile"],["S1","Fara obiecte personale pe masa"],["S2","Scanerele la incarcat, pe locul numerotat"],["S2","Cabluri prinse, nimic pe jos"],["S3","Masa si echipamentele curate"],["S4","Contur marcat pentru fiecare obiect de pe masa"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Cabluri prinse, nimic pe jos","Pe masa doar PC, imprimanta, scanner; scanerele la incarcat pe loc","Masa curata, fara obiecte personale"]},{"id":"ECH","name":"Echipamente: transpaleti, carucioare, incarcatoare","crit":[["S1","Echipament defect: eticheta rosie, scos din lucru"],["S2","Fiecare echipament parcat in locul marcat"],["S2","Incarcatoare si cabluri ordonate, nimic pe jos"],["S3","Echipamente curate, fara folie sau chingi agatate"],["S4","Locuri de parcare marcate si numerotate"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Cabluri ordonate, nimic pe jos","Fiecare echipament parcat in locul marcat; defectele cu eticheta rosie","Echipamente curate, fara folie sau chingi agatate"]},{"id":"DES","name":"Deseuri","crit":[["S1","Containere separate: carton, folie, menajer"],["S2","Fiecare container etichetat"],["S2","Niciun container plin peste margine"],["S3","Zona din jurul containerelor curata"],["S4","Programul de golire afisat"],["S5","Fisa zonei afisata, cu numele owner-ului"]],"quick":["Nimic pe jos langa containere","Carton, folie, menajer separate; niciun container plin peste margine","Zona din jurul containerelor curata"]}],"quick":["Jos e liber?","Totul e la locul lui?","E curat?"],"qshort":["Jos liber","La locul lui","Curat"]};
 var DEPOTS=[['R01','R01 Bucuresti'],['R41','R41 Oradea']];
 var API='https://generativelanguage.googleapis.com/v1beta';
 var K_KEY='5s.key',K_MODEL='5s.model',K_DEP='5s.depot',K_TGT='5s.target';
@@ -268,6 +280,10 @@ function setPill(el,p){el.className='pp '+cls(p);el.textContent=fmt(p);}
 function depName(){for(var i=0;i<DEPOTS.length;i++){if(DEPOTS[i][0]===st.depot)return DEPOTS[i][1];}return st.depot;}
 function zoneById(id){for(var i=0;i<STD.zones.length;i++){if(STD.zones[i].id===id)return STD.zones[i];}return null;}
 function groups(z){var out=[],map={};z.crit.forEach(function(c,i){if(!map[c[0]]){map[c[0]]={s:c[0],items:[],idx:[]};out.push(map[c[0]]);}map[c[0]].items.push(c[1]);map[c[0]].idx.push(i);});return out;}
+function itemsOf(z,m){return m==='quick'?STD.quick.map(function(q,i){return {t:q,h:z.quick[i]};}):z.crit.map(function(c){return {t:c[1],h:''};});}
+function itemText(z,m,i){return (m||'full')==='quick'?(STD.qshort[i]+': '+z.quick[i]):z.crit[i][1];}
+function isoD(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+function dueOpts(){var t=new Date(),m=new Date(t.getTime()+864e5),f=new Date(t.getTime());f.setDate(f.getDate()+((5-f.getDay()+7)%7));return [['Azi',isoD(t)],['Maine',isoD(m)],['Vineri',isoD(f)]];}
 function isoWeek(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);var y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));return {y:t.getUTCFullYear(),w:Math.ceil(((t-y0)/864e5+1)/7)};}
 function wkKey(){var k=isoWeek(new Date());return '5s.wk.'+st.depot+'.'+k.y+'-'+p2(k.w);}
 function wkGet(){try{return JSON.parse(lsGet(wkKey())||'{}')||{};}catch(e){return {};}}
@@ -404,7 +420,7 @@ function renderHome(){
 $('bWeek').addEventListener('click',function(){renderWeek();show('sWeek');});
 function auditFromPend(id){
   st.zone=zoneById(id);var ps=st.pend;st.pend=[];
-  stdGet(id).then(function(l){st.std=l;},function(){st.std=[];}).then(function(){startAudit(ps);});
+  stdGet(id).then(function(l){st.std=l;},function(){st.std=[];}).then(function(){startAudit(ps,'quick');});
 }
 $('bPendX').addEventListener('click',function(){st.pend=[];renderHome();});
 
@@ -417,9 +433,11 @@ function critList(el,z){
 function openZone(id){
   st.zone=zoneById(id);st.std=[];
   $('zTitle').textContent=st.zone.name;$('zDep').textContent=depName();
-  critList($('zCrit'),st.zone);renderStd();show('sZone');
+  critList($('zCrit'),st.zone);quickList($('zQuick'),st.zone);renderStd();show('sZone');
   stdGet(id).then(function(l){st.std=l;renderStd();}).catch(function(){});
 }
+function quickList(el,z){el.innerHTML='';STD.quick.forEach(function(q,i){var c=document.createElement('div');c.className='crit';var b=document.createElement('b');b.textContent=(i+1)+'. '+q;c.appendChild(b);
+  var sm=document.createElement('div');sm.className='qh';sm.textContent=z.quick[i];c.appendChild(sm);el.appendChild(c);});}
 function renderStd(){
   var b=$('zStd'),l=st.std||[];b.innerHTML='';
   if(l.length){var im=document.createElement('img');im.className='stdimg';im.alt='Poza standard';im.src=l[0];b.appendChild(im);
@@ -431,49 +449,59 @@ function renderStd(){
   $('lblStd').textContent=l.length?'Adauga poza standard':'Seteaza poza standard';
 }
 $('bBackZ').addEventListener('click',function(){renderHome();show('sHome');});
-$('bStart').addEventListener('click',function(){startAudit([]);});
+$('bStart').addEventListener('click',function(){startAudit([],'full');});
+$('bQuick').addEventListener('click',function(){startAudit([],'quick');});
 $('bSheet').addEventListener('click',function(){buildSheet().then(function(b){doShare(b,'5S_Fisa_'+st.depot+'_'+st.zone.id+'.jpg');},showErr);});
 
 /* ---------- audit ---------- */
-function startAudit(ps){
-  st.photos=ps||[];st.cur=0;st.aiUrl=null;st.ans=st.zone.crit.map(function(){return null;});
-  $('aTitle').textContent=st.zone.name;$('aDep').textContent=depName()+' · audit '+today();
-  $('aOwner').value='';$('aDue').value='';
-  renderAPhotos();renderAList();show('sAudit');
+function startAudit(ps,mode){
+  st.mode=mode||'quick';st.photos=ps||[];st.cur=0;st.aiUrl=null;
+  st.ans=itemsOf(st.zone,st.mode).map(function(){return true;});
+  $('aTitle').textContent=st.zone.name;$('aDep').textContent=depName()+' · '+(st.mode==='quick'?'verificare rapida':'audit complet')+' · '+today();
+  $('aOwner').value=lsGet('5s.owner.'+st.depot+'.'+st.zone.id);$('aDue').value='';
+  renderDue();renderAPhotos();renderAList();show('sAudit');
 }
+function renderDue(){var c=$('dueChips');c.innerHTML='';dueOpts().forEach(function(o){var b=document.createElement('button');b.className='chip'+($('aDue').value===o[1]?' on':'');b.textContent=o[0];
+  b.onclick=function(){$('aDue').value=o[1];renderDue();updateFinish();};c.appendChild(b);});}
 function renderAPhotos(){
   thumbs($('aThumbs'),st.photos.map(function(p){return p.url;}),-1,{badge:'PRINCIPALA',
     pick:function(i){if(i>0){var p=st.photos.splice(i,1)[0];st.photos.unshift(p);}st.cur=0;renderAPhotos();},
     del:function(i){st.photos.splice(i,1);st.cur=0;renderAPhotos();}});
   var n=st.photos.length;
+  updateFinish();
   $('aPhHint').textContent=n?(n+(n===1?' poza':' poze')+' · prima e principala, atinge alta ca s-o muti prima'):'Poti pune mai multe poze · pe PC: Ctrl+V sau trage pozele aici';
 }
 function renderAList(){
-  var L=$('aList');L.innerHTML='';
-  groups(st.zone).forEach(function(g){
-    var h=document.createElement('div');h.className='sgrp';var b=document.createElement('b');b.textContent=g.s+' '+STD.s[g.s][0];h.appendChild(b);L.appendChild(h);
+  var L=$('aList'),its=itemsOf(st.zone,st.mode),gs=st.mode==='quick'?[{s:'',idx:its.map(function(x,i){return i;})}]:groups(st.zone);
+  L.innerHTML='';
+  gs.forEach(function(g){
+    if(g.s){var h=document.createElement('div');h.className='sgrp';var b=document.createElement('b');b.textContent=g.s+' '+STD.s[g.s][0];h.appendChild(b);L.appendChild(h);}
     g.idx.forEach(function(i){
-      var row=document.createElement('div');row.className='ci'+(st.ans[i]===false?' nok':'');
-      var t=document.createElement('div');t.className='t';t.textContent=st.zone.crit[i][1];row.appendChild(t);
-      [true,false].forEach(function(v){var bt=document.createElement('button');bt.className='yn '+(v?'y':'n')+(st.ans[i]===v?' on':'');
-        bt.textContent=v?'\u2713':'\u2717';bt.setAttribute('aria-label',v?'Da':'Nu');bt.onclick=function(){st.ans[i]=v;renderAList();};row.appendChild(bt);});
+      var ok=st.ans[i],row=document.createElement('div');row.className='ci'+(ok?'':' nok');
+      var ic=document.createElement('span');ic.className='ic';ic.textContent=ok?'✓':'✗';row.appendChild(ic);
+      var t=document.createElement('div');t.className='t';t.appendChild(document.createTextNode(its[i].t));
+      if(its[i].h){var sm=document.createElement('small');sm.textContent=its[i].h;t.appendChild(sm);}
+      row.appendChild(t);
+      var s2=document.createElement('span');s2.className='st2';s2.textContent=ok?'OK':'NU';row.appendChild(s2);
+      row.onclick=function(){st.ans[i]=!st.ans[i];renderAList();};
       L.appendChild(row);
     });
   });
   updateFinish();
 }
 function updateFinish(){
-  var left=st.ans.filter(function(a){return a===null;}).length,anyNok=st.ans.some(function(a){return a===false;});
-  $('aOwnerBox').hidden=!anyNok;
-  var need=anyNok&&(!$('aOwner').value.trim()||!$('aDue').value.trim());
-  var b=$('bFinish');b.disabled=(left>0)||need;
-  b.textContent=left?('Mai ai '+left+' criterii'):(need?'Pune cine corecteaza si termenul':'Finalizeaza auditul');
+  var nok=st.ans.filter(function(a){return !a;}).length,ph=st.photos.length;
+  $('aOwnerBox').hidden=!nok;
+  var need=nok&&(!$('aOwner').value.trim()||!$('aDue').value.trim());
+  var b=$('bFinish');b.disabled=!ph||!!need;
+  b.textContent=!ph?'Fa intai o poza a zonei':(need?'Pune cine corecteaza si pana cand':(nok?('Gata · '+nok+(nok===1?' problema':' probleme')):'Gata · totul OK'));
 }
-$('aOwner').addEventListener('input',updateFinish);$('aDue').addEventListener('input',updateFinish);$('aDue').addEventListener('change',updateFinish);
+$('aOwner').addEventListener('input',updateFinish);$('aDue').addEventListener('input',updateFinish);$('aDue').addEventListener('change',function(){updateFinish();renderDue();});
 $('bBackA').addEventListener('click',function(){openZone(st.zone.id);});
 $('bFinish').addEventListener('click',function(){
   var ok=0,nok=[];st.ans.forEach(function(a,i){if(a)ok++;else nok.push(i);});
-  var rec={ok:ok,tot:st.ans.length,nok:nok,owner:nok.length?clean($('aOwner').value.trim()):'',due:nok.length?$('aDue').value.trim():'',ts:Date.now()};
+  var rec={mode:st.mode,ok:ok,tot:st.ans.length,nok:nok,owner:nok.length?clean($('aOwner').value.trim()):'',due:nok.length?$('aDue').value.trim():'',ts:Date.now()};
+  if(rec.owner)lsSet('5s.owner.'+st.depot+'.'+st.zone.id,rec.owner);
   var wk=wkGet();wk[st.zone.id]=rec;wkSet(wk);
   st.last=rec;st.aiUrl=null;renderResult();show('sResult');reveal();
 });
@@ -484,7 +512,7 @@ function renderResult(){
   var r=st.last,p=pct(r.ok,r.tot),M=mainPh();
   $('rZone').textContent=st.zone.name+' · '+depName()+' · '+today();
   var v=$('rScoreV');v.textContent=fmt(p);v.className='v '+(p>=target()?'vg':'vr');
-  $('rScoreS').textContent=r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target());
+  $('rScoreS').textContent=r.ok+' din '+r.tot+' OK · '+((r.mode||'full')==='quick'?'verificare rapida':'audit complet')+' · tinta '+fmt(target());
   var R=rightImg();
   $('cmp').hidden=!(M&&R);$('rSingle').hidden=!(M&&!R);
   if(M&&R){$('iBef').src=M.url;$('iAft').src=R.url;$('pillA').textContent=R.lab;}
@@ -492,7 +520,7 @@ function renderResult(){
   $('rHint').textContent=!M?'Fara poza la acest audit. Poti adauga mai jos.':(R?'Trage linia ca sa compari':'Adauga o poza standard a zonei ca sa compari.');
   thumbs($('rThumbs'),st.photos.map(function(x){return x.url;}),st.photos.length>1?st.cur:-1,{add:'inGal',pick:function(i){st.cur=i;st.shareBlob=null;renderResult();}});
   var ul=$('rNok');ul.innerHTML='';
-  r.nok.forEach(function(i){var li=document.createElement('li');li.textContent=st.zone.crit[i][1];ul.appendChild(li);});
+  r.nok.forEach(function(i){var li=document.createElement('li');li.textContent=itemText(st.zone,r.mode,i);ul.appendChild(li);});
   $('rNokBox').hidden=!r.nok.length;
   $('rWho').textContent=r.nok.length?('Cine: '+r.owner+' · Pana cand: '+fmtDate(r.due)):'';
   $('bAI').hidden=!(lsGet(K_KEY)&&M);
@@ -503,16 +531,17 @@ $('bShareA').addEventListener('click',function(){buildAuditImg().then(function(b
 
 /* ---------- week ---------- */
 function weekData(){
-  var wk=wkGet(),rows=[],acts=[],so=0,stt=0;
+  var wk=wkGet(),rows=[],acts=[],so=0,stt=0,g=0,n=0;
   STD.zones.forEach(function(z){var r=wk[z.id];rows.push({z:z,r:r||null});
-    if(r){so+=r.ok;stt+=r.tot;r.nok.forEach(function(i){acts.push(z.name+': '+z.crit[i][1]+' · '+r.owner+' · '+fmtDate(r.due));});}});
-  return {rows:rows,acts:acts,ok:so,tot:stt,p:pct(so,stt)};
+    if(r){so+=r.ok;stt+=r.tot;n++;if(r.ok===r.tot)g++;r.nok.forEach(function(i){acts.push(z.name+': '+itemText(z,r.mode,i)+' · '+r.owner+' · '+fmtDate(r.due));});}});
+  return {rows:rows,acts:acts,ok:so,tot:stt,p:pct(so,stt),g:g,n:n};
 }
 function renderWeek(){
   var d=weekData();
   $('wkTitle').textContent=depName()+' · saptamana '+isoWeek(new Date()).w;
   var v=$('wkScoreV');v.textContent=fmt(d.p);v.className='v '+(d.p==null?'':(d.p>=target()?'vg':'vr'));
   $('wkScoreS').textContent=d.ok+' din '+d.tot+' criterii OK in zonele auditate · tinta '+fmt(target());
+  $('wkZones').textContent='Zone la standard: '+d.g+' din '+d.n+' verificate';
   var tb=$('wkRows');tb.innerHTML='';
   d.rows.forEach(function(x){var tr=document.createElement('tr');
     var a=document.createElement('td');a.textContent=x.z.name;tr.appendChild(a);
@@ -591,7 +620,7 @@ function getModels(key){
 }
 function aiPrompt(){
   var z=st.zone,p=PROMPT+'\n\nZONE: '+z.name+'. Its 5S standard (Romanian):\n'+z.crit.map(function(c){return '- '+c[1];}).join('\n');
-  if(st.last&&st.last.nok.length)p+='\n\nFIX FIRST (failed in the audit):\n'+st.last.nok.map(function(i){return '- '+z.crit[i][1];}).join('\n');
+  if(st.last&&st.last.nok.length)p+='\n\nFIX FIRST (failed in the audit):\n'+st.last.nok.map(function(i){return '- '+itemText(z,st.last.mode,i);}).join('\n');
   return p;
 }
 function parse(j){
@@ -648,13 +677,13 @@ function buildAuditImg(){
     var PW=two?(port?720:1200):(port?900:1200),PH=M?Math.round(PW/ratio):0;
     var W=two&&port?PW*2+G*3:PW+G*2,photosH=M?(two&&!port?PH*2+G:PH)+G:0;
     var ex=im.slice(2),cols=3,gw=Math.floor((W-2*G-(cols-1)*G)/cols),gh=Math.round(gw*0.75),EXH=ex.length?(50+Math.ceil(ex.length/cols)*(gh+G)):0;
-    var lines=r.nok.map(function(i){return '- '+st.zone.crit[i][1];}),FT=lines.length?(80+lines.length*44+56+G):0;
+    var lines=r.nok.map(function(i){return '- '+itemText(st.zone,r.mode,i);}),FT=lines.length?(80+lines.length*44+56+G):0;
     var H=HDR+SC+photosH+EXH+FT+G;
     var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
     x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);band(x,W,'5S · '+st.zone.name,st.depot+' · '+today());
     x.fillStyle='#fff';rr(x,G,HDR+G,W-2*G,SC-G,16);x.fill();
     pill(x,G+20,HDR+G+22,'SCOR '+fmt(p),cls(p),false);
-    x.fillStyle='#16181D';x.font='600 26px '+FONT;x.textBaseline='middle';x.fillText(r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target()),G+300,HDR+G+45);
+    x.fillStyle='#16181D';x.font='600 26px '+FONT;x.textBaseline='middle';x.fillText(r.ok+' din '+r.tot+' OK · tinta '+fmt(target()),G+300,HDR+G+45);
     var y=HDR+SC+G/2;
     if(M){
       var bx=G,by=y,ax=two?(port?G*2+PW:G):0,ay=two?(port?y:y+PH+G):0;
@@ -683,7 +712,7 @@ function buildWeekImg(){
   x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);band(x,W,'5S · Raport '+depName(),'S'+isoWeek(new Date()).w+' · '+today());
   var y=HDR+G;x.fillStyle='#fff';rr(x,G,y,W-2*G,150,16);x.fill();
   x.textBaseline='middle';x.textAlign='left';x.font='800 64px '+FONT;x.fillStyle=d.p==null?'#6B7280':(d.p>=target()?'#1E7A3C':'#B42318');x.fillText(fmt(d.p),G+26,y+62);
-  x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText(d.ok+' din '+d.tot+' criterii OK · tinta '+fmt(target()),G+26,y+118);
+  x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText('Zone la standard: '+d.g+' din '+d.n+' · criterii OK: '+d.ok+' din '+d.tot+' · tinta '+fmt(target()),G+26,y+118);
   y+=150+G;x.fillStyle='#fff';rr(x,G,y,W-2*G,TB,16);x.fill();
   x.fillStyle='#6B7280';x.font='800 22px '+FONT;x.fillText('ZONA',G+26,y+36);x.textAlign='right';x.fillText('OK',W-G-200,y+36);x.textAlign='left';
   d.rows.forEach(function(rw,i){var yy=y+60+i*rowH+rowH/2;x.strokeStyle='#E7E5E4';x.lineWidth=1;x.beginPath();x.moveTo(G+20,yy-rowH/2);x.lineTo(W-G-20,yy-rowH/2);x.stroke();
@@ -697,29 +726,32 @@ function buildWeekImg(){
   return toBlob(c);
 }
 function buildSheet(){
-  var z=st.zone,W=1240,H=1754,M=60,gs=groups(z);
+  var z=st.zone,W=1240,H=1754,M=60;
   return (st.std&&st.std.length?loadImg(st.std[0]):Promise.resolve(null)).then(function(img){
     var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
     x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#BA1B02';x.fillRect(0,0,W,140);
     x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';x.font='800 60px '+FONT;x.fillText('STANDARD 5S',M,70);
     x.textAlign='right';x.font='700 30px '+FONT;x.fillText(depName(),W-M,54);x.font='500 24px '+FONT;x.fillText('v'+STD.version+' · '+STD.date,W-M,94);
     x.textAlign='left';x.fillStyle='#16181D';x.font='800 46px '+FONT;x.fillText(fitText(x,z.name,W-2*M),M,200);
-    var critH=gs.length*46+z.crit.length*48,gridH=36+4*54,footH=70,top=240;
-    var ph=Math.max(300,Math.min(640,H-top-30-critH-30-gridH-footH));
+    var top=240,qH=60+3*96,cH=50+z.crit.length*36,footH=80;
+    var ph=Math.max(300,Math.min(640,H-top-28-qH-28-cH-footH));
     rr(x,M,top,W-2*M,ph,18);
     if(img){x.save();x.fillStyle='#F4F2EF';x.fill();x.clip();var bw=W-2*M,sc=Math.min(bw/img.naturalWidth,ph/img.naturalHeight),dw=img.naturalWidth*sc,dh=img.naturalHeight*sc;
       x.drawImage(img,M+(bw-dw)/2,top+(ph-dh)/2,dw,dh);x.restore();}
     else{x.save();x.fillStyle='#FAFAF9';x.fill();if(x.setLineDash)x.setLineDash([14,10]);x.lineWidth=3;x.strokeStyle='#C9C4BE';x.stroke();x.restore();
       x.fillStyle='#9CA3AF';x.font='600 28px '+FONT;x.textAlign='center';x.fillText('Lipeste aici poza standard (dupa 5S blitz, din punctul foto)',W/2,top+ph/2);x.textAlign='left';}
-    var y=top+ph+46;
-    gs.forEach(function(g){x.fillStyle='#BA1B02';x.font='800 25px '+FONT;x.fillText(g.s+' '+STD.s[g.s][0].toUpperCase()+'  ·  '+STD.s[g.s][1],M,y);y+=46;
-      g.items.forEach(function(t){x.strokeStyle='#16181D';x.lineWidth=2.5;x.strokeRect(M+2,y-14,28,28);x.fillStyle='#16181D';x.font='500 29px '+FONT;x.fillText(fitText(x,t,W-2*M-50),M+48,y);y+=48;});});
-    y+=6;x.font='700 24px '+FONT;x.fillStyle='#16181D';x.fillText('Check zilnic, final de tura (initiale)',M,y);y+=26;
-    var days=['L','Ma','Mi','J','V','S','D'],lw=150,cw=(W-2*M-lw)/7,rh=54;
-    x.lineWidth=1.5;x.strokeStyle='#9CA3AF';x.font='700 24px '+FONT;x.textAlign='center';
-    for(var r=0;r<4;r++){for(var k=0;k<8;k++){var cx=k===0?M:M+lw+(k-1)*cw,w=k===0?lw:cw;x.strokeRect(cx,y+r*rh,w,rh);
-      var lab=r===0?(k===0?'':days[k-1]):(k===0?('Tura '+r):'');if(lab){x.fillStyle='#16181D';x.fillText(lab,cx+w/2,y+r*rh+rh/2);}}}
-    x.textAlign='left';y+=4*rh+48;x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText('Owner zona: __________________   Audit: saptamanal, cu scor',M,Math.min(y,H-40));
+    var y=top+ph+28;
+    x.fillStyle='#FCEFF0';rr(x,M,y,W-2*M,qH,18);x.fill();
+    x.fillStyle='#BA1B02';x.font='800 26px '+FONT;x.fillText('3 INTREBARI · LA FINAL DE TURA',M+28,y+36);
+    STD.quick.forEach(function(q,i){var yy=y+60+i*96+30;
+      x.fillStyle='#BA1B02';x.beginPath();x.arc(M+52,yy+12,24,0,Math.PI*2);x.fill();
+      x.fillStyle='#fff';x.font='800 28px '+FONT;x.textAlign='center';x.fillText(String(i+1),M+52,yy+13);x.textAlign='left';
+      x.fillStyle='#16181D';x.font='800 36px '+FONT;x.fillText(q,M+92,yy);
+      x.fillStyle='#4B5563';x.font='500 25px '+FONT;x.fillText(fitText(x,z.quick[i],W-2*M-120),M+92,yy+38);});
+    y+=qH+28;
+    x.fillStyle='#6B7280';x.font='800 22px '+FONT;x.fillText('STANDARD COMPLET · AUDIT LUNAR',M,y+14);y+=50;
+    z.crit.forEach(function(cr){x.fillStyle='#BA1B02';x.font='800 22px '+FONT;x.fillText(cr[0],M,y);x.fillStyle='#16181D';x.font='500 24px '+FONT;x.fillText(fitText(x,cr[1],W-2*M-60),M+52,y);y+=36;});
+    x.font='600 26px '+FONT;x.fillStyle='#16181D';x.fillText('Owner zona: ______________________   Poza: din punctul foto marcat',M,H-46);
     return toBlob(c);
   });
 }
