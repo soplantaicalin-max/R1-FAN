@@ -106,6 +106,15 @@ table.wk td.r{text-align:right;white-space:nowrap}
 .sheet h2{margin:0 0 4px;font-size:19px}
 .st{font-size:14px;margin-top:10px;min-height:20px;word-break:break-word}
 .st.ok{color:var(--pos);font-weight:700}.st.bad{color:var(--neg)}
+.thumbs{display:flex;flex-wrap:wrap;margin:8px -4px 0}
+.th{position:relative;width:calc(33.333% - 8px);margin:4px;padding-top:calc(33.333% - 8px);border-radius:10px;overflow:hidden;background:#E7E5E4;cursor:pointer;border:2px solid transparent}
+.th img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.th.cur{border-color:var(--brand)}
+.th .x{position:absolute;top:4px;right:4px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(22,24,29,.72);color:#fff;font-size:18px;line-height:30px;padding:0;cursor:pointer}
+.th .bd{position:absolute;left:4px;bottom:4px;font-size:10px;font-weight:800;letter-spacing:.04em;background:#BA1B02;color:#fff;padding:2px 7px;border-radius:999px}
+.th.add{display:block;background:#fff;border:2px dashed var(--line)}
+.th.add span{position:absolute;top:50%;left:0;right:0;margin-top:-20px;text-align:center;font-size:32px;line-height:40px;color:var(--mute)}
+.pend{border:2px solid var(--brand)}
 .foot{color:var(--mute);font-size:12px;text-align:center;margin:6px 0 0;padding:0 10px}
 </style>
 </head>
@@ -122,8 +131,12 @@ table.wk td.r{text-align:right;white-space:nowrap}
       <div class="lbl">Depozit</div>
       <div class="chips" id="depChips"></div>
       <div class="week"><div class="wt"><b id="wTitle"></b><span id="wInfo"></span></div><span id="wScore" class="pp na">n/a</span><button id="bWeek" class="btn sec">Raport</button></div>
+      <label class="btn primary" for="inHome"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Adauga poze</label>
+      <div class="hint">Faci poza sau alegi din galerie, apoi alegi zona · pe PC: Ctrl+V sau trage pozele aici</div>
+      <input id="inHome" class="vh" type="file" accept="image/*" multiple>
     </div>
-    <div class="card"><div class="lbl" style="margin-top:0">Zone · alege zona pentru audit</div><div id="zoneList"></div></div>
+    <div id="pend" class="card pend" hidden><b id="pendT"></b><div id="pendThumbs" class="thumbs"></div><div class="row"><label class="btn sec" for="inHome">Mai adauga</label><button id="bPendX" class="btn sec">Renunta</button></div></div>
+    <div class="card"><div class="lbl" style="margin-top:0" id="zLbl">Zone · alege zona pentru audit</div><div id="zoneList"></div></div>
   </section>
 
   <section id="sZone" class="card" hidden>
@@ -131,7 +144,7 @@ table.wk td.r{text-align:right;white-space:nowrap}
     <h1 id="zTitle"></h1><p class="sub" id="zDep"></p>
     <div id="zStd"></div>
     <div class="row"><label class="btn sec" for="inStd" id="lblStd">Seteaza poza standard</label><button id="bSheet" class="btn sec">Fisa A4</button></div>
-    <input id="inStd" class="vh" type="file" accept="image/*">
+    <input id="inStd" class="vh" type="file" accept="image/*" multiple>
     <div id="zCrit"></div>
     <button id="bStart" class="btn primary">Incepe auditul</button>
   </section>
@@ -139,13 +152,12 @@ table.wk td.r{text-align:right;white-space:nowrap}
   <section id="sAudit" class="card" hidden>
     <button class="back" id="bBackA">&#8249; Zona</button>
     <h1 id="aTitle"></h1><p class="sub" id="aDep"></p>
-    <div id="aPick">
-      <label class="btn sec" for="inCam"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Fa poza zonei acum</label>
-      <div class="hint">sau <label for="inGal" style="color:#BA1B02;font-weight:700;cursor:pointer">alege din galerie</label> · pe PC: Ctrl+V</div>
-    </div>
-    <div id="aPrev" hidden><div id="fPhoto" class="frame"><img id="iPhoto" alt="Poza zonei"></div><div class="hint"><label for="inCam" style="color:#BA1B02;font-weight:700;cursor:pointer">Alta poza</label></div></div>
+    <div class="lbl">Poze</div>
+    <div id="aThumbs" class="thumbs"></div>
+    <div class="row"><label class="btn sec" for="inCam"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>Fa poza</label><label class="btn sec" for="inGal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>Din galerie</label></div>
+    <div class="hint" id="aPhHint"></div>
     <input id="inCam" class="vh" type="file" accept="image/*" capture="environment">
-    <input id="inGal" class="vh" type="file" accept="image/*">
+    <input id="inGal" class="vh" type="file" accept="image/*" multiple>
     <div id="aList"></div>
     <div id="aOwnerBox" hidden>
       <div class="lbl">Cine corecteaza si pana cand</div>
@@ -169,6 +181,7 @@ table.wk td.r{text-align:right;white-space:nowrap}
       <div id="rSingle" class="frame" hidden><img id="rSingleImg" alt="Acum"><span class="pill b">ACUM</span><div id="rBusy2" class="busy" hidden><div class="spin"></div>Lucrez la imagine<small id="rBusyT2">0 s</small></div></div>
     </div>
     <div class="hint" id="rHint"></div>
+    <div id="rThumbs" class="thumbs"></div>
     <div id="rNokBox"><div class="lbl">De corectat</div><ul class="nok" id="rNok"></ul><div class="who" id="rWho"></div></div>
     <button id="bShareA" class="btn primary"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Trimite auditul</button>
     <button id="bAI" class="btn magic" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2l1.9 5.6L18.5 9.5l-5.6 1.9L11 17l-1.9-5.6L3.5 9.5l5.6-1.9z"/><path d="M19 13.5l.9 2.6 2.6.9-2.6.9L19 20.5l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Arata cu AI cum ar trebui</button>
@@ -235,7 +248,7 @@ var PROMPT=[
 'RESULT: a believable smartphone photo of the same place on a good day. Realistic, not a render, not luxury. No new furniture or machines. No added logos or brand names.'
 ].join('\n');
 
-var st={depot:'R01',zone:null,photo:null,ans:[],std:null,aiUrl:null,last:null,busy:false,models:null,pos:50,drag:false,ticker:null,shareBlob:null};
+var st={depot:'R01',zone:null,photos:[],cur:0,pend:[],ans:[],std:[],aiUrl:null,last:null,busy:false,models:null,pos:50,drag:false,ticker:null,shareBlob:null};
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
@@ -273,13 +286,14 @@ function db(){return new Promise(function(ok,no){
   r.onerror=function(){no(r.error||new Error('indexedDB'));};
 });}
 function stdKey(z){return st.depot+':'+z;}
+function stdNorm(v){return v?(v.list||(v.url?[v.url]:[])):[];}
 function stdGet(z){var k=stdKey(z);
-  return db().then(function(d){return new Promise(function(ok,no){var q=d.transaction('photos','readonly').objectStore('photos').get(k);q.onsuccess=function(){ok(q.result||null);};q.onerror=function(){no(q.error);};});})
-  .catch(function(){var v=lsGet('5s.std.'+k);return v?{url:v}:(MEM[k]||null);});
+  return db().then(function(d){return new Promise(function(ok,no){var q=d.transaction('photos','readonly').objectStore('photos').get(k);q.onsuccess=function(){ok(stdNorm(q.result));};q.onerror=function(){no(q.error);};});})
+  .catch(function(){var v=lsGet('5s.std.'+k);if(v){try{var a=JSON.parse(v);if(Array.isArray(a))return a;}catch(e){}return [v];}return MEM[k]||[];});
 }
-function stdPut(z,url){var k=stdKey(z),v={url:url,ts:Date.now()};MEM[k]=v;
+function stdPut(z,list){var k=stdKey(z),v={list:list,ts:Date.now()};MEM[k]=list.slice();
   return db().then(function(d){return new Promise(function(ok,no){var tx=d.transaction('photos','readwrite');tx.objectStore('photos').put(v,k);tx.oncomplete=function(){ok();};tx.onerror=function(){no(tx.error);};});})
-  .catch(function(){if(!lsSet('5s.std.'+k,url))throw mk('file','Poza standard nu s-a putut salva pe acest telefon. Ramane pana inchizi pagina.');});
+  .catch(function(){if(!lsSet('5s.std.'+k,JSON.stringify(list)))throw mk('file','Pozele standard nu s-au putut salva pe acest telefon. Raman pana inchizi pagina.');});
 }
 
 /* ---------- photo in ---------- */
@@ -303,19 +317,62 @@ function loadBlob(blob){
     img.src=u;
   });
 }
-function auditPhoto(b){loadBlob(b).then(function(p){st.photo=p;renderAPhoto();}).catch(showErr);}
-function stdPhoto(b){loadBlob(b).then(function(p){return stdPut(st.zone.id,p.url).then(function(){st.std={url:p.url};renderStd();},function(e){st.std={url:p.url};renderStd();showErr(e);});}).catch(showErr);}
-function routeBlob(b){if(!$('sAudit').hidden)auditPhoto(b);else if(!$('sZone').hidden)stdPhoto(b);}
-['inCam','inGal'].forEach(function(id){$(id).addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(f)auditPhoto(f);});});
-$('inStd').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(f)stdPhoto(f);});
+var MAXPH=12;
+function mainPh(){return st.photos[st.cur]||st.photos[0]||null;}
+function filesOf(list){var a=[];for(var i=0;i<(list?list.length:0);i++){if(list[i]&&/^image\//.test(list[i].type||'image/'))a.push(list[i]);}return a;}
+function loadMany(files){
+  var out=[],bad=[];
+  return files.reduce(function(p,f){return p.then(function(){return loadBlob(f).then(function(x){out.push(x);},function(e){bad.push(e.message);});});},Promise.resolve()).then(function(){
+    if(bad.length&&!out.length)throw mk('file',bad[0]);
+    if(bad.length)showErr(mk('file',bad.length+(bad.length===1?' poza nu s-a putut citi.':' poze nu s-au putut citi.'),{raw:bad.join('\n')}));
+    return out;
+  });
+}
+function addAudit(files){loadMany(files).then(function(ps){
+  var room=Math.max(0,MAXPH-st.photos.length);
+  if(ps.length>room){showErr(mk('file','Maxim '+MAXPH+' poze pe audit.'+(room?' Am adaugat doar '+room+'.':'')));ps=ps.slice(0,room);}
+  if(!ps.length)return;
+  st.photos=st.photos.concat(ps);st.shareBlob=null;
+  if(!$('sAudit').hidden)renderAPhotos();
+  if(!$('sResult').hidden)renderResult();
+}).catch(showErr);}
+function addStd(files){var z=st.zone.id;loadMany(files).then(function(ps){
+  if(!ps.length)return;
+  st.std=(st.std||[]).concat(ps.map(function(p){return p.url;}));renderStd();
+  return stdPut(z,st.std);
+}).catch(showErr);}
+function addPend(files){loadMany(files).then(function(ps){
+  if(!ps.length)return;st.pend=st.pend.concat(ps).slice(0,MAXPH);renderHome();window.scrollTo(0,0);
+}).catch(showErr);}
+function routeFiles(fs){
+  if(!fs.length||st.busy)return;
+  if(!$('sAudit').hidden||!$('sResult').hidden)addAudit(fs);
+  else if(!$('sZone').hidden)addStd(fs);
+  else if(!$('sHome').hidden)addPend(fs);
+}
+function onInput(id,fn){$(id).addEventListener('change',function(e){var fs=filesOf(e.target.files);e.target.value='';if(fs.length)fn(fs);});}
+onInput('inCam',addAudit);onInput('inGal',addAudit);onInput('inStd',addStd);onInput('inHome',addPend);
 document.addEventListener('paste',function(e){
   var cd=e.clipboardData;if(!cd)return;
-  var it=cd.items||[],i,f;
-  for(i=0;i<it.length;i++){if(it[i].kind==='file'&&/^image\//.test(it[i].type)){f=it[i].getAsFile();if(f){e.preventDefault();routeBlob(f);return;}}}
-  var fs=cd.files||[];for(i=0;i<fs.length;i++){if(/^image\//.test(fs[i].type)){e.preventDefault();routeBlob(fs[i]);return;}}
+  var it=cd.items||[],fs=[],i,f;
+  for(i=0;i<it.length;i++){if(it[i].kind==='file'&&/^image\//.test(it[i].type)){f=it[i].getAsFile();if(f)fs.push(f);}}
+  if(!fs.length)fs=filesOf(cd.files);
+  if(fs.length){e.preventDefault();routeFiles(fs);}
 });
 ['dragenter','dragover'].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();});});
-document.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)routeBlob(f);});
+document.addEventListener('drop',function(e){e.preventDefault();routeFiles(filesOf(e.dataTransfer&&e.dataTransfer.files));});
+function thumbs(el,urls,cur,o){
+  el.innerHTML='';
+  urls.forEach(function(u,i){
+    var t=document.createElement('div');t.className='th'+(i===cur?' cur':'');
+    var im=document.createElement('img');im.alt='Poza '+(i+1);im.src=u;t.appendChild(im);
+    if(i===0&&o.badge){var bd=document.createElement('span');bd.className='bd';bd.textContent=o.badge;t.appendChild(bd);}
+    if(o.del){var x=document.createElement('button');x.className='x';x.textContent='×';x.setAttribute('aria-label','Sterge poza');x.onclick=function(ev){ev.stopPropagation();o.del(i);};t.appendChild(x);}
+    if(o.pick)t.onclick=function(){o.pick(i);};
+    el.appendChild(t);
+  });
+  if(o.add){var a=document.createElement('label');a.className='th add';a.setAttribute('for',o.add);a.setAttribute('aria-label','Adauga poza');var sp=document.createElement('span');sp.textContent='+';a.appendChild(sp);el.appendChild(a);}
+}
 
 /* ---------- home ---------- */
 function renderHome(){
@@ -329,6 +386,10 @@ function renderHome(){
   $('wTitle').textContent='Saptamana '+isoWeek(new Date()).w;
   $('wInfo').textContent=n+' din '+STD.zones.length+' zone auditate';
   setPill($('wScore'),pct(so,stt));$('bWeek').disabled=!n;
+  var PD=st.pend;$('pend').hidden=!PD.length;
+  if(PD.length){$('pendT').textContent=PD.length+(PD.length===1?' poza gata.':' poze gata.')+' Alege zona mai jos.';
+    thumbs($('pendThumbs'),PD.map(function(p){return p.url;}),-1,{del:function(i){st.pend.splice(i,1);renderHome();}});}
+  $('zLbl').textContent=PD.length?'Alege zona pentru aceste poze':'Zone · alege zona pentru audit';
   var L=$('zoneList');L.innerHTML='';
   STD.zones.forEach(function(z){
     var r=wk[z.id],row=document.createElement('div');row.className='zrow';
@@ -336,11 +397,16 @@ function renderHome(){
     var sm=document.createElement('div');sm.className='zs';sm.textContent=z.crit.length+' criterii';zn.appendChild(sm);row.appendChild(zn);
     var pp=document.createElement('span');setPill(pp,r?pct(r.ok,r.tot):null);row.appendChild(pp);
     var cv=document.createElement('span');cv.className='chev';cv.textContent='\u203A';row.appendChild(cv);
-    row.onclick=function(){openZone(z.id);};L.appendChild(row);
-    stdGet(z.id).then(function(v){if(!v)sm.textContent=z.crit.length+' criterii · fara poza standard';}).catch(function(){});
+    row.onclick=function(){if(st.pend.length)auditFromPend(z.id);else openZone(z.id);};L.appendChild(row);
+    stdGet(z.id).then(function(l){if(!l.length)sm.textContent=z.crit.length+' criterii · fara poza standard';}).catch(function(){});
   });
 }
 $('bWeek').addEventListener('click',function(){renderWeek();show('sWeek');});
+function auditFromPend(id){
+  st.zone=zoneById(id);var ps=st.pend;st.pend=[];
+  stdGet(id).then(function(l){st.std=l;},function(){st.std=[];}).then(function(){startAudit(ps);});
+}
+$('bPendX').addEventListener('click',function(){st.pend=[];renderHome();});
 
 /* ---------- zone ---------- */
 function critList(el,z){
@@ -349,28 +415,39 @@ function critList(el,z){
     g.items.forEach(function(t){var c=document.createElement('div');c.className='crit';c.textContent=t;d.appendChild(c);});el.appendChild(d);});
 }
 function openZone(id){
-  st.zone=zoneById(id);st.std=null;
+  st.zone=zoneById(id);st.std=[];
   $('zTitle').textContent=st.zone.name;$('zDep').textContent=depName();
   critList($('zCrit'),st.zone);renderStd();show('sZone');
-  stdGet(id).then(function(v){st.std=v;renderStd();}).catch(function(){});
+  stdGet(id).then(function(l){st.std=l;renderStd();}).catch(function(){});
 }
 function renderStd(){
-  var b=$('zStd');b.innerHTML='';
-  if(st.std&&st.std.url){var im=document.createElement('img');im.className='stdimg';im.alt='Poza standard';im.src=st.std.url;b.appendChild(im);$('lblStd').textContent='Schimba poza standard';}
-  else{var e=document.createElement('div');e.className='empty';e.textContent='Fara poza standard. Dupa 5S blitz, fa poza din punctul foto marcat si seteaz-o aici.';b.appendChild(e);$('lblStd').textContent='Seteaza poza standard';}
+  var b=$('zStd'),l=st.std||[];b.innerHTML='';
+  if(l.length){var im=document.createElement('img');im.className='stdimg';im.alt='Poza standard';im.src=l[0];b.appendChild(im);
+    var g=document.createElement('div');g.className='thumbs';b.appendChild(g);
+    thumbs(g,l,0,{badge:'PRINCIPALA',
+      pick:function(i){if(i>0){var u=l.splice(i,1)[0];l.unshift(u);st.std=l;renderStd();stdPut(st.zone.id,l).catch(showErr);}},
+      del:function(i){if(window.confirm&&!window.confirm('Stergi aceasta poza standard?'))return;l.splice(i,1);st.std=l;renderStd();stdPut(st.zone.id,l).catch(showErr);}});
+  }else{var e=document.createElement('div');e.className='empty';e.textContent='Fara poza standard. Dupa 5S blitz, fa poza din punctul foto marcat si adaug-o aici.';b.appendChild(e);}
+  $('lblStd').textContent=l.length?'Adauga poza standard':'Seteaza poza standard';
 }
 $('bBackZ').addEventListener('click',function(){renderHome();show('sHome');});
-$('bStart').addEventListener('click',startAudit);
+$('bStart').addEventListener('click',function(){startAudit([]);});
 $('bSheet').addEventListener('click',function(){buildSheet().then(function(b){doShare(b,'5S_Fisa_'+st.depot+'_'+st.zone.id+'.jpg');},showErr);});
 
 /* ---------- audit ---------- */
-function startAudit(){
-  st.photo=null;st.aiUrl=null;st.ans=st.zone.crit.map(function(){return null;});
+function startAudit(ps){
+  st.photos=ps||[];st.cur=0;st.aiUrl=null;st.ans=st.zone.crit.map(function(){return null;});
   $('aTitle').textContent=st.zone.name;$('aDep').textContent=depName()+' · audit '+today();
   $('aOwner').value='';$('aDue').value='';
-  renderAPhoto();renderAList();show('sAudit');
+  renderAPhotos();renderAList();show('sAudit');
 }
-function renderAPhoto(){var has=!!st.photo;$('aPrev').hidden=!has;$('aPick').hidden=has;if(has){$('iPhoto').src=st.photo.url;fit();}}
+function renderAPhotos(){
+  thumbs($('aThumbs'),st.photos.map(function(p){return p.url;}),-1,{badge:'PRINCIPALA',
+    pick:function(i){if(i>0){var p=st.photos.splice(i,1)[0];st.photos.unshift(p);}st.cur=0;renderAPhotos();},
+    del:function(i){st.photos.splice(i,1);st.cur=0;renderAPhotos();}});
+  var n=st.photos.length;
+  $('aPhHint').textContent=n?(n+(n===1?' poza':' poze')+' · prima e principala, atinge alta ca s-o muti prima'):'Poti pune mai multe poze · pe PC: Ctrl+V sau trage pozele aici';
+}
 function renderAList(){
   var L=$('aList');L.innerHTML='';
   groups(st.zone).forEach(function(g){
@@ -393,7 +470,7 @@ function updateFinish(){
   b.textContent=left?('Mai ai '+left+' criterii'):(need?'Pune cine corecteaza si termenul':'Finalizeaza auditul');
 }
 $('aOwner').addEventListener('input',updateFinish);$('aDue').addEventListener('input',updateFinish);$('aDue').addEventListener('change',updateFinish);
-$('bBackA').addEventListener('click',function(){show('sZone');});
+$('bBackA').addEventListener('click',function(){openZone(st.zone.id);});
 $('bFinish').addEventListener('click',function(){
   var ok=0,nok=[];st.ans.forEach(function(a,i){if(a)ok++;else nok.push(i);});
   var rec={ok:ok,tot:st.ans.length,nok:nok,owner:nok.length?clean($('aOwner').value.trim()):'',due:nok.length?$('aDue').value.trim():'',ts:Date.now()};
@@ -402,22 +479,23 @@ $('bFinish').addEventListener('click',function(){
 });
 
 /* ---------- result ---------- */
-function rightImg(){if(st.aiUrl)return {url:st.aiUrl,lab:'STANDARD 5S · AI'};if(st.std&&st.std.url)return {url:st.std.url,lab:'STANDARD'};return null;}
+function rightImg(){if(st.aiUrl)return {url:st.aiUrl,lab:'STANDARD 5S · AI'};if(st.std&&st.std.length)return {url:st.std[0],lab:'STANDARD'};return null;}
 function renderResult(){
-  var r=st.last,p=pct(r.ok,r.tot);
+  var r=st.last,p=pct(r.ok,r.tot),M=mainPh();
   $('rZone').textContent=st.zone.name+' · '+depName()+' · '+today();
   var v=$('rScoreV');v.textContent=fmt(p);v.className='v '+(p>=target()?'vg':'vr');
   $('rScoreS').textContent=r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target());
   var R=rightImg();
-  $('cmp').hidden=!(st.photo&&R);$('rSingle').hidden=!(st.photo&&!R);
-  if(st.photo&&R){$('iBef').src=st.photo.url;$('iAft').src=R.url;$('pillA').textContent=R.lab;}
-  if(st.photo&&!R)$('rSingleImg').src=st.photo.url;
-  $('rHint').textContent=!st.photo?'Fara poza la acest audit.':(R?'Trage linia ca sa compari':'Seteaza poza standard a zonei ca sa compari.');
+  $('cmp').hidden=!(M&&R);$('rSingle').hidden=!(M&&!R);
+  if(M&&R){$('iBef').src=M.url;$('iAft').src=R.url;$('pillA').textContent=R.lab;}
+  if(M&&!R)$('rSingleImg').src=M.url;
+  $('rHint').textContent=!M?'Fara poza la acest audit. Poti adauga mai jos.':(R?'Trage linia ca sa compari':'Adauga o poza standard a zonei ca sa compari.');
+  thumbs($('rThumbs'),st.photos.map(function(x){return x.url;}),st.photos.length>1?st.cur:-1,{add:'inGal',pick:function(i){st.cur=i;st.shareBlob=null;renderResult();}});
   var ul=$('rNok');ul.innerHTML='';
   r.nok.forEach(function(i){var li=document.createElement('li');li.textContent=st.zone.crit[i][1];ul.appendChild(li);});
   $('rNokBox').hidden=!r.nok.length;
   $('rWho').textContent=r.nok.length?('Cine: '+r.owner+' · Pana cand: '+fmtDate(r.due)):'';
-  $('bAI').hidden=!(lsGet(K_KEY)&&st.photo);
+  $('bAI').hidden=!(lsGet(K_KEY)&&M);
   st.shareBlob=null;fit();
 }
 $('bDone').addEventListener('click',function(){renderHome();show('sHome');});
@@ -455,11 +533,10 @@ function fitBox(el,ratio){
   var w=Math.min(pw,mh*ratio);el.style.width=Math.round(w)+'px';el.style.height=Math.round(w/ratio)+'px';return Math.round(w);
 }
 function fit(){
-  if(!st.photo)return;
-  if(!$('sAudit').hidden&&!$('aPrev').hidden)fitBox($('fPhoto'),st.photo.ratio);
+  var M=mainPh();if(!M)return;
   if(!$('sResult').hidden){
-    if(!$('cmp').hidden){var w=fitBox($('cmp'),st.photo.ratio);$('iBef').style.width=w+'px';setPos(st.pos);}
-    if(!$('rSingle').hidden)fitBox($('rSingle'),st.photo.ratio);
+    if(!$('cmp').hidden){var w=fitBox($('cmp'),M.ratio);$('iBef').style.width=w+'px';setPos(st.pos);}
+    if(!$('rSingle').hidden)fitBox($('rSingle'),M.ratio);
   }
 }
 window.addEventListener('resize',fit);
@@ -526,7 +603,7 @@ function parse(j){
   return 'data:'+img.mime+';base64,'+img.data;
 }
 function edit(key,model){
-  var ph=st.photo,contents=[{role:'user',parts:[{text:aiPrompt()},{inline_data:{mime_type:'image/jpeg',data:ph.b64}}]}];
+  var ph=mainPh(),contents=[{role:'user',parts:[{text:aiPrompt()},{inline_data:{mime_type:'image/jpeg',data:ph.b64}}]}];
   var cfgs=[{responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar,imageSize:'1K'}},{responseModalities:['TEXT','IMAGE'],imageConfig:{aspectRatio:ph.ar}},{responseModalities:['TEXT','IMAGE']},{responseModalities:['IMAGE']}];
   var i=0;
   function next(){return api('/models/'+encodeURIComponent(model)+':generateContent',key,{contents:contents,generationConfig:cfgs[i]}).then(parse,function(e){
@@ -541,7 +618,7 @@ function aiBusy(on){
   if(on){ov.hidden=false;var t0=Date.now();tt.textContent='0 s';st.ticker=setInterval(function(){tt.textContent=Math.round((Date.now()-t0)/1000)+' s';},1000);}
 }
 $('bAI').addEventListener('click',function(){
-  if(st.busy||!st.photo)return;var key=lsGet(K_KEY);if(!key){openSet('Pune cheia Google AI ca sa folosesti butonul AI.','');return;}
+  if(st.busy||!mainPh())return;var key=lsGet(K_KEY);if(!key){openSet('Pune cheia Google AI ca sa folosesti butonul AI.','');return;}
   hideErr();aiBusy(true);
   getModels(key).then(function(list){
     var i=0;
@@ -563,25 +640,32 @@ function band(x,W,title,right){x.fillStyle='#BA1B02';x.fillRect(0,0,W,96);x.fill
   x.font='600 26px '+FONT;x.textAlign='right';x.fillText(right,W-26,48);x.textAlign='left';}
 function toBlob(c){return new Promise(function(ok,no){c.toBlob(function(b){if(b)ok(b);else no(mk('img','Imaginea nu se poate salva.'));},'image/jpeg',0.9);});}
 function buildAuditImg(){
-  var R=rightImg(),srcs=[st.photo?st.photo.url:null,(st.photo&&R)?R.url:null];
-  return Promise.all(srcs.map(function(s){return s?loadImg(s):null;})).then(function(im){
+  var M=mainPh(),R=rightImg(),EXP=st.photos.filter(function(q){return q!==M;}).slice(0,6);
+  var srcs=[M?M.url:null,(M&&R)?R.url:null].concat(EXP.map(function(q){return q.url;}));
+  return Promise.all(srcs.map(function(u){return u?loadImg(u):null;})).then(function(im){
     var r=st.last,p=pct(r.ok,r.tot),G=20,HDR=96,SC=110;
-    var two=!!im[1],ratio=st.photo?st.photo.ratio:1,port=ratio<1;
-    var PW=two?(port?720:1200):(port?900:1200),PH=st.photo?Math.round(PW/ratio):0;
-    var W=two&&port?PW*2+G*3:PW+G*2,photosH=st.photo?(two&&!port?PH*2+G:PH)+G:0;
+    var two=!!im[1],ratio=M?M.ratio:1,port=ratio<1;
+    var PW=two?(port?720:1200):(port?900:1200),PH=M?Math.round(PW/ratio):0;
+    var W=two&&port?PW*2+G*3:PW+G*2,photosH=M?(two&&!port?PH*2+G:PH)+G:0;
+    var ex=im.slice(2),cols=3,gw=Math.floor((W-2*G-(cols-1)*G)/cols),gh=Math.round(gw*0.75),EXH=ex.length?(50+Math.ceil(ex.length/cols)*(gh+G)):0;
     var lines=r.nok.map(function(i){return '- '+st.zone.crit[i][1];}),FT=lines.length?(80+lines.length*44+56+G):0;
-    var H=HDR+SC+photosH+FT+G;
+    var H=HDR+SC+photosH+EXH+FT+G;
     var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
     x.fillStyle='#F4F2EF';x.fillRect(0,0,W,H);band(x,W,'5S · '+st.zone.name,st.depot+' · '+today());
     x.fillStyle='#fff';rr(x,G,HDR+G,W-2*G,SC-G,16);x.fill();
     pill(x,G+20,HDR+G+22,'SCOR '+fmt(p),cls(p),false);
     x.fillStyle='#16181D';x.font='600 26px '+FONT;x.textBaseline='middle';x.fillText(r.ok+' din '+r.tot+' criterii OK · tinta '+fmt(target()),G+300,HDR+G+45);
     var y=HDR+SC+G/2;
-    if(st.photo){
+    if(M){
       var bx=G,by=y,ax=two?(port?G*2+PW:G):0,ay=two?(port?y:y+PH+G):0;
       x.save();rr(x,bx,by,PW,PH,16);x.clip();cover(x,im[0],bx,by,PW,PH);x.restore();pill(x,bx+16,by+16,'ACUM','ko',false);
       if(two){x.save();rr(x,ax,ay,PW,PH,16);x.clip();cover(x,im[1],ax,ay,PW,PH);x.restore();pill(x,ax+PW-16,ay+16,R.lab,'ok',true);}
       y+=photosH;
+    }
+    if(ex.length){
+      x.fillStyle='#16181D';x.font='800 28px '+FONT;x.textBaseline='middle';x.textAlign='left';x.fillText('Alte poze',G+6,y+22);y+=50;
+      ex.forEach(function(img,i){var cx=G+(i%cols)*(gw+G),cy=y+Math.floor(i/cols)*(gh+G);x.save();rr(x,cx,cy,gw,gh,12);x.clip();cover(x,img,cx,cy,gw,gh);x.restore();});
+      y+=Math.ceil(ex.length/cols)*(gh+G);
     }
     if(lines.length){
       x.fillStyle='#fff';rr(x,G,y,W-2*G,FT-G,16);x.fill();x.textBaseline='alphabetic';x.textAlign='left';
@@ -614,7 +698,7 @@ function buildWeekImg(){
 }
 function buildSheet(){
   var z=st.zone,W=1240,H=1754,M=60,gs=groups(z);
-  return (st.std&&st.std.url?loadImg(st.std.url):Promise.resolve(null)).then(function(img){
+  return (st.std&&st.std.length?loadImg(st.std[0]):Promise.resolve(null)).then(function(img){
     var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
     x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#BA1B02';x.fillRect(0,0,W,140);
     x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';x.font='800 60px '+FONT;x.fillText('STANDARD 5S',M,70);
